@@ -1,7 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-const App = () => (
-  <div><h1>HELLO!</h1></div>
-)
+import SingleMovie from './SingleMovie';
 
-export default App
+const App = () => {
+  return (
+    <Router>
+      <div>
+        <Route path="/" component={SingleMovie} />
+      </div>
+    </Router>
+  );
+};
+export default App;
