@@ -12,22 +12,20 @@ const createWindow = () => {
     maximizable: true,
     title: 'MyFlix',
   })
+  
 
   // For final build
-  // window.loadURL(url.format({
-  //   pathname: path.join(__dirname, '/build/index.html'),
-  //   protocol: 'file',
-  //   slashes: true
-  // }))
-
-  // For development
-  window.loadURL('http://localhost:9000')
+  window.loadURL(url.format({
+    pathname: path.join(__dirname, '../','/build/index.html'),
+    protocol: 'file',
+    slashes: true
+  }))
 
   // Disables windows menubar
   window.setMenu(null) 
 
   // Opens dev tools on start
-  // window.webContents.openDevTools()
+  window.webContents.openDevTools()
 
   window.on('closed', () => {
     window = null
