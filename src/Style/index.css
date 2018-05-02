@@ -1,0 +1,7 @@
+.NavBarContainer {
+  display: flex;
+}
+
+.NavDiv {
+  margin: 10px;
+}
