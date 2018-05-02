@@ -20,9 +20,6 @@ const createWindow = () => {
     slashes: true
   }))
 
-  // For development
-  // window.loadURL('http://localhost:9000')
-
   // Disables windows menubar
   window.setMenu(null) 
 
