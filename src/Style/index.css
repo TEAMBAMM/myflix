@@ -5,3 +5,13 @@
 .NavDiv {
   margin: 10px;
 }
+
+.MovieContainer {
+  display: 'flex'
+}
+
+.SingleMovieContainer {
+  width: 200px;
+  height: 400px;
+  background-color: 'red';
+}
