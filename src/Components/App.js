@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from './NavBar'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-// import fs from 'fs'
 injectTapEventPlugin()
 
 class App extends Component {
