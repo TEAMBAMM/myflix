@@ -1,7 +1,7 @@
 {
   "name": "myflix",
   "version": "0.1.0",
-  "description": "'Movie streaming app'",
+  "description": "Movie streaming app",
   "main": "main.js",
   "scripts": {
     "start": "electron ./src/main.js",
