@@ -26,7 +26,7 @@
       ],
       "linebreak-style": "off",
       
-      "semi": "error",
+      "semi": "off",
       
       "no-console": "off"
   }
