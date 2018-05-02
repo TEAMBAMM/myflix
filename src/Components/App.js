@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Route path="/" component={SingleMovie} />
+        <Route path="/singlemovie" component={SingleMovie} />
       </div>
     </Router>
   );
