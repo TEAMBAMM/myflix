@@ -12,7 +12,6 @@ const NavBar = props => {
     searchInput,
     favorites
   } = props
-  console.log(favorites)
 
   return (
     <div className='NavBarContainer'>
