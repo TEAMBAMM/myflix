@@ -18,12 +18,22 @@ const SingleMovie = () => {
         <p>{dummyMovie[0].plot}</p>
         <h3>Rating</h3>
         <p>{dummyMovie[0].rating}</p>
+        <h3>Actors: </h3>
+        <ul>
+          {dummyMovie[0].actors.map(actor => (
+            <div key={actor.id}>
+              <li key={actor.id}>{actor.name}</li>
+            </div>
+          ))}
+        </ul>
         <h3>Genres: </h3>
-        {dummyMovie[0].genres.map(genre => (
-          <ul key={dummyMovie[0].id}>
-            <li>{genre}</li>
-          </ul>
-        ))}
+        <ul>
+          {dummyMovie[0].genres.map(genre => (
+            <div key={genre.id}>
+              <li>{genre.name}</li>
+            </div>
+          ))}
+        </ul>
 
         <h4>Release Date: </h4>
         <p>{dummyMovie[0].releaseDate}</p>
