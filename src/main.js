@@ -12,10 +12,11 @@ const createWindow = () => {
     maximizable: true,
     title: 'MyFlix',
   })
+  
 
   // For final build
   window.loadURL(url.format({
-    pathname: path.join(__dirname, '/build/index.html'),
+    pathname: path.join(__dirname, '../','/build/index.html'),
     protocol: 'file',
     slashes: true
   }))
