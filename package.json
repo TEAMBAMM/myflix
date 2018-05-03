@@ -72,11 +72,7 @@
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-player": "^1.5.0",
-<<<<<<< HEAD
-=======
-    "react-router-dom": "^4.2.2"
-    "material-ui": "^0.20.0",
->>>>>>> master
+    "react-router-dom": "^4.2.2",
     "react-tap-event-plugin": "^3.0.2"
   }
 }
