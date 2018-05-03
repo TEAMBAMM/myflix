@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from './NavBar'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import Player from './Player'
 injectTapEventPlugin()
 
 class App extends Component {
@@ -60,7 +61,7 @@ class App extends Component {
           toggleFavorites={toggleFavorites}
           favorites={favorites}
         />
-        <AllMovies />
+        <Player />
       </div>
     );
   }
