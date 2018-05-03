@@ -10,6 +10,7 @@ const createWindow = () => {
     height: 800,
     resizable: true,
     maximizable: true,
+
     title: 'MyFlix',
   })
   
@@ -19,6 +20,7 @@ const createWindow = () => {
     protocol: 'file',
     slashes: true
   }))
+
 
   // Disables windows menubar
   window.setMenu(null);
