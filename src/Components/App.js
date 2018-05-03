@@ -27,7 +27,7 @@ class App extends Component {
     const value = event.target.value
     this.setState({...this.state, favorites: !this.state.favorites})
   }
-  
+
   onChange(event) {
     const value = event.target.value
     this.setState({...this.state, searchInput: value})
@@ -53,10 +53,10 @@ class App extends Component {
     return (
       <div>
 
-        <NavBar 
+        <NavBar
           onChange={onChange} changeFilter={changeFilter} changeSort={changeSort}
           filter={filter} sort={sort} searchInput={searchInput}
-          toggleFavorites={toggleFavorites} favorites={favorites} 
+          toggleFavorites={toggleFavorites} favorites={favorites}
         />
 
       </div>
@@ -64,4 +64,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;
