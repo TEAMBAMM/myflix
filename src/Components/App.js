@@ -5,7 +5,7 @@ injectTapEventPlugin()
 
 class App extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       movies: {},
       selectedMovie: {},
@@ -15,52 +15,55 @@ class App extends Component {
       sort: 'dateAdded',
       currentMoviePosition: '',
       favorites: false
-    }
-    this.onChange = this.onChange.bind(this)
-    this.changeFilter = this.changeFilter.bind(this)
-    this.changeSort = this.changeSort.bind(this)
-    this.toggleFavorites = this.toggleFavorites.bind(this)
+    };
+    this.onChange = this.onChange.bind(this);
+    this.changeFilter = this.changeFilter.bind(this);
+    this.changeSort = this.changeSort.bind(this);
+    this.toggleFavorites = this.toggleFavorites.bind(this);
   }
 
   toggleFavorites(event) {
-    const value = event.target.value
-    this.setState({...this.state, favorites: !this.state.favorites})
+    const value = event.target.value;
+    this.setState({ ...this.state, favorites: !this.state.favorites });
   }
-  
+
   onChange(event) {
-    const value = event.target.value
-    this.setState({...this.state, searchInput: value})
+    const value = event.target.value;
+    this.setState({ ...this.state, searchInput: value });
   }
 
   changeFilter(event) {
-    event.preventDefault()
-    const value = event.target.value
-    this.setState({...this.state, filter: value})
+    event.preventDefault();
+    const value = event.target.value;
+    this.setState({ ...this.state, filter: value });
   }
 
   changeSort(event) {
-    event.preventDefault()
-    const value = event.target.value
-    this.setState({...this.state, sort: value})
+    event.preventDefault();
+    const value = event.target.value;
+    this.setState({ ...this.state, sort: value });
   }
 
   render() {
-
-    const {filter, sort, searchInput, favorites} = this.state
-    const {onChange, changeFilter, changeSort, toggleFavorites} = this
+    const { filter, sort, searchInput, favorites } = this.state;
+    const { onChange, changeFilter, changeSort, toggleFavorites } = this;
 
     return (
       <div>
-
-        <NavBar 
-          onChange={onChange} changeFilter={changeFilter} changeSort={changeSort}
-          filter={filter} sort={sort} searchInput={searchInput}
-          toggleFavorites={toggleFavorites} favorites={favorites} 
+        <NavBar
+          onChange={onChange}
+          changeFilter={changeFilter}
+          changeSort={changeSort}
+          filter={filter}
+          sort={sort}
+          searchInput={searchInput}
+          toggleFavorites={toggleFavorites}
+          favorites={favorites}
         />
-
+        <AllMovies />
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
