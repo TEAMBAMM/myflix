@@ -10,24 +10,23 @@ const createWindow = () => {
     height: 800,
     resizable: true,
     maximizable: true,
-    title: 'MyFlix'
-  });
 
+    title: 'MyFlix',
+  })
+  
   // For final build
-  // window.loadURL(url.format({
-  //   pathname: path.join(__dirname, '/build/index.html'),
-  //   protocol: 'file',
-  //   slashes: true
-  // }))
+  window.loadURL(url.format({
+    pathname: path.join(__dirname, '../','/build/index.html'),
+    protocol: 'file',
+    slashes: true
+  }))
 
-  // For development
-  window.loadURL('http://localhost:9000');
 
   // Disables windows menubar
   window.setMenu(null);
 
   // Opens dev tools on start
-  // window.webContents.openDevTools()
+  window.webContents.openDevTools()
 
   window.on('closed', () => {
     window = null;
