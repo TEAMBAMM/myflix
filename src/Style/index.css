@@ -8,11 +8,25 @@
 }
 
 .MovieContainer {
-  display: 'flex'
+  display: 'flex';
 }
 
 .SingleMovieContainer {
   width: 200px;
   height: 400px;
   background-color: 'red';
+}
+.all-movies-view-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em;
+  width: 1150px;
+  background-color: grey;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-movie-container {
+  margin: 1em;
+
 }
