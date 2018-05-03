@@ -61,11 +61,11 @@
   },
   "dependencies": {
     "imdb-api": "^3.1.2",
-    "material-ui": "^0.20.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-tap-event-plugin": "^3.0.2",
     "react-player": "^1.5.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "react-tap-event-plugin": "^3.0.2",
+    "material-ui": "^0.20.0"
   }
 }

@@ -12,7 +12,6 @@ const createWindow = () => {
     maximizable: true,
     title: 'MyFlix'
   });
-
   // For final build
   window.loadURL(
     url.format({
