@@ -1,14 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 const MiniMovie = props => {
   return (
     <div className="mini-movie-container">
-      {/* <Link to={`/movies/${props.title}`}> */}
       <div className="mini-movie-image">
-        <img src={props.image} alt="test movie image" />
+        <Router>
+          <Link to={`/movies/${props.title}`}>
+            <img src={props.image} alt="test movie image" />
+            {/* <img src="../Style/images/play.png" /> */}
+          </Link>
+        </Router>
       </div>
-      {/* </Link> */}
     </div>
   );
 };
