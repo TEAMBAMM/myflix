@@ -62,7 +62,7 @@ class Home extends Component {
           toggleFavorites={toggleFavorites}
           favorites={favorites}
         />
-        {/* <AllMovies /> */}
+        <AllMovies />
       </div>
     );
   }

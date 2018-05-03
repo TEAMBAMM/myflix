@@ -7,6 +7,9 @@ const App = () => {
   return (
     <div id="Container">
       <Home />
+      <div id="Content">
+        {/* <Route exact path="/movies/:title" component={SingleMovie} /> */}
+      </div>
     </div>
   );
 };
