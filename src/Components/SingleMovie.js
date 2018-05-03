@@ -2,12 +2,12 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 // dummy data (to be removed later)
-const dummyMovie = require('../Style/dummydata/singlemovie.json');
+// const dummyMovie = require('../Style/dummydata/singlemovie.json');
 
 const SingleMovie = () => {
   return (
     <div className="container">
-      <Link to={`/movietitle`}>
+      <Link to={`/player`}>
         <div className="movie-image">
           <img src={dummyMovie[0].imageUrl} />
         </div>
