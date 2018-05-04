@@ -9,11 +9,12 @@ const listDevices = () => {
   return allDevices
 }
 
+//Sending get request to router at 192.168.1.1 crashes application
+//Can't parse data sent back from router
 const findServers = () => {
-  for(let i = 10; i < 15; i++) {
+  for(let i = 2; i < 254; i++) {
     let newIp = LAN + i
     let data
-    const options = { hostname: newIp, port: 80, path: '/isserver'}
     http.get({ hostname: newIp, port: 80, path: '/isserver'}, (res) => {
       res.on('data', (chunk) => {
         data = chunk

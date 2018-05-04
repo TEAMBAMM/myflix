@@ -26,12 +26,10 @@ class App extends Component {
   }
 
   async toggleFavorites(event) {
-    console.log(myIp)
-    // const myIp = ip.address()
-    // const res = axios.get(`http://${myIp}/api/devices`)
+    const res = await axios.get(`http://localhost/api/devices`)
     console.log(res.data)
-    const value = event.target.value;
-    this.setState({ ...this.state, favorites: !this.state.favorites });
+    // const value = event.target.value;
+    // this.setState({ ...this.state, favorites: !this.state.favorites });
   }
 
   onChange(event) {
@@ -52,6 +50,7 @@ class App extends Component {
   }
 
   render() {
+
     const { filter, sort, searchInput, favorites } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites } = this;
 

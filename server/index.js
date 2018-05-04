@@ -16,7 +16,7 @@ app.get('/isserver', (req, res, next) => {
   res.status(200).json({ msg: 'connected' })
 })
 
-app.get('api/devices', (req, res, next) => {
+app.get('/api/devices', (req, res, next) => {
   res.status(200).json({ devices: listDevices() })
 })
 
