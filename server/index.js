@@ -3,8 +3,10 @@ const path = require('path')
 const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const PORT = 9000
-require('./findservers.js')
+const listDevices = require('./findservers.js')
+const PORT = 80
+
+setInterval(()=>{console.log(listDevices())}, 2000)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -14,6 +16,10 @@ app.use(express.static(path.join(__dirname, '../','/movies')))
 
 app.get('/isserver', (req, res, next) => {
   res.status(200).json({ msg: 'connected' })
+})
+
+app.get('api/devices', (req, res, next) => {
+  res.status(200).json({ devices: listDevices() })
 })
 
 app.listen(PORT, () => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NavBar from './NavBar'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Player from './Player'
+import axios from 'axios'
 injectTapEventPlugin()
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
     this.toggleFavorites = this.toggleFavorites.bind(this);
   }
 
-  toggleFavorites(event) {
+  async toggleFavorites(event) {
     const value = event.target.value;
     this.setState({ ...this.state, favorites: !this.state.favorites });
   }

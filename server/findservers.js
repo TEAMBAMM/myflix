@@ -1,27 +1,37 @@
-const LAN = require('./LAN.js')
+const LAN = require('./LAN.js');
 const http = require('http')
 const ip = require('ip')
+console.log('running server finder')
 
-const allDevices = []
+let allDevices = []
 
-setTimeout(() => {
+const listDevices = () => {
+  return allDevices
+}
 
-  for(let i = 10; i < 255; i++) {
+const findServers = () => {
+  for(let i = 10; i < 15; i++) {
     let newIp = LAN + i
-    http.get({ hostname: newIp, port: 9000, path: '/isserver'}, (res) => {
-      let data
+    let data
+    const options = { hostname: newIp, port: 80, path: '/isserver'}
+    http.get({ hostname: newIp, port: 80, path: '/isserver'}, (res) => {
       res.on('data', (chunk) => {
         data = chunk
-      });
+      })
       res.on('end', () => {
-        if(JSON.parse(data).msg.trim() === 'connected' && newIp !== ip.address() ) allDevices.push(newIp)
-      });
+        if(JSON.parse(data).msg.trim() === 'connected' &&
+        newIp !== ip.address() &&
+        allDevices.indexOf(newIp) === -1
+        ) allDevices.push(newIp)
+      })
+    }).on("error", (err) => {
+      allDevices = allDevices.filter(ip => ip !== err.address)
     })
-      .on("error", (err) => {
-      });
   }
-}, 1000)
+}
 
-setTimeout(() => {
-  console.log(allDevices)
-}, 3000)
+setInterval(() => {
+  findServers()
+}, 5000)
+
+module.exports = listDevices
