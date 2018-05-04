@@ -2,9 +2,14 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 
 const Player = props => {
+
+  const filename = 'StarWarsTheLastJedi.mp4'
+
   return (
     <div className="player-container">
-      <ReactPlayer url={props.movieUrl} playing />
+      <ReactPlayer url={`http://192.168.1.11:9000/${filename}`} playing />
     </div>
   );
 };
+
+export default Player
