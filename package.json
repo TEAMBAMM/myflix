@@ -68,6 +68,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
+    "ajv": "^6.4.0",
+    "history": "^4.7.2",
     "chokidar": "^2.0.3",
     "evilscan": "^1.6.1",
     "imdb-api": "^3.1.2",

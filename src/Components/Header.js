@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
-import NavBar from './NavBar'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import Player from './Player'
-import axios from 'axios'
+import React, { Component } from 'react';
+import NavBar from './NavBar';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+// import AllMovies from './AllMovies';
+// import fs from 'fs'
+injectTapEventPlugin();
 
-injectTapEventPlugin()
-
-class App extends Component {
+class Header extends Component {
   constructor() {
     super();
     this.state = {
@@ -25,11 +24,9 @@ class App extends Component {
     this.toggleFavorites = this.toggleFavorites.bind(this);
   }
 
-  async toggleFavorites(event) {
-    const res = await axios.get(`http://localhost/api/devices`)
-    console.log(res.data)
-    // const value = event.target.value;
-    // this.setState({ ...this.state, favorites: !this.state.favorites });
+  toggleFavorites(event) {
+    const value = event.target.value;
+    this.setState({ ...this.state, favorites: !this.state.favorites });
   }
 
   onChange(event) {
@@ -50,10 +47,8 @@ class App extends Component {
   }
 
   render() {
-
     const { filter, sort, searchInput, favorites } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites } = this;
-
     return (
       <div>
         <NavBar
@@ -66,10 +61,9 @@ class App extends Component {
           toggleFavorites={toggleFavorites}
           favorites={favorites}
         />
-        <Player />
+        {/* <AllMovies /> */}
       </div>
     );
   }
 }
-
-export default App;
+export default Header;
