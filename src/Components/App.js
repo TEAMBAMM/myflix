@@ -3,6 +3,7 @@ import NavBar from './NavBar'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Player from './Player'
 import axios from 'axios'
+
 injectTapEventPlugin()
 
 class App extends Component {
@@ -25,6 +26,10 @@ class App extends Component {
   }
 
   async toggleFavorites(event) {
+    console.log(myIp)
+    // const myIp = ip.address()
+    // const res = axios.get(`http://${myIp}/api/devices`)
+    console.log(res.data)
     const value = event.target.value;
     this.setState({ ...this.state, favorites: !this.state.favorites });
   }

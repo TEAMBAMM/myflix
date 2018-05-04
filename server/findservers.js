@@ -1,9 +1,9 @@
-const LAN = require('./LAN.js');
 const http = require('http')
 const ip = require('ip')
-console.log('running server finder')
+const LAN = require('./LAN')
 
 let allDevices = []
+let myIp = ip.address()
 
 const listDevices = () => {
   return allDevices
@@ -20,7 +20,7 @@ const findServers = () => {
       })
       res.on('end', () => {
         if(JSON.parse(data).msg.trim() === 'connected' &&
-        newIp !== ip.address() &&
+        newIp !== myIp &&
         allDevices.indexOf(newIp) === -1
         ) allDevices.push(newIp)
       })
@@ -30,8 +30,17 @@ const findServers = () => {
   }
 }
 
-setInterval(() => {
-  findServers()
-}, 5000)
+const startTimer = () => {
+  console.log('Timer Started For Server Finder!')
+  setInterval(() => {
+    findServers()
+  }, 5000)
+  
+  setInterval(() => {
+    console.log(listDevices())
+  }, 3000)
+}
 
-module.exports = listDevices
+
+console.log(`My ip is ${myIp}`)
+module.exports = {listDevices, startTimer, myIp}

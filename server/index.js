@@ -3,10 +3,8 @@ const path = require('path')
 const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const listDevices = require('./findservers.js')
+const {listDevices, startTimer, myIp} = require('./findservers.js');
 const PORT = 80
-
-setInterval(()=>{console.log(listDevices())}, 2000)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -26,3 +24,5 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
   console.log('Serving files from: ' + path.join(__dirname, '../','/movies'))
 })
+
+startTimer()
