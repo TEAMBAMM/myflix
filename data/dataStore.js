@@ -1,4 +1,5 @@
 const Datastore = require('nedb');
+const download = require('image-downloader');
 const db = new Datastore({
   filename: '/Users/matt/developer/fullstack-sr/test-movie-folder/data',
   autoload: true
@@ -30,6 +31,32 @@ const testMovie = {
   ]
 };
 
+//needed title, imagePath, plotString, rating, actors, genres, releaseDate, rated
+
+async function insertMovie(movieObj) {
+  const data = {
+    title: movieObj.title,
+    imageUrl: '',
+    plot: movieObj.plot,
+    rating: null,
+    rated: movieObj.rated,
+    releaseDate: movieObj.released
+  }
+  data.genres = movieObj.genres.split(', ')
+  data.actors = movieObj.actors.split(', ')
+  try {
+    const {filename} = await download.image({
+      url: movieObj.poster,
+      dest: `data/moviePosters/${data.title}-poster.jpg`
+    })
+    data.imageUrl = filename
+  } catch (e) {
+    throw e
+  }
+  db.insert(data)
+}
+
+// insertMovie(testMovie)
 
 
 // db.insert(testData, (err, newItem) => {
@@ -41,4 +68,5 @@ const testMovie = {
 // })
 
 //db.remove({_id: 'rLn6Yu8XLtpfrqhr'})
+
 db.persistence.compactDatafile();

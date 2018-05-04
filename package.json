@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "chokidar": "^2.0.3",
+    "image-downloader": "^3.3.0",
     "imdb-api": "^3.1.2",
     "material-ui": "^0.20.0",
     "nedb": "^1.8.0",

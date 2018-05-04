@@ -2,19 +2,11 @@ const chokidar = require('chokidar')
 const path = require('path')
 const url = require('url')
 
-const fileWatcher = chokidar.watch(url.format({
-  pathname: path.join(__dirname, '../','/movies'),
-  protocol: 'file',
-  slashes: true
-}), {
+const fileWatcher = chokidar.watch(path.join(__dirname, '../','/movies'), {
   persistent: true
 })
 
-console.log('Watching: ', url.format({
-  pathname: path.join(__dirname, '../','/movies'),
-  protocol: 'file',
-  slashes: true
-}))
+console.log('Watching: ', path.join(__dirname, '../','/movies'))
 
 fileWatcher.on('add', path => {
   const name = extractName(path)
