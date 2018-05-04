@@ -7,7 +7,7 @@ const Player = props => {
 
   return (
     <div className="player-container">
-      <ReactPlayer url={`http://192.168.1.11:9000/${filename}`} playing />
+      <ReactPlayer url={`http://192.168.1.12:9000/${filename}`} playing />
     </div>
   );
 };
