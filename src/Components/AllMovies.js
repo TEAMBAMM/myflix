@@ -1,6 +1,7 @@
 import React from 'react';
 import MiniMovie from './MiniMovie';
 const movieArray = require('../../data/movieArray');
+import history from '../history';
 
 const AllMovies = props => {
   return (
@@ -11,6 +12,8 @@ const AllMovies = props => {
             key={movie.imdbid}
             image={movie.poster}
             title={movie.title}
+            history={props.history}
+            imdbid={movie.imdbid}
           />
         );
       })}

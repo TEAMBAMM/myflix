@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import AllMovies from './AllMovies';
+// import AllMovies from './AllMovies';
 // import fs from 'fs'
 injectTapEventPlugin();
 
-class Home extends Component {
+class Header extends Component {
   constructor() {
     super();
     this.state = {
@@ -49,7 +49,6 @@ class Home extends Component {
   render() {
     const { filter, sort, searchInput, favorites } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites } = this;
-
     return (
       <div>
         <NavBar
@@ -62,9 +61,9 @@ class Home extends Component {
           toggleFavorites={toggleFavorites}
           favorites={favorites}
         />
-        <AllMovies />
+        {/* <AllMovies /> */}
       </div>
     );
   }
 }
-export default Home;
+export default Header;

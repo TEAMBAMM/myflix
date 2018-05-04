@@ -1,18 +1,21 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-
-import Home from './Home';
+import { Route, withRouter } from 'react-router-dom';
+import history from '../history';
+import Header from './Header';
+import AllMovies from './AllMovies';
 import SingleMovie from './SingleMovie';
+import Player from './Player';
 
 const App = () => {
   return (
-    <div id="Container">
-      <Home />
-      <div id="Content">
-        <Route exact path="/:title" component={SingleMovie} />
-      </div>
+    <div>
+      <Header />
+      <Route path="*index.html" component={AllMovies} />
+      <Route exact path="/:id/" component={SingleMovie} />
+      {/* <Route exact path="/movie/:title/player" component={Player} /> */}
+      {/* </Router> */}
     </div>
   );
 };
 
-export default App;
+export default withRouter(App);
