@@ -1,3 +1,10 @@
+* {
+  font-family: arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .NavBarContainer {
   display: flex;
 }
@@ -27,4 +34,27 @@
 
 .mini-movie-container {
   margin: 1em;
+}
+
+/* Single movie component */
+.singlemovie-container {
+  display: flex;
+  background-color: grey;
+}
+
+.movie-image {
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.movie-info {
+  margin: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.movie-info h3 {
+  margin-top: 0.3rem;
 }
