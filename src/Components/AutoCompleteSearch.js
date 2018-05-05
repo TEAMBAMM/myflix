@@ -8,10 +8,11 @@ const AutoCompleteSearch = props => {
 
   return (
     <AutoComplete
-      floatingLabelText="Search..."
+      hintText="Search..."
       filter={AutoComplete.fuzzyFilter}
       dataSource={movieNames}
       maxSearchResults={5}
+      animated={false}
     />
   )
 }

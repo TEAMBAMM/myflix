@@ -1,34 +1,58 @@
 import React from 'react';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import RaisedButton from 'material-ui/RaisedButton';
+import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-  
+
 export default class Sort extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: 1};
-    this.handleChange = this.handleChange.bind(this)    
+
+    this.state = {
+      open: false,
+    };
   }
 
-  handleChange(event, index, value) {
-    this.setState({value});
-  }
+  handleClick = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
+
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+    });
+  };
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
 
   render() {
     return (
       <div>
-        <DropDownMenu
-          value={this.state.value}
-          onChange={this.handleChange}
-          autoWidth={true}
+        <RaisedButton
+          onClick={this.handleClick}
+          label="Sort"
+        />
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}
+          animation={PopoverAnimationVertical}
         >
-          <MenuItem value={1} primaryText="Sort" />
-          <MenuItem value={2} primaryText="Recently Added" />
-          <MenuItem value={3} primaryText="Title" />
-          <MenuItem value={4} primaryText="Rating" />
-          <MenuItem value={5} primaryText="Year" />
-          <MenuItem value={6} primaryText="Resolution" />
-        </DropDownMenu>
+          <Menu>
+            <MenuItem primaryText="Recently Added" />
+            <MenuItem primaryText="Title" />
+            <MenuItem primaryText="Rating" />
+            <MenuItem primaryText="Year" />
+            <MenuItem primaryText="Resolution" />
+          </Menu>
+        </Popover>
       </div>
     );
   }
