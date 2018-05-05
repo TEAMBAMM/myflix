@@ -1,4 +1,10 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
+import { navTo } from './utils'
+import AutoCompleteSearch from './AutoCompleteSearch'
+import Filter from './Filter'
+import Sort from './Sort'
+import Cast from './Cast'
 
 const NavBar = props => {
 
@@ -10,37 +16,25 @@ const NavBar = props => {
     filter,
     sort,
     searchInput,
-    favorites
+    favorites,
+    history,
+    movies
   } = props
 
   return (
+
+    
     <div className='NavBarContainer'>
       <div className='NavDiv'>
-        <span>Home</span>
+        <span onClick={() => navTo('index.html', history)}>Home</span>
       </div>
-      <div className='NavDiv'>
-        <input onChange={onChange} value={searchInput} />
-      </div>
-      <div className='NavDiv'>
-        <span onClick={toggleFavorites}>Favorites</span>
-      </div>
-      <div className='NavDiv'>
-        <span>Filter</span>
-      </div>
-      <div className='NavDiv'>
-        <span>Sort</span>
-      </div>
-      <div className='NavDiv'>
-        <span>Cast</span>
-      </div>
-      <div className='NavDiv'>
-        <span>Devices</span>
-      </div>
-      <div className='NavDiv'>
-        <span>Settings</span>
-      </div>
+      <AutoCompleteSearch movies={movies} />
+      {/* <input onChange={onChange} value={searchInput} /> */}
+      <Filter />
+      <Sort />
+      <Cast />
     </div>
   )
 }
 
-export default NavBar
+export default withRouter(NavBar)
