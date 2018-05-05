@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import { Router, Route, withRouter } from 'react-router-dom'
 import NavBar from './NavBar'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Player from './Player'
 import axios from 'axios'
+import AllMovies from './AllMovies'
+import MiniMovie from './MiniMovie'
+import SingleMovie from './SingleMovie'
 
 injectTapEventPlugin()
 
@@ -66,10 +70,12 @@ class App extends Component {
           toggleFavorites={toggleFavorites}
           favorites={favorites}
         />
-        <Player />
+        <Route exact path='*index.html' component={AllMovies} />
+        <Route exact path='/:id/' component={SingleMovie} />
+        
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
