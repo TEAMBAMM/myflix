@@ -74,6 +74,7 @@ class App extends Component {
           searchInput={searchInput}
           toggleFavorites={toggleFavorites}
           favorites={favorites}
+          movies={movies}
         />
         <Route exact path='*index.html' render={() => <AllMovies movies={movies}/>} />
         <Route exact path='/:id/' render={() => <SingleMovie movies={movies}/>} />
