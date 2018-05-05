@@ -1,4 +1,6 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
+import { navTo } from './utils'
 
 const NavBar = props => {
 
@@ -10,13 +12,14 @@ const NavBar = props => {
     filter,
     sort,
     searchInput,
-    favorites
+    favorites,
+    history
   } = props
 
   return (
     <div className='NavBarContainer'>
       <div className='NavDiv'>
-        <span>Home</span>
+        <span onClick={() => navTo('index.html', history)}>Home</span>
       </div>
       <div className='NavDiv'>
         <input onChange={onChange} value={searchInput} />
@@ -43,4 +46,4 @@ const NavBar = props => {
   )
 }
 
-export default NavBar
+export default withRouter(NavBar)

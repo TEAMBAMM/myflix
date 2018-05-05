@@ -4,7 +4,7 @@
   "description": "Movie streaming app",
   "main": "main.js",
   "scripts": {
-    "start": "webpack & electron ./src/main.js",
+    "start": "webpack && electron ./src/main.js",
     "build": "build"
   },
   "keywords": [],
