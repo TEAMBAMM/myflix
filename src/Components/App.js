@@ -7,6 +7,7 @@ import axios from 'axios'
 import AllMovies from './AllMovies'
 import MiniMovie from './MiniMovie'
 import SingleMovie from './SingleMovie'
+import movieArray from '../../data/movieArray'
 
 injectTapEventPlugin()
 
@@ -14,7 +15,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      movies: {},
+      movies: [],
       selectedMovie: {},
       searchInput: '',
       isPlaying: false,
@@ -27,6 +28,10 @@ class App extends Component {
     this.changeFilter = this.changeFilter.bind(this);
     this.changeSort = this.changeSort.bind(this);
     this.toggleFavorites = this.toggleFavorites.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({...this.state, movies: movieArray})
   }
 
   async toggleFavorites(event) {
@@ -55,7 +60,7 @@ class App extends Component {
 
   render() {
 
-    const { filter, sort, searchInput, favorites } = this.state;
+    const { filter, sort, searchInput, favorites, movies } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites } = this;
 
     return (
@@ -70,8 +75,8 @@ class App extends Component {
           toggleFavorites={toggleFavorites}
           favorites={favorites}
         />
-        <Route exact path='*index.html' component={AllMovies} />
-        <Route exact path='/:id/' component={SingleMovie} />
+        <Route exact path='*index.html' render={() => <AllMovies movies={movies}/>} />
+        <Route exact path='/:id/' render={() => <SingleMovie movies={movies}/>} />
         
       </div>
     );
