@@ -9,8 +9,6 @@ const listDevices = () => {
   return allDevices
 }
 
-//Sending get request to router at 192.168.1.1 crashes application
-//Can't parse data sent back from router
 const findServers = () => {
   for(let i = 0; i < 255; i++) {
     let newIp = LAN + i
@@ -43,7 +41,6 @@ const startTimer = () => {
     console.log(listDevices())
   }, 3000)
 }
-
 
 console.log(`My ip is ${myIp}`)
 module.exports = {listDevices, startTimer, myIp}
