@@ -24,11 +24,11 @@ const NavBar = props => {
 
   return (
     <div className='NavBarContainer'>
-      <div className="NavDiv" onClick={() => navTo('index.html', history)}>
-        <Home />
-      </div>
       <div className="SearchNavDiv">
         <AutoCompleteSearch movies={movies} />
+      </div>
+      <div className="NavDiv" onClick={() => navTo('index.html', history)}>
+        <Home />
       </div>
       <div className="NavDiv">
         <Filter />
