@@ -1,36 +1,60 @@
 import React from 'react';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import RaisedButton from 'material-ui/RaisedButton';
+import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-  
+
 export default class Filter extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: 1};
-    this.handleChange = this.handleChange.bind(this)
+
+    this.state = {
+      open: false,
+    };
   }
 
-  handleChange(event, index, value) {
-    this.setState({value});
-  }
+  handleClick = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
+
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+    });
+  };
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
 
   render() {
     return (
       <div>
-        <DropDownMenu
-          value={this.state.value}
-          onChange={this.handleChange}
-          autoWidth={true}
+        <RaisedButton
+          onClick={this.handleClick}
+          label="Filter"
+        />
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}
+          animation={PopoverAnimationVertical}
         >
-          <MenuItem value={1} primaryText="Filter" />
-          <MenuItem value={2} primaryText="All" />          
-          <MenuItem value={4} primaryText="Action" />
-          <MenuItem value={4} primaryText="Sci-Fi" />
-          <MenuItem value={5} primaryText="Comedy" />
-          <MenuItem value={6} primaryText="Crime" />
-          <MenuItem value={7} primaryText="Drama" />
-          <MenuItem value={8} primaryText="Horror" />
-        </DropDownMenu>
+          <Menu>
+            <MenuItem primaryText="All" />
+            <MenuItem primaryText="Action" />
+            <MenuItem primaryText="Sci-Fi" />
+            <MenuItem primaryText="Comedy" />
+            <MenuItem primaryText="Crime" />
+            <MenuItem primaryText="Drama" />
+            <MenuItem primaryText="Horror" />
+          </Menu>
+        </Popover>
       </div>
     );
   }

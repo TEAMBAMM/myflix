@@ -3,3 +3,8 @@
 export const navTo = (path, history) => {
   history.push(path)
 }
+
+// Provide search string and complete movie array
+export const filterByName = (searchName, movies) => {
+  return movies.filter(movie => movie.title === searchName)[0]
+}

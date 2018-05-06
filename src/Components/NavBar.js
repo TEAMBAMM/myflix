@@ -5,6 +5,7 @@ import AutoCompleteSearch from './AutoCompleteSearch'
 import Filter from './Filter'
 import Sort from './Sort'
 import Cast from './Cast'
+import Home from './Home'
 
 const NavBar = props => {
 
@@ -22,17 +23,22 @@ const NavBar = props => {
   } = props
 
   return (
-
-    
     <div className='NavBarContainer'>
-      <div className='NavDiv'>
-        <span onClick={() => navTo('index.html', history)}>Home</span>
+      <div className="SearchNavDiv">
+        <AutoCompleteSearch movies={movies} />
       </div>
-      <AutoCompleteSearch movies={movies} />
-      {/* <input onChange={onChange} value={searchInput} /> */}
-      <Filter />
-      <Sort />
-      <Cast />
+      <div className="NavDiv" onClick={() => navTo('index.html', history)}>
+        <Home />
+      </div>
+      <div className="NavDiv">
+        <Filter />
+      </div>
+      <div className="NavDiv">
+        <Sort />
+      </div>
+      <div className="NavDiv">
+        <Cast />
+      </div>
     </div>
   )
 }

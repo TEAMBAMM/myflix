@@ -9,8 +9,14 @@
   display: flex;
 }
 
+.SearchNavDiv {
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
 .NavDiv {
-  margin: 10px;
+  margin-left: 15px;
+  margin-top: 13px;
 }
 
 .MovieContainer {
