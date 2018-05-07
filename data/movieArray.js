@@ -35,7 +35,7 @@ module.exports = [
     response: 'True',
     series: false,
     imdburl: 'https://www.imdb.com/title/tt0111161',
-    videoplayer: 'https://www.imdb.com/videoplayer/vi3877612057'
+    videoplayer: 'https://vimeo.com/98356347'
   },
   {
     title: 'The Godfather',
@@ -73,7 +73,7 @@ module.exports = [
     response: 'True',
     series: false,
     imdburl: 'https://www.imdb.com/title/tt0068646',
-    videoplayer: 'https://www.imdb.com/title/tt0068646/videoplayer/vi1348706585'
+    videoplayer: 'https://vimeo.com/1827881'
   },
   {
     title: 'The Godfather: Part II',
@@ -149,7 +149,7 @@ module.exports = [
     response: 'True',
     series: false,
     imdburl: 'https://www.imdb.com/title/tt0468569',
-    videoplayer: 'https://www.imdb.com/title/tt0468569/videoplayer/vi324468761'
+    videoplayer: 'https://vimeo.com/36998113'
   },
   {
     title: '12 Angry Men',

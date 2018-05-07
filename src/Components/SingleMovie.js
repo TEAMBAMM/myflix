@@ -11,10 +11,10 @@ const SingleMovie = props => {
     <div className="singlemovie-container">
       <div className="thumb">
         <div className="overlay">
-          <div>
+          <a href="#">
             <img src={movie.poster} className="thumbnail" />
-          </div>
-          <div className="playWrapper">
+          </a>
+          <a href="#" className="playWrapper">
             <span className="playBtn">
               <img
                 src="http://wptf.com/wp-content/uploads/2014/05/play-button.png"
@@ -25,7 +25,7 @@ const SingleMovie = props => {
                 alt="test movie image"
               />
             </span>
-          </div>
+          </a>
         </div>
       </div>
       <div className="movie-info">

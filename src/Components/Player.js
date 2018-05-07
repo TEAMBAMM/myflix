@@ -3,21 +3,23 @@ import ReactPlayer from 'react-player';
 import { withRouter } from 'react-router-dom';
 
 const Player = props => {
-  console.log(props);
   const { movies } = props;
   const imdbid = props.match.params.id;
   const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
-  console.log(movie.videoplayer);
+  const movieUrl = movie.videoplayer;
   // const filename = 'StarWarsTheLastJedi.mp4';
 
   return (
     <div className="player-container">
       <ReactPlayer
-        url={movie.videoplayer}
+        url={movieUrl}
         controls={true}
         volume={1}
-        muted={true}
+        muted={false}
         playing
+        className="react-player"
+        width="100%"
+        height="100%"
       />
     </div>
   );
