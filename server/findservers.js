@@ -12,7 +12,7 @@ const listDevices = () => {
 const findServers = () => {
   for(let i = 0; i < 255; i++) {
     let newIp = LAN + i
-    let data = null
+    let data = ''
     http.get({ hostname: newIp, port: 80, path: '/isserver'}, (res) => {
       res.on('data', (chunk) => {
         data = chunk
