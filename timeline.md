@@ -19,26 +19,26 @@
   - morning (Thu 10:30am): user stories
     - [DONE] defined MVP and its "critical feature"? (biggest obstacle you think you will have)
     - [DONE] identified what research / learning is still needed
-    - [    ] schema design
+    - [DONE] schema design
     - [DONE] projected milestones identified
       - try to have about 3 "milestones" on the way to your MVP
-    - [  ] project mgmt started (with users stories associated to MVP)
+    - [DONE] project mgmt started (with users stories associated to MVP)
       - you may use any project mgmt you choose (Github Projects, Waffle, Trello, .diff)
       - ...but you must use something, and use it well
   - afternoon (Thu 2:30pm)
-    - [  ] you must have started coding!
+    - [DONE] you must have started coding!
 
 - 5/4 Friday
   - afternoon (Fri 2:30-6pm): proof of concept
-    - [  ] your technologies can be connected (we will walk around and check in informally :D )
-    - [  ] deployed
+    - [DONE] your technologies can be connected (we will walk around and check in informally :D )
+    - [DONE] deployed
 
 ## Week 2
 
 - 5/7 Monday
   - morning (Mon 10:30am-1pm): "critical feature" demo (informal instructor check-in)
-    - [  ] high-risk feature working (if not, plan to pivot)
-    - [  ] "fullstack", things working together
+    - [DONE] high-risk feature working (if not, plan to pivot)
+    - [DONE] "fullstack", things working together
 
 - 5/8 Tuesday : CODE REVIEW
   - students at the helm and instructor leading
