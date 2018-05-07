@@ -10,16 +10,16 @@ const listDevices = () => {
 }
 
 const findServers = () => {
-  for(let i = 0; i < 255; i++) {
+  for(let i = 1; i < 255; i++) {
     let newIp = LAN + i
     let data = ''
     http.get({ hostname: newIp, port: 80, path: '/isserver'}, (res) => {
       res.on('data', (chunk) => {
-        data = chunk
+        data = chunk.toString()
       })
       res.on('end', () => {
         if(data.length < 20) {
-          if(JSON.parse(data).msg.trim() === 'connected' &&
+          if(data === 'connected' &&
           newIp !== myIp &&
           allDevices.indexOf(newIp) === -1
           ) allDevices.push(newIp)        

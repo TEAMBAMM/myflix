@@ -13,7 +13,7 @@ app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, '../','/movies')))
 
 app.get('/isserver', (req, res, next) => {
-  res.status(200).json({ msg: 'connected' })
+  res.status(200).send('connected')
 })
 
 app.get('/api/devices', (req, res, next) => {
