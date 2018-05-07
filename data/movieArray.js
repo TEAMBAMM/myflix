@@ -34,7 +34,8 @@ module.exports = [
     website: 'N/A',
     response: 'True',
     series: false,
-    imdburl: 'https://www.imdb.com/title/tt0111161'
+    imdburl: 'https://www.imdb.com/title/tt0111161',
+    videoplayer: 'https://www.imdb.com/videoplayer/vi3877612057'
   },
   {
     title: 'The Godfather',
@@ -71,7 +72,8 @@ module.exports = [
     website: 'http://www.thegodfather.com',
     response: 'True',
     series: false,
-    imdburl: 'https://www.imdb.com/title/tt0068646'
+    imdburl: 'https://www.imdb.com/title/tt0068646',
+    videoplayer: 'https://www.imdb.com/title/tt0068646/videoplayer/vi1348706585'
   },
   {
     title: 'The Godfather: Part II',
@@ -108,7 +110,8 @@ module.exports = [
     website: 'http://www.thegodfather.com/',
     response: 'True',
     series: false,
-    imdburl: 'https://www.imdb.com/title/tt0071562'
+    imdburl: 'https://www.imdb.com/title/tt0071562',
+    videoplayer: 'https://www.imdb.com/title/tt0071562/videoplayer/vi696162841'
   },
   {
     title: 'The Dark Knight',
@@ -145,7 +148,8 @@ module.exports = [
     website: 'http://thedarkknight.warnerbros.com/',
     response: 'True',
     series: false,
-    imdburl: 'https://www.imdb.com/title/tt0468569'
+    imdburl: 'https://www.imdb.com/title/tt0468569',
+    videoplayer: 'https://www.imdb.com/title/tt0468569/videoplayer/vi324468761'
   },
   {
     title: '12 Angry Men',
@@ -217,7 +221,8 @@ module.exports = [
     website: 'http://www.schindlerslist.com',
     response: 'True',
     series: false,
-    imdburl: 'https://www.imdb.com/title/tt0108052'
+    imdburl: 'https://www.imdb.com/title/tt0108052',
+    videoplayer: 'https://www.imdb.com/title/tt0050083/videoplayer/vi3452609817'
   },
   {
     title: 'The Lord of the Rings: The Return of the King',
