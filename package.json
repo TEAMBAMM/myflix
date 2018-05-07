@@ -34,9 +34,8 @@
       ]
     },
     "files": [
-      "**/*",
       "build/**",
-      "build/icon.png"
+      "src/main.js"
     ]
   },
   "repository": {
