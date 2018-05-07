@@ -1,18 +1,18 @@
 import React from 'react';
-// import history from '../history';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { navTo } from './utils'
 
 const MiniMovie = props => {
 
+  const { imdbid, image, history } = props
 
   return (
     <div className="mini-movie-container">
       <div>
-        <Link to={`/${props.imdbid}/`}>
-          <img className ='mini-movie-image' src={props.image} alt="test movie image" />
-        </Link>
+        <img onClick={() => navTo(`/${imdbid}/`, history)}
+          className='mini-movie-image' src={image} alt="test movie image" />
       </div>
     </div>
   );
 };
-export default MiniMovie;
+export default withRouter(MiniMovie);

@@ -10,11 +10,13 @@ const createWindow = () => {
   window = new BrowserWindow({
     width: 1200,
     height: 800,
+    minWidth: 950,
+    minHeight: 500,
     resizable: true,
     maximizable: true,
     title: 'MyFlix'
   });
-  // For final build
+
   window.loadURL(
     url.format({
       pathname: path.join(__dirname, '../', '/build/index.html'),
