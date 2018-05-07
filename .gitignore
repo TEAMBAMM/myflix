@@ -1,5 +1,7 @@
 node_modules
 package-lock.json
-build
 *.swp
 movies
+dist
+build/bundle.js
+build/bundle.js.map

@@ -14,6 +14,7 @@ console.log('Watching: ', path.join(__dirname, '../', '/movies'));
 
 fileWatcher.on('add', async path => {
   const name = extractName(path);
+<<<<<<< HEAD
   try {
     //Retrieve data from imdb
     const data = await imdb.get(name, { apiKey: 'ed483961' })
@@ -24,6 +25,22 @@ fileWatcher.on('add', async path => {
     console.error('IMDB DATA FAILURE', err)
   }
   console.log(`Added: ${path}`);
+=======
+  if (db.find({title: name})) {
+    console.log('HIT: ', name)
+  } else {
+    try {
+      //Retrieve data from imdb
+      const data = await imdb.get(name, { apiKey: 'ed483961' })
+      //Custom insert movie function that downloads the poster image
+      //and creates object in database of the data we need
+      insertMovie(data, path)
+    } catch (err){
+      console.error('IMDB DATA FAILURE', err)
+    }
+    console.log(`Added: ${path}`);
+  }
+>>>>>>> master
 });
 
 fileWatcher.on('addDir', path => {
