@@ -11,16 +11,16 @@
     - [DONE] social contract written
     - [DONE] team linter agreed upon
   - afternoon (Wed 2:30pm): project idea locked in & plan due
-    - [  ] MVP outline
-    - [  ] mockups
+    - [DONE] MVP outline
+    - [DONE] mockups
     - [DONE] tech stack / libraries
 
 - 5/3 Thursday
   - morning (Thu 10:30am): user stories
-    - [  ] defined MVP and its "critical feature"? (biggest obstacle you think you will have)
-    - [  ] identified what research / learning is still needed
-    - [  ] schema design
-    - [  ] projected milestones identified
+    - [DONE] defined MVP and its "critical feature"? (biggest obstacle you think you will have)
+    - [DONE] identified what research / learning is still needed
+    - [    ] schema design
+    - [DONE] projected milestones identified
       - try to have about 3 "milestones" on the way to your MVP
     - [  ] project mgmt started (with users stories associated to MVP)
       - you may use any project mgmt you choose (Github Projects, Waffle, Trello, .diff)

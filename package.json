@@ -67,12 +67,25 @@
   },
   "dependencies": {
     "ajv": "^6.4.0",
-    "history": "^4.7.2",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
     "chokidar": "^2.0.3",
+<<<<<<< HEAD
     "image-downloader": "^3.3.0",
+=======
+    "evilscan": "^1.6.1",
+    "history": "^4.7.2",
+>>>>>>> master
     "imdb-api": "^3.1.2",
+    "ip": "^1.1.5",
+    "libnmap": "^0.4.11",
     "material-ui": "^0.20.0",
+<<<<<<< HEAD
     "nedb": "^1.8.0",
+=======
+    "morgan": "^1.9.0",
+    "node-libnmap": "^0.2.15",
+>>>>>>> master
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-player": "^1.5.0",
