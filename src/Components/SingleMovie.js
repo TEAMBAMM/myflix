@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { navTo } from './utils';
+// import play from '../../build/images/play.png';
 
 const SingleMovie = props => {
   const { movies, history } = props;
@@ -17,12 +18,11 @@ const SingleMovie = props => {
           <a href="#" className="playWrapper">
             <span className="playBtn">
               <img
-                src="http://wptf.com/wp-content/uploads/2014/05/play-button.png"
+                src="../images/play.png"
                 width="50"
                 height="50"
                 alt=""
                 onClick={() => navTo(`/${imdbid}/player/`, history)}
-                alt="test movie image"
               />
             </span>
           </a>

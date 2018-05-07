@@ -11,16 +11,30 @@ const Player = props => {
 
   return (
     <div className="player-container">
-      <ReactPlayer
-        url={movieUrl}
-        controls={true}
-        volume={1}
-        muted={false}
-        playing
-        className="react-player"
-        width="100%"
-        height="100%"
-      />
+      <div className="player-overlay">
+        <a href="#">
+          <ReactPlayer
+            url={movieUrl}
+            controls={true}
+            volume={1}
+            muted={false}
+            playing
+            className="react-player"
+            width="100%"
+            height="100%"
+          />
+        </a>
+        <a href="#" className="controls-wrapper">
+          <span className="controlsBtn">
+            <button>Back</button>
+            <button>FastBack</button>
+            <button>Play/Stop</button>
+            <button>FastForward</button>
+            <button>FastForward</button>
+            <button>Fullscreen</button>
+          </span>
+        </a>
+      </div>
     </div>
   );
 };
