@@ -77,13 +77,13 @@
     "imdb-api": "^3.1.2",
     "ip": "^1.1.5",
     "libnmap": "^0.4.11",
-    "material-ui": "^0.20.0",
     "morgan": "^1.9.0",
     "node-libnmap": "^0.2.15",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-player": "^1.5.0",
     "react-router-dom": "^4.2.2",
-    "react-tap-event-plugin": "^3.0.2"
+    "react-tap-event-plugin": "^3.0.2",
+    "material-ui": "^0.20.0"
   }
 }

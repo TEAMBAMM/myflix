@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { Router, Route, withRouter } from 'react-router-dom'
-import NavBar from './NavBar'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import Player from './Player'
-import axios from 'axios'
-import AllMovies from './AllMovies'
-import MiniMovie from './MiniMovie'
-import SingleMovie from './SingleMovie'
-import movieArray from '../../data/movieArray'
+import React, { Component } from 'react';
+import { Router, Route, withRouter } from 'react-router-dom';
+import NavBar from './NavBar';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import Player from './Player';
+import axios from 'axios';
+import AllMovies from './AllMovies';
+import MiniMovie from './MiniMovie';
+import SingleMovie from './SingleMovie';
+import movieArray from '../../data/movieArray';
 
-injectTapEventPlugin()
+injectTapEventPlugin();
 
 class App extends Component {
   constructor() {
@@ -31,12 +31,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({...this.state, movies: movieArray})
+    this.setState({ ...this.state, movies: movieArray });
   }
 
   async toggleFavorites(event) {
-    const res = await axios.get(`http://localhost/api/devices`)
-    console.log(res.data)
+    const res = await axios.get(`http://localhost/api/devices`);
+    console.log(res.data);
     // const value = event.target.value;
     // this.setState({ ...this.state, favorites: !this.state.favorites });
   }
@@ -59,8 +59,14 @@ class App extends Component {
   }
 
   render() {
-
-    const { filter, sort, searchInput, favorites, movies } = this.state;
+    const {
+      filter,
+      sort,
+      searchInput,
+      favorites,
+      movies,
+      selectedMovie
+    } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites } = this;
 
     return (
@@ -76,9 +82,21 @@ class App extends Component {
           favorites={favorites}
           movies={movies}
         />
-        <Route exact path='*index.html' render={() => <AllMovies movies={movies}/>} />
-        <Route exact path='/:id/' render={() => <SingleMovie movies={movies}/>} />
-        
+        <Route
+          exact
+          path="*index.html"
+          render={() => <AllMovies movies={movies} />}
+        />
+        <Route
+          exact
+          path="/:id/"
+          render={() => <SingleMovie movies={movies} />}
+        />
+        <Route
+          exact
+          path="/:id/player"
+          render={() => <Player movies={movies} />}
+        />
       </div>
     );
   }
