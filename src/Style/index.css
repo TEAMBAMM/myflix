@@ -114,19 +114,45 @@
   margin-top: 0.3rem;
 }
 
-.player-overlay {
-  margin-top: 2rem;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+/* Player controls */
+
+.player-container {
+  margin-top: 2em;
 }
 
-.react-player {
+.player-overlay {
+  position: relative;
+}
+
+.player-overlay .react-player {
+  display: block;
+}
+
+.player-overlay .controlWrapper {
+  opacity: 0;
   position: absolute;
+  z-index: 2;
   top: 0;
-  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.controlWrapper .controlBtns {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 15%;
+}
+
+.player-container .player-overlay:hover .controlWrapper {
+  opacity: 1;
+}
+
+.controlBtns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.center-controls {
+  justify-self: end;
 }
