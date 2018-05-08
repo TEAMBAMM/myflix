@@ -8,6 +8,7 @@ import AllMovies from './AllMovies';
 import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
 import movieArray from '../../data/movieArray';
+import ip from 'ip'
 
 injectTapEventPlugin();
 
@@ -23,12 +24,16 @@ class App extends Component {
       sort: 'dateAdded',
       currentMoviePosition: '',
       favorites: false,
-      filteredOutput: []
+      filteredOutput: [],
+      scanning: false,
+      devices: []
     };
     this.onChange = this.onChange.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
     this.changeSort = this.changeSort.bind(this);
     this.toggleFavorites = this.toggleFavorites.bind(this);
+    this.deviceScanner = this.deviceScanner.bind(this)
+    this.test = this.test.bind(this)
   }
 
   componentDidMount() {
@@ -37,13 +42,26 @@ class App extends Component {
       movies: movieArray,
       filteredOutput: movieArray
     });
+    this.deviceScanner()
+  }
+
+  deviceScanner() {
+    if(!this.state.scanning) {
+      setInterval(async ()=> {
+        const res = await axios.get(`http://localhost/api/devices`)
+        this.setState({...this.state, devices: res.data, scanning: true})
+      }, 5000)
+    }
+  }
+
+  async test() {
+    const res = await axios.put(`http://localhost/api/cast`, {url: `http://192.168.1.5/12.mkv`, name: '12 strong'})
+    console.log(res.data)
   }
 
   async toggleFavorites(event) {
-    const res = await axios.get(`http://localhost/api/devices`);
-    console.log(res.data);
-    // const value = event.target.value;
-    // this.setState({ ...this.state, favorites: !this.state.favorites });
+    const value = event.target.value;
+    this.setState({ ...this.state, favorites: !this.state.favorites });
   }
 
   async onChange(event) {
@@ -87,10 +105,11 @@ class App extends Component {
       movies,
       filteredOutput
     } = this.state;
-    const { onChange, changeFilter, changeSort, toggleFavorites } = this;
+    const { onChange, changeFilter, changeSort, toggleFavorites, test } = this;
 
     return (
       <div>
+        <button onClick={() => test()}>TEST</button>
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}

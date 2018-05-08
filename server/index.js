@@ -4,6 +4,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const {listDevices, startTimer, myIp} = require('./findservers.js');
+const { playMovie } = require('../cast')
 const PORT = 80
 
 app.use(bodyParser.json())
@@ -18,6 +19,13 @@ app.get('/isserver', (req, res, next) => {
 
 app.get('/api/devices', (req, res, next) => {
   res.status(200).json({ devices: listDevices() })
+})
+
+app.put('/api/cast', (req, res, next) => {
+  const url = req.body.url
+  const name = req.body.name
+  playMovie(url, name)
+  res.send('Playing movie...')
 })
 
 app.listen(PORT, () => {

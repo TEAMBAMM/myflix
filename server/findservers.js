@@ -37,9 +37,10 @@ const startTimer = () => {
     findServers()
   }, 5000)
   
-  setInterval(() => {
-    console.log(listDevices())
-  }, 3000)
+  //List found devices every 3 seconds
+  // setInterval(() => {
+  //   console.log(listDevices())
+  // }, 3000)
 }
 
 console.log(`My ip is ${myIp}`)
