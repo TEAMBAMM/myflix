@@ -143,6 +143,21 @@ class App extends Component {
           path="/:id/"
           render={() => <SingleMovie movies={movies} />}
         />
+        <Route
+          exact
+          path="*index.html"
+          render={() => <AllMovies movies={movies} />}
+        />
+        <Route
+          exact
+          path="/:id/"
+          render={() => <SingleMovie movies={movies} />}
+        />
+        <Route
+          exact
+          path="/:id/player"
+          render={() => <Player movies={movies} />}
+        />
       </div>
     );
   }
