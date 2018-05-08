@@ -18,7 +18,8 @@ const SingleMovie = props => {
           <a href="#" className="playWrapper">
             <span className="playBtn">
               <img
-                src="../images/play.png"
+                // src="../images/play.png"
+                src="http://wptf.com/wp-content/uploads/2014/05/play-button.png"
                 width="50"
                 height="50"
                 alt=""
