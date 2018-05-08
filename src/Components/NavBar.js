@@ -33,7 +33,7 @@ const NavBar = props => {
         <Filter changeFilter={changeFilter} />
       </div>
       <div className="NavDiv">
-        <Sort />
+        <Sort changeSort={changeSort} />
       </div>
       <div className="NavDiv">
         <Cast />

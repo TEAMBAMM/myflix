@@ -20,7 +20,7 @@ class App extends Component {
       searchInput: '',
       isPlaying: false,
       filter: 'All',
-      sort: 'dateAdded',
+      sort: 'Recently Added',
       currentMoviePosition: '',
       favorites: false,
       filteredOutput: []
@@ -55,22 +55,20 @@ class App extends Component {
     event.preventDefault();
     await this.setState({ ...this.state, filter: value });
     this.updateSortedList();
-    console.log(await this.state);
   }
 
-  changeSort(event) {
+  changeSort(event, value) {
     event.preventDefault();
-    const value = event.target.value;
     this.setState({ ...this.state, sort: value });
   }
 
   async updateSortedList() {
     let moviesList = this.state.movies;
-    let filter = this.state.filter;
+    let filterTerm = this.state.filter;
     let filteredOutput;
-    if (filter !== 'All') {
+    if (filterTerm !== 'All') {
       filteredOutput = moviesList.filter(movie => {
-        return movie.genres.includes(filter);
+        return movie.genres.includes(filterTerm);
       });
     } else {
       filteredOutput = moviesList;
