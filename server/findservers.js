@@ -5,7 +5,7 @@ const LAN = require('./LAN')
 let allDevices = []
 let myIp = ip.address()
 
-const listDevices = () => {
+const listClients = () => {
   return allDevices
 }
 
@@ -37,10 +37,11 @@ const startTimer = () => {
     findServers()
   }, 5000)
   
-  setInterval(() => {
-    console.log(listDevices())
-  }, 3000)
+  //List found devices every 3 seconds
+  // setInterval(() => {
+  //   console.log(listDevices())
+  // }, 3000)
 }
 
 console.log(`My ip is ${myIp}`)
-module.exports = {listDevices, startTimer, myIp}
+module.exports = {listClients, startTimer, myIp}

@@ -57,7 +57,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.11",
-    "electron": "^1.8.4",
+    "electron": "^1.8.6",
     "electron-builder": "^20.11.1",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
@@ -71,8 +71,13 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "chokidar": "^2.0.3",
+<<<<<<< HEAD
     "image-downloader": "^3.3.0",
     "evilscan": "^1.6.1",
+=======
+    "chromecasts": "^1.9.1",
+    "file-loader": "^1.1.11",
+>>>>>>> master
     "history": "^4.7.2",
     "imdb-api": "^3.1.2",
     "ip": "^1.1.5",
@@ -85,6 +90,7 @@
     "react-dom": "^16.3.2",
     "react-player": "^1.5.0",
     "react-router-dom": "^4.2.2",
-    "react-tap-event-plugin": "^3.0.2"
+    "react-tap-event-plugin": "^3.0.2",
+    "screenfull": "^3.3.2"
   }
 }
