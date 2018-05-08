@@ -1,14 +1,13 @@
-import React from 'react'
-import { withRouter } from 'react-router-dom'
-import { navTo } from './utils'
-import AutoCompleteSearch from './AutoCompleteSearch'
-import Filter from './Filter'
-import Sort from './Sort'
-import Cast from './Cast'
-import Home from './Home'
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { navTo } from './utils';
+import AutoCompleteSearch from './AutoCompleteSearch';
+import Filter from './Filter';
+import Sort from './Sort';
+import Cast from './Cast';
+import Home from './Home';
 
 const NavBar = props => {
-
   const {
     onChange,
     changeFilter,
@@ -20,10 +19,10 @@ const NavBar = props => {
     favorites,
     history,
     movies
-  } = props
+  } = props;
 
   return (
-    <div className='NavBarContainer'>
+    <div className="NavBarContainer">
       <div className="SearchNavDiv">
         <AutoCompleteSearch movies={movies} />
       </div>
@@ -31,7 +30,7 @@ const NavBar = props => {
         <Home />
       </div>
       <div className="NavDiv">
-        <Filter />
+        <Filter changeFilter={changeFilter} />
       </div>
       <div className="NavDiv">
         <Sort />
@@ -40,7 +39,7 @@ const NavBar = props => {
         <Cast />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default withRouter(NavBar)
+export default withRouter(NavBar);

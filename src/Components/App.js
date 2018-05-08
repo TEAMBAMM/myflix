@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { Router, Route, withRouter } from 'react-router-dom'
-import NavBar from './NavBar'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import Player from './Player'
-import axios from 'axios'
-import AllMovies from './AllMovies'
-import MiniMovie from './MiniMovie'
-import SingleMovie from './SingleMovie'
-import movieArray from '../../data/movieArray'
+import React, { Component } from 'react';
+import { Router, Route, withRouter } from 'react-router-dom';
+import NavBar from './NavBar';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import Player from './Player';
+import axios from 'axios';
+import AllMovies from './AllMovies';
+import MiniMovie from './MiniMovie';
+import SingleMovie from './SingleMovie';
+import movieArray from '../../data/movieArray';
 
-injectTapEventPlugin()
+injectTapEventPlugin();
 
 class App extends Component {
   constructor() {
@@ -19,10 +19,11 @@ class App extends Component {
       selectedMovie: {},
       searchInput: '',
       isPlaying: false,
-      filter: 'all',
+      filter: 'All',
       sort: 'dateAdded',
       currentMoviePosition: '',
-      favorites: false
+      favorites: false,
+      filteredOutput: []
     };
     this.onChange = this.onChange.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
@@ -31,26 +32,31 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({...this.state, movies: movieArray})
+    this.setState({
+      ...this.state,
+      movies: movieArray,
+      filteredOutput: movieArray
+    });
   }
 
   async toggleFavorites(event) {
-
     // const res = await axios.get(`http://localhost/api/devices`)
     // console.log(res.data)
+
     // const value = event.target.value;
     // this.setState({ ...this.state, favorites: !this.state.favorites });
   }
 
-  onChange(event) {
+  async onChange(event) {
     const value = event.target.value;
     this.setState({ ...this.state, searchInput: value });
   }
 
-  changeFilter(event) {
+  async changeFilter(event, value) {
     event.preventDefault();
-    const value = event.target.value;
-    this.setState({ ...this.state, filter: value });
+    await this.setState({ ...this.state, filter: value });
+    this.updateSortedList();
+    console.log(await this.state);
   }
 
   changeSort(event) {
@@ -59,9 +65,29 @@ class App extends Component {
     this.setState({ ...this.state, sort: value });
   }
 
-  render() {
+  async updateSortedList() {
+    let moviesList = this.state.movies;
+    let filter = this.state.filter;
+    let filteredOutput;
+    if (filter !== 'All') {
+      filteredOutput = moviesList.filter(movie => {
+        return movie.genres.includes(filter);
+      });
+    } else {
+      filteredOutput = moviesList;
+    }
+    await this.setState({ ...this.state, filteredOutput: filteredOutput });
+  }
 
-    const { filter, sort, searchInput, favorites, movies } = this.state;
+  render() {
+    const {
+      filter,
+      sort,
+      searchInput,
+      favorites,
+      movies,
+      filteredOutput
+    } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites } = this;
 
     return (
@@ -77,9 +103,16 @@ class App extends Component {
           favorites={favorites}
           movies={movies}
         />
-        <Route exact path='*index.html' render={() => <AllMovies movies={movies}/>} />
-        <Route exact path='/:id/' render={() => <SingleMovie movies={movies}/>} />
-        
+        <Route
+          exact
+          path="*index.html"
+          render={() => <AllMovies movies={filteredOutput} />}
+        />
+        <Route
+          exact
+          path="/:id/"
+          render={() => <SingleMovie movies={movies} />}
+        />
       </div>
     );
   }
