@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const { listClients, startTimer, myIp } = require('./findservers.js');
 const { listReceivers } = require('../cast')
 const { playMovie } = require('../cast')
+const ip = require('ip')
 const PORT = 80
 
 app.use(bodyParser.json())
@@ -30,7 +31,11 @@ app.put('/api/cast', (req, res, next) => {
   const url = req.body.url
   const name = req.body.name
   playMovie(url, name)
-  res.send('Playing movie...')
+  res.status(200).send('Playing movie...')
+})
+
+app.get('/api/ip', (req, res, next) => {
+  res.status(200).json({ ip: ip.address() })
 })
 
 app.listen(PORT, () => {

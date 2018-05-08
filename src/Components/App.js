@@ -17,7 +17,7 @@ class App extends Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: {},
+      selectedMovie: { error: 'No movie selected!', fileName: '12.mkv', title: '12 Strong' },
       searchInput: '',
       isPlaying: false,
       filter: 'All',
@@ -27,7 +27,8 @@ class App extends Component {
       filteredOutput: [],
       scanning: false,
       clients: [],
-      castReceivers: [{ name: 'No receivers found!' }]
+      ip: '',
+      castReceivers: [{ name: 'No receivers found!', host: '0.0.0.0' }]
     };
     this.onChange = this.onChange.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
@@ -53,13 +54,14 @@ class App extends Component {
         const clients = res.data.clients
         res = await axios.get('http://localhost/api/castreceivers')
         const castReceivers = res.data.castReceivers
-        this.setState({...this.state, clients, castReceivers})
+        res = await axios.get('http://localhost/api/ip')
+        const ip = res.data.ip
+        this.setState({...this.state, clients, castReceivers, ip})
       }, 5000)
     }
   }
 
   async test() {
-    // const res = await axios.put(`http://localhost/api/cast`, {url: `http://192.168.1.5/12.mkv`, name: '12 strong'})
     console.log(this.state)
   }
 
@@ -108,7 +110,9 @@ class App extends Component {
       favorites,
       movies,
       filteredOutput,
-      castReceivers
+      castReceivers,
+      selectedMovie,
+      ip
     } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites, test } = this;
 
@@ -126,6 +130,8 @@ class App extends Component {
           favorites={favorites}
           movies={movies}
           castReceivers={castReceivers}
+          selectedMovie={selectedMovie}
+          ip={ip}
         />
         <Route
           exact
