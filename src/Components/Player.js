@@ -3,17 +3,6 @@ import ReactPlayer from 'react-player';
 import { withRouter } from 'react-router-dom';
 import screenfull from 'screenfull';
 
-// variables for dummy data only, change when actual database is used
-// const { movies } = this.props;
-// const imdbid = this.props.match.params.id;
-// const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
-// const movieUrl = movie.videoplayer;
-// // const filename = 'StarWarsTheLastJedi.mp4';  // for testing by Blake
-// // const ip = '192.168.1.12:80' // from Blake
-// const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
-// const ip = '192.168.0.7'; // only for testing by Alona
-// const url = `http://${ip}/${filename}`;
-
 class Player extends React.Component {
   // constructor() {
   //   super();
@@ -160,8 +149,8 @@ class Player extends React.Component {
               url={url}
               // volume={volume}
               // muted={muted}
-              // playing
-              // className="react-player"
+              playing
+              className="react-player"
               // onReady={() => console.log('onReady')}
               // onStart={() => console.log('onStart')}
               // onPlay={this.onPlay}
