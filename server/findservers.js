@@ -5,7 +5,7 @@ const LAN = require('./LAN')
 let allDevices = []
 let myIp = ip.address()
 
-const listDevices = () => {
+const listClients = () => {
   return allDevices
 }
 
@@ -44,4 +44,4 @@ const startTimer = () => {
 }
 
 console.log(`My ip is ${myIp}`)
-module.exports = {listDevices, startTimer, myIp}
+module.exports = {listClients, startTimer, myIp}

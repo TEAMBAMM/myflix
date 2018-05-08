@@ -8,14 +8,12 @@ export default class Cast extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       open: false,
     };
   }
 
   handleClick = (event) => {
-    // This prevents ghost click.
     event.preventDefault();
 
     this.setState({
@@ -31,6 +29,9 @@ export default class Cast extends React.Component {
   };
 
   render() {
+
+    const { castReceivers } = this.props
+
     return (
       <div>
         <RaisedButton
@@ -46,8 +47,13 @@ export default class Cast extends React.Component {
           animation={PopoverAnimationVertical}
         >
           <Menu>
-            <MenuItem primaryText="Living Room TV" />
-            <MenuItem primaryText="Bedroom TV" />
+            {
+              castReceivers.map(receiver => {
+                return(
+                  <MenuItem primaryText={receiver.name} key={receiver.name}/>
+                )
+              })
+            }
           </Menu>
         </Popover>
       </div>

@@ -26,7 +26,8 @@ class App extends Component {
       favorites: false,
       filteredOutput: [],
       scanning: false,
-      devices: []
+      clients: [],
+      castReceivers: [{ name: 'No receivers found!' }]
     };
     this.onChange = this.onChange.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
@@ -48,15 +49,18 @@ class App extends Component {
   deviceScanner() {
     if(!this.state.scanning) {
       setInterval(async ()=> {
-        const res = await axios.get(`http://localhost/api/devices`)
-        this.setState({...this.state, devices: res.data, scanning: true})
+        let res = await axios.get(`http://localhost/api/clients`)
+        const clients = res.data.clients
+        res = await axios.get('http://localhost/api/castreceivers')
+        const castReceivers = res.data.castReceivers
+        this.setState({...this.state, clients, castReceivers})
       }, 5000)
     }
   }
 
   async test() {
-    const res = await axios.put(`http://localhost/api/cast`, {url: `http://192.168.1.5/12.mkv`, name: '12 strong'})
-    console.log(res.data)
+    // const res = await axios.put(`http://localhost/api/cast`, {url: `http://192.168.1.5/12.mkv`, name: '12 strong'})
+    console.log(this.state)
   }
 
   async toggleFavorites(event) {
@@ -103,7 +107,8 @@ class App extends Component {
       searchInput,
       favorites,
       movies,
-      filteredOutput
+      filteredOutput,
+      castReceivers
     } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites, test } = this;
 
@@ -120,6 +125,7 @@ class App extends Component {
           toggleFavorites={toggleFavorites}
           favorites={favorites}
           movies={movies}
+          castReceivers={castReceivers}
         />
         <Route
           exact

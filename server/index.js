@@ -3,7 +3,8 @@ const path = require('path')
 const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const {listDevices, startTimer, myIp} = require('./findservers.js');
+const { listClients, startTimer, myIp } = require('./findservers.js');
+const { listReceivers } = require('../cast')
 const { playMovie } = require('../cast')
 const PORT = 80
 
@@ -17,8 +18,12 @@ app.get('/isserver', (req, res, next) => {
   res.status(200).send('connected')
 })
 
-app.get('/api/devices', (req, res, next) => {
-  res.status(200).json({ devices: listDevices() })
+app.get('/api/clients', (req, res, next) => {
+  res.status(200).json({ clients: listClients() })
+})
+
+app.get('/api/castreceivers', (req, res, next) => {
+  res.status(200).json({ castReceivers: listReceivers() })
 })
 
 app.put('/api/cast', (req, res, next) => {
