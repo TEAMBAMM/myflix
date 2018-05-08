@@ -39,10 +39,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-    
-    this.setState({...this.state, movies: movieArray})
-=======
     this.setState({
       ...this.state,
       movies: movieArray,
@@ -67,7 +63,6 @@ class App extends Component {
 
   async test() {
     console.log(this.state)
->>>>>>> master
   }
 
   async toggleFavorites(event) {
