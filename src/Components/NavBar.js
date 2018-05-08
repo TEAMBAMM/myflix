@@ -18,7 +18,10 @@ const NavBar = props => {
     searchInput,
     favorites,
     history,
-    movies
+    movies,
+    castReceivers,
+    selectedMovie,
+    ip
   } = props;
 
   return (
@@ -36,7 +39,7 @@ const NavBar = props => {
         <Sort />
       </div>
       <div className="NavDiv">
-        <Cast />
+        <Cast castReceivers={castReceivers} selectedMovie={selectedMovie} ip={ip} />
       </div>
     </div>
   );

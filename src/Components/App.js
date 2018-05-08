@@ -8,6 +8,7 @@ import AllMovies from './AllMovies';
 import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
 import movieArray from '../../data/movieArray';
+import ip from 'ip'
 
 injectTapEventPlugin();
 
@@ -16,19 +17,25 @@ class App extends Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: {},
+      selectedMovie: { error: 'No movie selected!', fileName: '12.mkv', title: '12 Strong' },
       searchInput: '',
       isPlaying: false,
       filter: 'All',
       sort: 'dateAdded',
       currentMoviePosition: '',
       favorites: false,
-      filteredOutput: []
+      filteredOutput: [],
+      scanning: false,
+      clients: [],
+      ip: '',
+      castReceivers: [{ name: 'No receivers found!', host: '0.0.0.0' }]
     };
     this.onChange = this.onChange.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
     this.changeSort = this.changeSort.bind(this);
     this.toggleFavorites = this.toggleFavorites.bind(this);
+    this.deviceScanner = this.deviceScanner.bind(this)
+    this.test = this.test.bind(this)
   }
 
   componentDidMount() {
@@ -37,13 +44,30 @@ class App extends Component {
       movies: movieArray,
       filteredOutput: movieArray
     });
+    this.deviceScanner()
+  }
+
+  deviceScanner() {
+    if(!this.state.scanning) {
+      setInterval(async ()=> {
+        let res = await axios.get(`http://localhost/api/clients`)
+        const clients = res.data.clients
+        res = await axios.get('http://localhost/api/castreceivers')
+        const castReceivers = res.data.castReceivers
+        res = await axios.get('http://localhost/api/ip')
+        const ip = res.data.ip
+        this.setState({...this.state, clients, castReceivers, ip})
+      }, 5000)
+    }
+  }
+
+  async test() {
+    console.log(this.state)
   }
 
   async toggleFavorites(event) {
-    const res = await axios.get(`http://localhost/api/devices`);
-    console.log(res.data);
-    // const value = event.target.value;
-    // this.setState({ ...this.state, favorites: !this.state.favorites });
+    const value = event.target.value;
+    this.setState({ ...this.state, favorites: !this.state.favorites });
   }
 
   async onChange(event) {
@@ -85,12 +109,16 @@ class App extends Component {
       searchInput,
       favorites,
       movies,
-      filteredOutput
+      filteredOutput,
+      castReceivers,
+      selectedMovie,
+      ip
     } = this.state;
-    const { onChange, changeFilter, changeSort, toggleFavorites } = this;
+    const { onChange, changeFilter, changeSort, toggleFavorites, test } = this;
 
     return (
       <div>
+        <button onClick={() => test()}>TEST</button>
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
@@ -101,6 +129,9 @@ class App extends Component {
           toggleFavorites={toggleFavorites}
           favorites={favorites}
           movies={movies}
+          castReceivers={castReceivers}
+          selectedMovie={selectedMovie}
+          ip={ip}
         />
         <Route
           exact
