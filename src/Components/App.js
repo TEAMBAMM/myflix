@@ -133,29 +133,13 @@ class App extends Component {
           selectedMovie={selectedMovie}
           ip={ip}
         />
-        <Route
-          exact
-          path="*index.html"
+        <Route exact path="*index.html"
           render={() => <AllMovies movies={filteredOutput} />}
         />
-        <Route
-          exact
-          path="/:id/"
+        <Route exact path="/:id/"
           render={() => <SingleMovie movies={movies} />}
         />
-        <Route
-          exact
-          path="*index.html"
-          render={() => <AllMovies movies={movies} />}
-        />
-        <Route
-          exact
-          path="/:id/"
-          render={() => <SingleMovie movies={movies} />}
-        />
-        <Route
-          exact
-          path="/:id/player"
+        <Route exact path="/:id/player"
           render={() => <Player movies={movies} />}
         />
       </div>
