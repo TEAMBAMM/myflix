@@ -1,20 +1,36 @@
-var Player = require('nodecast-js');
+const chromecasts = require('chromecasts')
+const Path = require('path')
+const list = chromecasts()
 
-var url = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4';
-var timestamp = 60; // in seconds
+// const url = 'http://rarbg.to/download.php?id=w7gbrh3&f=Black.Panther.2018.720p.BluRay.H264.AAC-RARBG-[rarbg.to].torrent'
+const url = 'http://192.168.1.5/den.mkv'
+// const url = 'http://192.168.1.5/bb.mp4'
+console.log(url)
 
-var player = new Player();
-player.onDevice(function(device) {
-  device.onError(function(err) {
-    console.log(err);
-  });
+const allPlayers = []
 
-  console.log(player.getList()); // list of currently discovered devices
+list.on('update', player => {
+  if(allPlayers.length === 0) allPlayers.push(player)
+  else {
+    for(let i = 0; i < allPlayers.length; i++) {
+      if(allPlayers[i].name === player.name) return 
+    }
+    allPlayers.push(player)
+  }
+})
 
-  device.play(url, timestamp);
-});
-player.start();
+const playMovie = (url, name)
 
-setTimeout(function() {
-  player.destroy(); // destroy your Player
-}, 20000);
+const updatePlayers = () => {
+  list.update()
+}
+
+setInterval(()=>{
+  updatePlayers()
+}, 500)
+
+setTimeout(()=>{
+  allPlayers[0].play(url, {title: 'my video', type: 'video/mp4'})
+}, 5000)
+
+module.exports = { updatePlayers }

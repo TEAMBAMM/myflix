@@ -35,8 +35,9 @@ class App extends Component {
   }
 
   async toggleFavorites(event) {
-    const res = await axios.get(`http://localhost/api/devices`)
-    console.log(res.data)
+
+    // const res = await axios.get(`http://localhost/api/devices`)
+    // console.log(res.data)
     // const value = event.target.value;
     // this.setState({ ...this.state, favorites: !this.state.favorites });
   }
