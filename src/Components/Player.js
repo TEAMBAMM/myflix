@@ -141,6 +141,7 @@ class Player extends React.Component {
         <div className="player-overlay">
           <a href="#">
             <ReactPlayer
+              ref={this.ref}
               className="react-player"
               width="100%" // cannot be put on css, must be in here, I found
               height="100%"
