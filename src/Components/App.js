@@ -31,6 +31,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    
     this.setState({...this.state, movies: movieArray})
   }
 
