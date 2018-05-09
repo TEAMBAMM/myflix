@@ -1,5 +1,5 @@
 const Datastore = require('nedb');
-const fs = require('fs')
+const fs = require('fs');
 const path = require('path');
 const download = require('image-downloader');
 console.log('DATA DIR', __dirname)
@@ -10,19 +10,6 @@ const db = new Datastore({
 
 async function insertMovie(movieObj, movieFilePath) {
   let parsedPath = path.parse(movieFilePath);
-  
-  // fs.readFile('../Filereader/The Godfather.mp4', function (err, data) {
-  //   if (err)
-  //     throw err;
-  //   else {
-  //     exif.metadata(data, function (err, metadata) {
-  //       if (err)
-  //         throw err;
-  //       else
-  //         console.log(metadata);
-  //     });
-  //   }
-  // });
   const data = {
     title: movieObj.title,
     year: movieObj.year,
@@ -43,9 +30,9 @@ async function insertMovie(movieObj, movieFilePath) {
     const {imageFilename} = await download.image({
       url: movieObj.poster,
       dest: `data/moviePosters/${data.title}-poster.jpg`
-    })
-    data.imageUrl = imageFilename
-    db.insert(data)
+    });
+    data.imageUrl = imageFilename;
+    db.insert(data);
   } catch (e) {
     throw e
   }

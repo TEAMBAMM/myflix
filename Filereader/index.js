@@ -13,21 +13,24 @@ const fileWatcher = chokidar.watch(path.join(__dirname, '../', '/movies'), {
 
 db.persistence.setAutocompactionInterval(5000);
 
-fs.readFile('/Users/matt/Developer/fullstack-sr/myflix/movies/Citizenfour.mp4', function (err, data) {
-  if (err)
-    throw err;
-  else {
-    exif.metadata(data, function (err, metadata) {
-      if (err)
-        throw err;
-      else
-        console.log(metadata);
-    });
-  }
-});
+// fs.readFile('/Users/matt/Developer/fullstack-sr/myflix/movies/Citizenfour.mp4', function (err, data) {
+//   if (err)
+//     throw err;
+//   else {
+//     exif.metadata(data, function (err, metadata) {
+//       if (err)
+//         throw err;
+//       else
+//         console.log(metadata);
+//     });
+//   }
+// });
+function promisifiedInsert(arr) {
+  return new Promise()  
+}
+
 
 fileWatcher.on('add', filePath => {
-  console.log(filePath)
   const { name } = path.parse(filePath);
   db.findOne({ title: name }, async (err, doc) => {
     if (doc === null) {
@@ -75,7 +78,7 @@ fileWatcher.on('ready', () => {
   db.count({}, (err, dbEntryCount) => {
     // If less, movie(s) were added while the application was closed
     if (dbEntryCount < watching.length) {
-      watching.forEach((movieTitle, movieIndex) => {
+      watching.forEach( (movieTitle, movieIndex) => {
         // TODO What if a duplicate is added while app is closed?
         // Double checking for duplicates
         db.findOne({ title: movieTitle }, (err, doc) => {
@@ -86,7 +89,7 @@ fileWatcher.on('ready', () => {
               const data = imdb.get(movieTitle, { apiKey: 'ed483961' }).then(data => {
                 //Custom insert movie function that downloads the poster image
                 //and creates object in database of the data we need
-                insertMovie(data, watching[movieIndex]);
+                insertMovie(data, );
               });
             } catch (err) {
               console.error('IMDB DATA FAILURE', err);
@@ -103,6 +106,7 @@ fileWatcher.on('ready', () => {
           let entryFileName = entry.fileName;
           // If it is not being watched, it is removed from the database
           if (!watching.includes(entryFileName)) {
+            console.log(entryFileName)
             db.remove({ title: entryFileName });
           }
         });

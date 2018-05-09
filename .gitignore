@@ -5,3 +5,4 @@ movies
 dist
 build/bundle.js
 build/bundle.js.map
+data/databaseStorage
