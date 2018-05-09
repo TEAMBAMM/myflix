@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { navTo } from './utils';
-// import play from '../../build/images/play.png';
 
 const SingleMovie = props => {
   const { movies, history } = props;
@@ -11,7 +10,10 @@ const SingleMovie = props => {
   return (
     <div className="singlemovie-container">
       <div className="thumb">
-        <div className="overlay" onClick={() => navTo(`/${imdbid}/player/`, history)}>
+        <div
+          className="overlay"
+          onClick={() => navTo(`/${imdbid}/player/`, history)}
+        >
           <div>
             <img src={movie.poster} className="thumbnail" />
           </div>

@@ -154,20 +154,22 @@ class Player extends React.Component {
             onProgress={this.onProgress}
             onDuration={this.onDuration}
           />
-          <VideoControls
-            playPause={this.playPause}
-            onClickFullscreen={this.onClickFullscreen}
-            setPlaybackRate={this.setPlaybackRate}
-            onSeekMouseDown={this.onSeekMouseDown}
-            onSeekChange={this.onSeekChange}
-            onSeekMouseUp={this.onSeekMouseUp}
-            volume={volume}
-            muted={muted}
-            toggleMuted={this.toggleMuted}
-            played={played}
-            loaded={loaded}
-            playing={playing}
-          />
+          <div className="controls-overlay">
+            <VideoControls
+              playPause={this.playPause}
+              onClickFullscreen={this.onClickFullscreen}
+              setPlaybackRate={this.setPlaybackRate}
+              onSeekMouseDown={this.onSeekMouseDown}
+              onSeekChange={this.onSeekChange}
+              onSeekMouseUp={this.onSeekMouseUp}
+              volume={volume}
+              muted={muted}
+              toggleMuted={this.toggleMuted}
+              played={played}
+              loaded={loaded}
+              playing={playing}
+            />
+          </div>
         </div>
       </div>
     );
