@@ -16,11 +16,7 @@ class App extends Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: {
-        error: 'No movie selected!',
-        fileName: '12.mkv',
-        title: '12 Strong'
-      },
+      selectedMovie: { error: 'Please select a movie!'},
       searchInput: '',
       isPlaying: false,
       filter: 'All',
@@ -39,6 +35,8 @@ class App extends Component {
     this.toggleFavorites = this.toggleFavorites.bind(this);
     this.deviceScanner = this.deviceScanner.bind(this);
     this.test = this.test.bind(this);
+    this.selectMovie = this.selectMovie.bind(this)
+    this.deselectMovie = this.deselectMovie.bind(this)
   }
   
   async componentDidMount() {
@@ -48,6 +46,14 @@ class App extends Component {
     this.deviceScanner();
   }
 
+  deselectMovie() {
+    this.setState({ selectedMovie: { error: 'Please select a movie!'} }) 
+  }
+
+  selectMovie(movie) {
+    this.setState({...this.state, selectedMovie: movie})
+  }
+  
   deviceScanner() {
     if (!this.state.scanning) {
       setInterval(async () => {
@@ -63,7 +69,7 @@ class App extends Component {
   }
 
   async test() {
-    console.log(this.state.movies);
+    console.log(this.state);
   }
 
   async toggleFavorites(event) {
@@ -88,6 +94,7 @@ class App extends Component {
     const value = event.target.value;
     this.setState({ ...this.state, sort: value });
   }
+
 
   async updateSortedList() {
     let moviesList = this.state.movies;
@@ -115,11 +122,11 @@ class App extends Component {
       selectedMovie,
       ip
     } = this.state;
-    const { onChange, changeFilter, changeSort, toggleFavorites, test } = this;
+    const { onChange, changeFilter, changeSort, toggleFavorites, test, selectMovie, deselectMovie } = this;
 
     return (
       <div>
-        <button onClick={() => test()}>TEST</button>
+        <button onClick={() => test()}>TEST</button><span>Selected movie: {(selectedMovie.error) ? selectedMovie.error : selectedMovie.fileName}</span>
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
@@ -132,15 +139,16 @@ class App extends Component {
           movies={movies}
           castReceivers={castReceivers}
           selectedMovie={selectedMovie}
+          deselectMovie={deselectMovie}
           ip={ip}
         />
         <Route
           exact path="*index.html"
-          render={() => <AllMovies movies={movies} />}
+          render={() => <AllMovies movies={movies} selectMovie={selectMovie} />}
         />
         <Route
           exact path="/:id/"
-          render={() => <SingleMovie movies={movies} />}
+          render={() => <SingleMovie movies={movies} selectMovie={selectMovie} />}
         />
         <Route
           exact path="/:id/player/"
