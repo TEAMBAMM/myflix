@@ -141,7 +141,7 @@
   opacity: 0;
   color: white;
   font-size: 15px;
-  padding: 20px;
+  padding: 5px;
   text-align: center;
 }
 
@@ -154,16 +154,15 @@
   flex-direction: column;
 }
 
-.first-layer,
-.second-layer {
-  display: flex;
-  justify-content: space-between;
-}
-
-.right {
-  display: flex;
-}
-
-.progress-bar {
+progress {
   width: 100%;
+}
+
+.play-layer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.volume-layer {
+  display: flex;
 }

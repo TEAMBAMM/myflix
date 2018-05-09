@@ -80,6 +80,8 @@ class Player extends React.Component {
 
   setPlaybackRate(e) {
     this.setState({ playbackRate: parseFloat(e.target.value) });
+    console.log(e.target.value);
+    // console.log(this.state.playbackRate);
   }
 
   onSeekMouseDown(e) {
