@@ -15,7 +15,9 @@ const VideoControls = ({
   setVolume,
   playing,
   forward,
-  back
+  back,
+  increaseVolume,
+  decreaseVolume
 }) => {
   return (
     <div className="controls">
@@ -61,6 +63,7 @@ const VideoControls = ({
             width="25"
             height="25"
             alt=""
+            onClick={decreaseVolume}
           />
           <input
             type="range"
@@ -71,10 +74,11 @@ const VideoControls = ({
             onChange={setVolume}
           />
           <img
-            src="http://localhost/medium_volume.png"
+            src="http://localhost/hi_volume.png"
             width="25"
             height="25"
             alt=""
+            onClick={increaseVolume}
           />
           <div className="muted" onClick={toggleMuted}>
             {

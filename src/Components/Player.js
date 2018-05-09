@@ -35,6 +35,8 @@ class Player extends React.Component {
     this.onEnded = this.onEnded.bind(this);
     this.forward = this.forward.bind(this);
     this.back = this.back.bind(this);
+    this.increaseVolume = this.increaseVolume.bind(this);
+    this.decreaseVolume = this.decreaseVolume.bind(this);
   }
 
   componentDidMount() {
@@ -88,11 +90,24 @@ class Player extends React.Component {
     this.setState({
       playbackRate: this.state.playbackRate + 1
     });
+    console.log('Playback rate', this.state.playbackRate);
   }
 
   back() {
     this.setState({
       playbackRate: this.state.playbackRate - 1
+    });
+  }
+
+  decreaseVolume() {
+    this.setState({
+      volume: this.state.volume - 0.1
+    });
+  }
+
+  increaseVolume() {
+    this.setState({
+      volume: this.state.volume + 0.1
     });
   }
 
@@ -140,9 +155,7 @@ class Player extends React.Component {
       played,
       loaded,
       duration,
-      playbackRate,
-      forward,
-      back
+      playbackRate
     } = this.state;
 
     return (
@@ -184,8 +197,10 @@ class Player extends React.Component {
               played={played}
               loaded={loaded}
               playing={playing}
-              back={back}
-              forward={forward}
+              back={this.back}
+              forward={this.forward}
+              decreaseVolume={this.decreaseVolume}
+              increaseVolume={this.increaseVolume}
             />
           </div>
         </div>
