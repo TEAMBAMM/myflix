@@ -59,7 +59,7 @@ const VideoControls = ({
       <div className="volume-layer">
         <div className="volcon">
           <img
-            src="http://localhost/low_volume.png"
+            src="http://localhost/lo_vol.png"
             width="25"
             height="25"
             alt=""
@@ -74,7 +74,7 @@ const VideoControls = ({
             onChange={setVolume}
           />
           <img
-            src="http://localhost/hi_volume.png"
+            src="http://localhost/hi_vol.png"
             width="25"
             height="25"
             alt=""
