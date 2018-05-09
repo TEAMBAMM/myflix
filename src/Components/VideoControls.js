@@ -13,83 +13,107 @@ const VideoControls = ({
   played,
   loaded,
   setVolume,
-  playing
+  playing,
+  forward,
+  back,
+  increaseVolume,
+  decreaseVolume
 }) => {
   return (
-    <div className="table">
-      <table>
-        <tbody>
-          <tr>
-            <th>Controls</th>
-            <td>
-              <button onClick={playPause}>{playing ? 'Pause' : 'Play'}</button>
-              <button onClick={onClickFullscreen}>Fullscreen</button>
-              <button onClick={setPlaybackRate} value={1}>
-                1
-              </button>
-              <button onClick={setPlaybackRate} value={1.5}>
-                1.5
-              </button>
-              <button onClick={setPlaybackRate} value={2}>
-                2
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th>Seek</th>
-            <td>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step="any"
-                defaultValue={played}
-                onMouseDown={onSeekMouseDown}
-                onChange={onSeekChange}
-                onMouseUp={onSeekMouseUp}
+    <div className="controls">
+      <div className="progress-bar">
+        <progress max={1} value={played} width="100%" />
+      </div>
+      <div className="play-layer">
+        <div className="back" onClick={back}>
+          <img src="http://localhost/back.png" width="30" height="30" alt="" />
+        </div>
+        <div className="center">
+          <div className="playPauseBtn" onClick={playPause}>
+            {playing ? (
+              <img
+                src="http://localhost/pause.png"
+                width="30"
+                height="30"
+                alt=""
               />
-            </td>
-          </tr>
-          <tr>
-            <th>Volume</th>
-            <td>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step="any"
-                defaultValue={volume}
-                onChange={setVolume}
+            ) : (
+              <img
+                src="http://localhost/play.png"
+                width="30"
+                height="30"
+                alt=""
               />
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <label htmlFor="muted">Muted</label>
-            </th>
-            <td>
-              <input
-                id="muted"
-                type="checkbox"
-                checked={muted}
-                onChange={toggleMuted}
+            )}
+          </div>
+        </div>
+        <div className="forward" onClick={forward}>
+          <img
+            src="http://localhost/forward.png"
+            width="30"
+            height="30"
+            alt=""
+          />
+        </div>
+      </div>
+      <div className="volume-layer">
+        <div className="volcon">
+          <img
+            src="http://localhost/low_volume.png"
+            width="25"
+            height="25"
+            alt=""
+            onClick={decreaseVolume}
+          />
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step="any"
+            defaultValue={volume}
+            onChange={setVolume}
+          />
+          <img
+            src="http://localhost/hi_volume.png"
+            width="25"
+            height="25"
+            alt=""
+            onClick={increaseVolume}
+          />
+          <div className="muted" onClick={toggleMuted}>
+            {
+              <img
+                src="http://localhost/mute.png"
+                width="30"
+                height="30"
+                alt=""
               />
-            </td>
-          </tr>
-          <tr>
-            <th>Played</th>
-            <td>
-              <progress max={1} defaultValue={played} />
-            </td>
-          </tr>
-          <tr>
-            <th>Loaded</th>
-            <td>
-              <progress max={1} defaultValue={loaded} />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            }
+          </div>
+        </div>
+
+        <input
+          className="seekbar"
+          type="range"
+          min={0}
+          max={1}
+          step="any"
+          defaultValue={played}
+          onMouseDown={onSeekMouseDown}
+          onChange={onSeekChange}
+          onMouseUp={onSeekMouseUp}
+        />
+        <div onClick={onClickFullscreen}>
+          {
+            <img
+              src="http://localhost/fullscreen.png"
+              width="25"
+              height="25"
+              alt=""
+            />
+          }
+        </div>
+      </div>
     </div>
   );
 };
