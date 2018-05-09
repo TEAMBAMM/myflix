@@ -41,7 +41,10 @@ export default class Sort extends React.Component {
           onRequestClose={this.handleRequestClose}
           animation={PopoverAnimationVertical}
         >
-          <Menu onChange={this.props.changeSort}>
+          <Menu
+            onChange={this.props.changeSort}
+            onClick={this.handleRequestClose}
+          >
             <MenuItem primaryText="Recently Added" value="Recently Added" />
             <MenuItem primaryText="Title" value="Title" />
             <MenuItem primaryText="Rating" value="Rating" />

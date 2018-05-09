@@ -41,7 +41,10 @@ export default class Filter extends React.Component {
           onRequestClose={this.handleRequestClose}
           animation={PopoverAnimationVertical}
         >
-          <Menu onChange={this.props.changeFilter}>
+          <Menu
+            onChange={this.props.changeFilter}
+            onClick={this.handleRequestClose}
+          >
             <MenuItem primaryText="All" value="All" />
             <MenuItem primaryText="Action" value="Action" />
             <MenuItem primaryText="Sci-Fi" value="Sci-Fi" />
