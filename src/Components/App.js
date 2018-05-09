@@ -60,9 +60,10 @@ class App extends Component {
         let res = await axios.get(`http://localhost/api/clients`);
         const clients = res.data.clients;
         res = await axios.get('http://localhost/api/castreceivers');
-        const castReceivers = res.data.castReceivers;
+        let castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
         const ip = res.data.ip;
+        castReceivers = (castReceivers.length < 1) ? [{ name: 'No receivers found!', host: '0.0.0.0' }] : castReceivers
         this.setState({...this.state, clients, castReceivers, ip });
       }, 5000);
     }

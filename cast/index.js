@@ -33,8 +33,8 @@ setInterval(()=>{
   updatePlayers()
 }, 3000)
 
-// setTimeout(()=>{
-//   playMovie(url, '12 Strong', allPlayers[0])
-// }, 2000)
+setInterval(()=>{
+  console.log(allPlayers)
+}, 2000)
 
 module.exports = { updatePlayers, playMovie, listReceivers }
