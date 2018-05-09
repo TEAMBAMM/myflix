@@ -1,7 +1,7 @@
 const Datastore = require('nedb');
+const fs = require('fs')
 const path = require('path');
 const download = require('image-downloader');
-const exif = require('exiftool');
 const db = new Datastore({
   filename: '/Users/matt/developer/fullstack-sr/test-movie-folder/data',
   autoload: true
@@ -9,13 +9,19 @@ const db = new Datastore({
 
 async function insertMovie(movieObj, movieFilePath) {
   let parsedPath = path.parse(movieFilePath);
-  exif.metadata(movieFilePath, (err, data) => {
-    if (err) {
-      throw err
-    } else {
-      console.log(data)
-    }
-  })
+  
+  // fs.readFile('../Filereader/The Godfather.mp4', function (err, data) {
+  //   if (err)
+  //     throw err;
+  //   else {
+  //     exif.metadata(data, function (err, metadata) {
+  //       if (err)
+  //         throw err;
+  //       else
+  //         console.log(metadata);
+  //     });
+  //   }
+  // });
   const data = {
     title: movieObj.title,
     year: movieObj.year,
