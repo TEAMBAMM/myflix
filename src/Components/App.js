@@ -19,7 +19,7 @@ class App extends Component {
       selectedMovie: { error: 'Please select a movie!'},
       searchInput: '',
       isPlaying: false,
-      filter: 'All',
+      filter: 'Recently Added',
       sort: 'dateAdded',
       currentMoviePosition: '',
       favorites: false,
@@ -96,13 +96,14 @@ class App extends Component {
     console.log(await this.state);
   }
 
-  changeSort(event) {
+  async changeSort(event, value) {
     event.preventDefault();
-    const value = event.target.value;
-    this.setState({ ...this.state, sort: value });
+    await this.setState({ ...this.state, sort: value });
+    this.updateSortedList();
   }
 
-  async updateSortedList(movies) {
+
+  updateSortedList(movies) {
     let moviesList = (movies) ? movies : this.state.movies // movies array from state
     let filterTerm = this.state.filter; // term to sort genre by
     let sortTerm = this.state.sort; // term to sort category by
@@ -115,31 +116,31 @@ class App extends Component {
       filteredOutput = moviesList;
     }
     switch (sortTerm) {
-    case 'Recently Added': // will update later
-      break;
-    case 'Title':
-      filteredOutput.sort((movieA, movieB) => {
-        const movieAL = movieA.title.toLowerCase();
-        const movieBL = movieB.title.toLowerCase();
-        if (movieAL < movieBL) return -1;
-        if (movieAL > movieBL) return 1;
-        return 0;
-      });
-      break;
-    case 'Rating':
-      filteredOutput.sort((movieA, movieB) => {
-        return movieB.rating - movieA.rating;
-      });
-      break;
-    case 'Year':
-      filteredOutput.sort((movieA, movieB) => {
-        return movieB.year - movieA.year;
-      });
-      break;
-    case 'Resolution': // will update later
-      break;
+      case 'Recently Added': // will update later
+        break;
+      case 'Title':
+        filteredOutput.sort((movieA, movieB) => {
+          const movieAL = movieA.title.toLowerCase();
+          const movieBL = movieB.title.toLowerCase();
+          if (movieAL < movieBL) return -1;
+          if (movieAL > movieBL) return 1;
+          return 0;
+        });
+        break;
+      case 'Rating':
+        filteredOutput.sort((movieA, movieB) => {
+          return movieB.rating - movieA.rating;
+        });
+        break;
+      case 'Year':
+        filteredOutput.sort((movieA, movieB) => {
+          return movieB.year - movieA.year;
+        });
+        break;
+      case 'Resolution': // will update later
+        break;
     }
-    await this.setState({ ...this.state, filteredOutput: filteredOutput });
+    this.setState({ ...this.state, filteredOutput: filteredOutput });
   }
 
   render() {
