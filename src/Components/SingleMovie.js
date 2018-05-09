@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { navTo } from './utils';
-// import play from '../../build/images/play.png';
+import play from '../../build/images/play.png';
 
 const SingleMovie = props => {
   const { movies, history } = props;
@@ -18,8 +18,8 @@ const SingleMovie = props => {
           <div className="playWrapper">
             <span className="playBtn">
               <img
-                // src="../images/play.png"
-                src="http://wptf.com/wp-content/uploads/2014/05/play-button.png"
+                src={play}
+                // src="http://wptf.com/wp-content/uploads/2014/05/play-button.png"
                 width="50"
                 height="50"
                 alt=""
