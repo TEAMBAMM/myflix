@@ -13,7 +13,9 @@ const VideoControls = ({
   played,
   loaded,
   setVolume,
-  playing
+  playing,
+  forward,
+  back
 }) => {
   return (
     <div className="controls">
@@ -21,7 +23,7 @@ const VideoControls = ({
         <progress max={1} value={played} width="100%" />
       </div>
       <div className="play-layer">
-        <div className="back" onClick={setPlaybackRate} value={-2}>
+        <div className="back" onClick={back}>
           <img src="http://localhost/back.png" width="30" height="30" alt="" />
         </div>
         <div className="center">
@@ -43,7 +45,7 @@ const VideoControls = ({
             )}
           </div>
         </div>
-        <div className="forward" onClick={setPlaybackRate} value={2}>
+        <div className="forward" onClick={forward}>
           <img
             src="http://localhost/forward.png"
             width="30"
@@ -53,7 +55,7 @@ const VideoControls = ({
         </div>
       </div>
       <div className="volume-layer">
-        <div>
+        <div className="volcon">
           <img
             src="http://localhost/low_volume.png"
             width="25"
@@ -74,17 +76,18 @@ const VideoControls = ({
             height="25"
             alt=""
           />
+          <div className="muted" onClick={toggleMuted}>
+            {
+              <img
+                src="http://localhost/mute.png"
+                width="30"
+                height="30"
+                alt=""
+              />
+            }
+          </div>
         </div>
-        <div className="muted" onClick={toggleMuted}>
-          {
-            <img
-              src="http://localhost/mute.png"
-              width="30"
-              height="30"
-              alt=""
-            />
-          }
-        </div>
+
         <input
           className="seekbar"
           type="range"

@@ -33,6 +33,8 @@ class Player extends React.Component {
     this.onDuration = this.onDuration.bind(this);
     this.ref = this.ref.bind(this);
     this.onEnded = this.onEnded.bind(this);
+    this.forward = this.forward.bind(this);
+    this.back = this.back.bind(this);
   }
 
   componentDidMount() {
@@ -80,8 +82,18 @@ class Player extends React.Component {
 
   setPlaybackRate(e) {
     this.setState({ playbackRate: parseFloat(e.target.value) });
-    console.log(e.target.value);
-    // console.log(this.state.playbackRate);
+  }
+
+  forward() {
+    this.setState({
+      playbackRate: this.state.playbackRate + 1
+    });
+  }
+
+  back() {
+    this.setState({
+      playbackRate: this.state.playbackRate - 1
+    });
   }
 
   onSeekMouseDown(e) {
@@ -128,7 +140,9 @@ class Player extends React.Component {
       played,
       loaded,
       duration,
-      playbackRate
+      playbackRate,
+      forward,
+      back
     } = this.state;
 
     return (
@@ -170,6 +184,8 @@ class Player extends React.Component {
               played={played}
               loaded={loaded}
               playing={playing}
+              back={back}
+              forward={forward}
             />
           </div>
         </div>

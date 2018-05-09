@@ -158,11 +158,12 @@ progress {
   width: 100%;
 }
 
-.play-layer {
+.play-layer,
+.volume-layer {
   display: flex;
   justify-content: space-around;
 }
 
-.volume-layer {
+.volcon {
   display: flex;
 }
