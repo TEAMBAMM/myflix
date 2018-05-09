@@ -40,9 +40,11 @@ class App extends Component {
   }
   
   async componentDidMount() {
-    const res = await axios.get('http://localhost/api/movies')
+    let res = await axios.get('http://localhost/api/movies')
     const movies = res.data.movies
-    this.setState({ ...this.state, movies, filteredOutput: movies })
+    res = await axios.get('http://localhost/api/ip');
+    const ip = res.data.ip
+    this.setState({ ...this.state, movies, filteredOutput: movies, ip })
     this.deviceScanner();
   }
 
@@ -63,8 +65,10 @@ class App extends Component {
         let castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
         const ip = res.data.ip;
+        res = await axios.get('http://localhost/api/movies')
+        const movies = res.data.movies
         castReceivers = (castReceivers.length < 1) ? [{ name: 'No receivers found!', host: '0.0.0.0' }] : castReceivers
-        this.setState({...this.state, clients, castReceivers, ip });
+        this.setState({...this.state, clients, castReceivers, ip, movies });
       }, 5000);
     }
   }

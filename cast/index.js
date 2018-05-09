@@ -6,6 +6,7 @@ const ip = require('ip')
 const allPlayers = []
 
 list.on('update', player => {
+  console.log('************ UPDATED PLAYER************** \n', player)
   if(player.host.length < 13 && allPlayers.length === 0) {
     return allPlayers.push(player)
   } else if(player.host.length < 13) {
@@ -34,7 +35,7 @@ setInterval(()=>{
 }, 3000)
 
 setInterval(()=>{
-  console.log(allPlayers)
+  console.log('All Players: ', allPlayers)
 }, 2000)
 
 module.exports = { updatePlayers, playMovie, listReceivers }
