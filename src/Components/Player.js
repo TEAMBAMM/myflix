@@ -40,13 +40,7 @@ class Player extends React.Component {
     // const movieUrl = this.props.movies.filter(
     //   movie => this.props.match.params.id === movie.imdbid
     // )[0].videoplayer;
-
-    // const filename = 'StarWarsTheLastJedi.mp4';  // for testing by Blake
-    // const ip = '192.168.1.12:80' // from Blake
-
-    // const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
-    // const ip = '192.168.0.7'; // only for testing by Alona
-    const tempUrl = `http://localhost/12.mkv`;
+    const tempUrl = `http://localhost/farm_thxgvg_2017.mp4`;
 
     this.setState({
       url: tempUrl,
