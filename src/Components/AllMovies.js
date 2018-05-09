@@ -10,7 +10,7 @@ const AllMovies = props => {
         return (
           <MiniMovie
             key={movie.imdbid}
-            image={movie.poster}
+            fileName={movie.fileName}
             imdbid={movie.imdbid}
           />
         );
