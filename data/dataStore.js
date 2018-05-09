@@ -2,8 +2,9 @@ const Datastore = require('nedb');
 const fs = require('fs')
 const path = require('path');
 const download = require('image-downloader');
+console.log('DATA DIR', __dirname)
 const db = new Datastore({
-  filename: '/Users/matt/developer/fullstack-sr/test-movie-folder/data',
+  filename: path.join(__dirname, '/databaseStorage'),
   autoload: true
 });
 

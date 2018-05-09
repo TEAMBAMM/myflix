@@ -7,7 +7,6 @@ import axios from 'axios';
 import AllMovies from './AllMovies';
 import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
-import movieArray from '../../data/movieArray';
 import ip from 'ip';
 
 injectTapEventPlugin();
@@ -41,13 +40,11 @@ class App extends Component {
     this.deviceScanner = this.deviceScanner.bind(this);
     this.test = this.test.bind(this);
   }
-
-  componentDidMount() {
-    this.setState({
-      ...this.state,
-      movies: movieArray,
-      filteredOutput: movieArray
-    });
+  
+  async componentDidMount() {
+    const res = await axios.get('http://localhost/api/movies')
+    const movies = res.data.movies
+    this.setState({ ...this.state, movies, filteredOutput: movies })
     this.deviceScanner();
   }
 
@@ -60,13 +57,13 @@ class App extends Component {
         const castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
         const ip = res.data.ip;
-        this.setState({ ...this.state, clients, castReceivers, ip });
+        this.setState({...this.state, clients, castReceivers, ip });
       }, 5000);
     }
   }
 
   async test() {
-    console.log(this.state);
+    console.log(this.state.movies);
   }
 
   async toggleFavorites(event) {
@@ -147,7 +144,7 @@ class App extends Component {
         />
         <Route
           exact path="/:id/player/"
-          render={() => <Player movies={movies} />}
+          render={() => <Player movies={movies} ip={ip} />}
         />
       </div>
     );

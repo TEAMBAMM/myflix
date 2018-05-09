@@ -7,13 +7,14 @@ const SingleMovie = props => {
   const { movies, history } = props;
   const imdbid = props.match.params.id;
   const movie = movies.filter(movie => imdbid === movie.imdbid)[0]; // to be removed later when database is established
+  const fileName = movie.fileName
 
   return (
     <div className="singlemovie-container">
       <div className="thumb">
         <div className="overlay" onClick={() => navTo(`/${imdbid}/player/`, history)}>
           <div>
-            <img src={movie.poster} className="thumbnail" />
+            <img src={`http://localhost/${fileName}-poster.jpg`} className="thumbnail" />
           </div>
           <div className="playWrapper">
             <span className="playBtn">
