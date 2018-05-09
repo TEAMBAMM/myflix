@@ -128,12 +128,6 @@
 .react-player {
   display: block;
 }
-/*
-I may need to do this instead of above
-.player-overlay .react-player {
-  display: block;
-}
-*/
 
 .controls-overlay {
   position: absolute;
