@@ -15,7 +15,7 @@ app.use(morgan('dev'))
 
 app.use(express.static(path.join(__dirname, '../','/movies')))
 app.use(express.static(path.join(__dirname, '../','/src/images')))
-app.use(express.static(path.join(__dirname, '../','/src/movieimages')))
+app.use(express.static(path.join(__dirname, '../','/data/moviePosters')))
 
 app.get('/isserver', (req, res, next) => {
   res.status(200).send('connected')
