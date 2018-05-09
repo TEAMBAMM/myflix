@@ -7,7 +7,6 @@ import axios from 'axios';
 import AllMovies from './AllMovies';
 import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
-import movieArray from '../../data/movieArray';
 import ip from 'ip';
 
 injectTapEventPlugin();
@@ -17,11 +16,7 @@ class App extends Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: {
-        error: 'No movie selected!',
-        fileName: '12.mkv',
-        title: '12 Strong'
-      },
+      selectedMovie: { error: 'Please select a movie!'},
       searchInput: '',
       isPlaying: false,
       filter: 'All',
@@ -40,17 +35,25 @@ class App extends Component {
     this.toggleFavorites = this.toggleFavorites.bind(this);
     this.deviceScanner = this.deviceScanner.bind(this);
     this.test = this.test.bind(this);
+    this.selectMovie = this.selectMovie.bind(this)
+    this.deselectMovie = this.deselectMovie.bind(this)
   }
-
-  componentDidMount() {
-    this.setState({
-      ...this.state,
-      movies: movieArray,
-      filteredOutput: movieArray
-    });
+  
+  async componentDidMount() {
+    const res = await axios.get('http://localhost/api/movies')
+    const movies = res.data.movies
+    this.setState({ ...this.state, movies, filteredOutput: movies })
     this.deviceScanner();
   }
 
+  deselectMovie() {
+    this.setState({ selectedMovie: { error: 'Please select a movie!'} }) 
+  }
+
+  selectMovie(movie) {
+    this.setState({...this.state, selectedMovie: movie})
+  }
+  
   deviceScanner() {
     if (!this.state.scanning) {
       setInterval(async () => {
@@ -60,7 +63,7 @@ class App extends Component {
         const castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
         const ip = res.data.ip;
-        this.setState({ ...this.state, clients, castReceivers, ip });
+        this.setState({...this.state, clients, castReceivers, ip });
       }, 5000);
     }
   }
@@ -92,6 +95,7 @@ class App extends Component {
     this.setState({ ...this.state, sort: value });
   }
 
+
   async updateSortedList() {
     let moviesList = this.state.movies;
     let filter = this.state.filter;
@@ -118,11 +122,11 @@ class App extends Component {
       selectedMovie,
       ip
     } = this.state;
-    const { onChange, changeFilter, changeSort, toggleFavorites, test } = this;
+    const { onChange, changeFilter, changeSort, toggleFavorites, test, selectMovie, deselectMovie } = this;
 
     return (
       <div>
-        <button onClick={() => test()}>TEST</button>
+        <button onClick={() => test()}>TEST</button><span>Selected movie: {(selectedMovie.error) ? selectedMovie.error : selectedMovie.fileName}</span>
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
@@ -135,19 +139,20 @@ class App extends Component {
           movies={movies}
           castReceivers={castReceivers}
           selectedMovie={selectedMovie}
+          deselectMovie={deselectMovie}
           ip={ip}
         />
         <Route
           exact path="*index.html"
-          render={() => <AllMovies movies={movies} />}
+          render={() => <AllMovies movies={movies} selectMovie={selectMovie} />}
         />
         <Route
           exact path="/:id/"
-          render={() => <SingleMovie movies={movies} />}
+          render={() => <SingleMovie movies={movies} selectMovie={selectMovie} />}
         />
         <Route
           exact path="/:id/player/"
-          render={() => <Player movies={movies} />}
+          render={() => <Player movies={movies} ip={ip} />}
         />
       </div>
     );
