@@ -33,21 +33,26 @@ class Player extends React.Component {
     this.onDuration = this.onDuration.bind(this);
     this.ref = this.ref.bind(this);
     this.onEnded = this.onEnded.bind(this);
+    this.forward = this.forward.bind(this);
+    this.back = this.back.bind(this);
+    this.increaseVolume = this.increaseVolume.bind(this);
+    this.decreaseVolume = this.decreaseVolume.bind(this);
   }
 
   componentDidMount() {
-    const movie = this.props.movies
-      .filter(movie => this.props.match.params.id === movie.imdbid)[0]
+    const movie = this.props.movies.filter(
+      movie => this.props.match.params.id === movie.imdbid
+    )[0];
 
     //  'Den of Thieves'
-    const fileName = movie.fileName
+    const fileName = movie.fileName;
 
     // Right now ip is just of your local machine - need to figure out
     // how to pass correct ip if file is on another machine
-    const ip = this.props.ip
+    const ip = this.props.ip;
 
     // 'Den of Thieves.mkv'
-    const baseFileName = movie.baseFileName
+    const baseFileName = movie.baseFileName;
 
     this.setState({
       url: `http://${ip}/${baseFileName}`,
@@ -87,6 +92,31 @@ class Player extends React.Component {
 
   setPlaybackRate(e) {
     this.setState({ playbackRate: parseFloat(e.target.value) });
+  }
+
+  forward() {
+    this.setState({
+      playbackRate: this.state.playbackRate + 1
+    });
+    console.log('Playback rate', this.state.playbackRate);
+  }
+
+  back() {
+    this.setState({
+      playbackRate: this.state.playbackRate - 1
+    });
+  }
+
+  decreaseVolume() {
+    this.setState({
+      volume: this.state.volume - 0.1
+    });
+  }
+
+  increaseVolume() {
+    this.setState({
+      volume: this.state.volume + 0.1
+    });
   }
 
   onSeekMouseDown(e) {
@@ -161,20 +191,26 @@ class Player extends React.Component {
             onProgress={this.onProgress}
             onDuration={this.onDuration}
           />
-          <VideoControls
-            playPause={this.playPause}
-            onClickFullscreen={this.onClickFullscreen}
-            setPlaybackRate={this.setPlaybackRate}
-            onSeekMouseDown={this.onSeekMouseDown}
-            onSeekChange={this.onSeekChange}
-            onSeekMouseUp={this.onSeekMouseUp}
-            volume={volume}
-            muted={muted}
-            toggleMuted={this.toggleMuted}
-            played={played}
-            loaded={loaded}
-            playing={playing}
-          />
+          <div className="controls-overlay">
+            <VideoControls
+              playPause={this.playPause}
+              onClickFullscreen={this.onClickFullscreen}
+              setPlaybackRate={this.setPlaybackRate}
+              onSeekMouseDown={this.onSeekMouseDown}
+              onSeekChange={this.onSeekChange}
+              onSeekMouseUp={this.onSeekMouseUp}
+              volume={volume}
+              muted={muted}
+              toggleMuted={this.toggleMuted}
+              played={played}
+              loaded={loaded}
+              playing={playing}
+              back={this.back}
+              forward={this.forward}
+              decreaseVolume={this.decreaseVolume}
+              increaseVolume={this.increaseVolume}
+            />
+          </div>
         </div>
       </div>
     );

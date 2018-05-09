@@ -16,14 +16,10 @@ class App extends Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: {
-        error: 'No movie selected!',
-        fileName: '12.mkv',
-        title: '12 Strong'
-      },
+      selectedMovie: { error: 'Please select a movie!'},
       searchInput: '',
       isPlaying: false,
-      filter: 'All',
+      filter: 'Recently Added',
       sort: 'dateAdded',
       currentMoviePosition: '',
       favorites: false,
@@ -39,31 +35,48 @@ class App extends Component {
     this.toggleFavorites = this.toggleFavorites.bind(this);
     this.deviceScanner = this.deviceScanner.bind(this);
     this.test = this.test.bind(this);
+    this.selectMovie = this.selectMovie.bind(this)
+    this.deselectMovie = this.deselectMovie.bind(this)
+    this.updateSortedList = this.updateSortedList.bind(this)
   }
   
   async componentDidMount() {
-    const res = await axios.get('http://localhost/api/movies')
+    let res = await axios.get('http://localhost/api/movies')
     const movies = res.data.movies
-    this.setState({ ...this.state, movies, filteredOutput: movies })
+    res = await axios.get('http://localhost/api/ip');
+    const ip = res.data.ip
+    this.updateSortedList(movies)
+    this.setState({ ...this.state, movies, ip })
     this.deviceScanner();
   }
 
+  deselectMovie() {
+    this.setState({ selectedMovie: { error: 'Please select a movie!'} }) 
+  }
+
+  selectMovie(movie) {
+    this.setState({...this.state, selectedMovie: movie})
+  }
+  
   deviceScanner() {
     if (!this.state.scanning) {
       setInterval(async () => {
         let res = await axios.get(`http://localhost/api/clients`);
         const clients = res.data.clients;
         res = await axios.get('http://localhost/api/castreceivers');
-        const castReceivers = res.data.castReceivers;
+        let castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
         const ip = res.data.ip;
-        this.setState({...this.state, clients, castReceivers, ip });
+        res = await axios.get('http://localhost/api/movies')
+        const movies = res.data.movies
+        castReceivers = (castReceivers.length < 1) ? [{ name: 'No receivers found!', host: '0.0.0.0' }] : castReceivers
+        this.setState({...this.state, clients, castReceivers, ip, movies });
       }, 5000);
     }
   }
 
   async test() {
-    console.log(this.state.movies);
+    console.log(this.state);
   }
 
   async toggleFavorites(event) {
@@ -83,24 +96,51 @@ class App extends Component {
     console.log(await this.state);
   }
 
-  changeSort(event) {
+  async changeSort(event, value) {
     event.preventDefault();
-    const value = event.target.value;
-    this.setState({ ...this.state, sort: value });
+    await this.setState({ ...this.state, sort: value });
+    this.updateSortedList();
   }
 
-  async updateSortedList() {
-    let moviesList = this.state.movies;
-    let filter = this.state.filter;
+
+  updateSortedList(movies) {
+    let moviesList = (movies) ? movies : this.state.movies // movies array from state
+    let filterTerm = this.state.filter; // term to sort genre by
+    let sortTerm = this.state.sort; // term to sort category by
     let filteredOutput;
-    if (filter !== 'All') {
+    if (filterTerm !== 'All') {
       filteredOutput = moviesList.filter(movie => {
-        return movie.genres.includes(filter);
+        return movie.genres.includes(filterTerm);
       });
     } else {
       filteredOutput = moviesList;
     }
-    await this.setState({ ...this.state, filteredOutput: filteredOutput });
+    switch (sortTerm) {
+      case 'Recently Added': // will update later
+        break;
+      case 'Title':
+        filteredOutput.sort((movieA, movieB) => {
+          const movieAL = movieA.title.toLowerCase();
+          const movieBL = movieB.title.toLowerCase();
+          if (movieAL < movieBL) return -1;
+          if (movieAL > movieBL) return 1;
+          return 0;
+        });
+        break;
+      case 'Rating':
+        filteredOutput.sort((movieA, movieB) => {
+          return movieB.rating - movieA.rating;
+        });
+        break;
+      case 'Year':
+        filteredOutput.sort((movieA, movieB) => {
+          return movieB.year - movieA.year;
+        });
+        break;
+      case 'Resolution': // will update later
+        break;
+    }
+    this.setState({ ...this.state, filteredOutput: filteredOutput });
   }
 
   render() {
@@ -115,11 +155,11 @@ class App extends Component {
       selectedMovie,
       ip
     } = this.state;
-    const { onChange, changeFilter, changeSort, toggleFavorites, test } = this;
+    const { onChange, changeFilter, changeSort, toggleFavorites, test, selectMovie, deselectMovie } = this;
 
     return (
       <div>
-        <button onClick={() => test()}>TEST</button>
+        <button onClick={() => test()}>TEST</button><span>Selected movie: {(selectedMovie.error) ? selectedMovie.error : selectedMovie.fileName}</span>
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
@@ -132,15 +172,16 @@ class App extends Component {
           movies={movies}
           castReceivers={castReceivers}
           selectedMovie={selectedMovie}
+          deselectMovie={deselectMovie}
           ip={ip}
         />
         <Route
           exact path="*index.html"
-          render={() => <AllMovies movies={movies} />}
+          render={() => <AllMovies movies={filteredOutput} selectMovie={selectMovie} />}
         />
         <Route
           exact path="/:id/"
-          render={() => <SingleMovie movies={movies} />}
+          render={() => <SingleMovie movies={movies} selectMovie={selectMovie} />}
         />
         <Route
           exact path="/:id/player/"
