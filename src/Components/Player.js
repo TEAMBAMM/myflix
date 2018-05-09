@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import screenfull from 'screenfull';
 import { findDOMNode } from 'react-dom';
 import Duration from './Duration';
-import FlatButton from 'material-ui/FlatButton';
 import VideoControls from './VideoControls';
 
 // const filename = 'StarWarsTheLastJedi.mp4';  // for testing by Blake
