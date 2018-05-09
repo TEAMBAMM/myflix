@@ -1,12 +1,21 @@
 const Datastore = require('nedb');
 const path = require('path');
 const download = require('image-downloader');
+const exif = require('exiftool');
 const db = new Datastore({
   filename: '/Users/matt/developer/fullstack-sr/test-movie-folder/data',
   autoload: true
 });
 
 async function insertMovie(movieObj, movieFilePath) {
+  let parsedPath = path.parse(movieFilePath);
+  exif.metadata(movieFilePath, (err, data) => {
+    if (err) {
+      throw err
+    } else {
+      console.log(data)
+    }
+  })
   const data = {
     title: movieObj.title,
     year: movieObj.year,
@@ -16,14 +25,13 @@ async function insertMovie(movieObj, movieFilePath) {
     plot: movieObj.plot,
     rating: null,
     rated: movieObj.rated,
-    released: movieObj.released
+    released: movieObj.released,
+    genres: movieObj.genres.split(', '),
+    actors: movieObj.actors.split(', '),
+    baseFileName: parsedPath.base,
+    fileType: parsedPath.ext,
+    fileName: parsedPath.name,
   }
-  let parsedPath = path.parse(movieFilePath);
-  data.genres = movieObj.genres.split(', ');
-  data.actors = movieObj.actors.split(', ');
-  data.baseFileName = parsedPath.base;
-  data.fileType = parsedPath.ext;
-  data.fileName = parsedPath.name;
   try {
     const {imageFilename} = await download.image({
       url: movieObj.poster,
