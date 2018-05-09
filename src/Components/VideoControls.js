@@ -1,4 +1,8 @@
 import React from 'react';
+import play from '../../build/images/play.png';
+import pause from '../../build/images/pause.png';
+import back from '../../build/images/back.png';
+import forward from '../../build/images/forward.png';
 
 const VideoControls = ({
   playPause,
@@ -17,17 +21,23 @@ const VideoControls = ({
 }) => {
   return (
     <div className="controls">
-      <button onClick={playPause}>{playing ? 'Pause' : 'Play'}</button>
-      <button onClick={onClickFullscreen}>Fullscreen</button>
-      <button onClick={setPlaybackRate} value={1}>
+      <div className="playPauseBtn" onClick={playPause}>
+        {playing ? (
+          <img src={pause} width="50" height="50" alt="" />
+        ) : (
+          <img src={play} width="50" height="50" alt="" />
+        )}
+      </div>
+      <div onClick={onClickFullscreen}>Fullscreen</div>
+      <div onClick={setPlaybackRate} value={1}>
         1
-      </button>
-      <button onClick={setPlaybackRate} value={1.5}>
+      </div>
+      <div onClick={setPlaybackRate} value={1.5}>
         1.5
-      </button>
-      <button onClick={setPlaybackRate} value={2}>
+      </div>
+      <div onClick={setPlaybackRate} value={2}>
         2
-      </button>
+      </div>
 
       <div>Seek</div>
       <div>

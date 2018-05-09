@@ -15,16 +15,12 @@ const SingleMovie = props => {
           <div>
             <img src={movie.poster} className="thumbnail" />
           </div>
-          <div className="playWrapper">
+          <div
+            className="playWrapper"
+            onClick={() => navTo(`/${imdbid}/player/`, history)}
+          >
             <span className="playBtn">
-              <img
-                src={play}
-                // src="http://wptf.com/wp-content/uploads/2014/05/play-button.png"
-                width="50"
-                height="50"
-                alt=""
-                onClick={() => navTo(`/${imdbid}/player/`, history)}
-              />
+              <img src={play} width="50" height="50" alt="" />
             </span>
           </div>
         </div>
