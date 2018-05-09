@@ -7,6 +7,7 @@ const { listClients, startTimer, myIp } = require('./findservers.js');
 const { listReceivers } = require('../cast')
 const { playMovie } = require('../cast')
 const ip = require('ip')
+const { db } = require('../data/dataStore')
 const PORT = 80
 
 app.use(bodyParser.json())
@@ -38,6 +39,21 @@ app.put('/api/cast', (req, res, next) => {
 
 app.get('/api/ip', (req, res, next) => {
   res.status(200).json({ ip: ip.address() })
+})
+
+app.get('/api/movies', (req, res, next) => {
+  try {
+    db.find({}, (err, data) => {
+      res.status(200).json({ movies: data })
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
+app.use((error, req, res, next) => {
+  console.log(error)
+  res.status(500).json({ msg: 'Ooops, something went wrong!'})
 })
 
 app.listen(PORT, () => {
