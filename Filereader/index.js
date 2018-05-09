@@ -60,7 +60,7 @@ fileWatcher.on('ready', () => {
   db.count({}, (err, dbEntryCount) => {
     // If less, movie(s) were added while the application was closed
     if (dbEntryCount < watching.length) {
-      watching.forEach(movieTitle => {
+      watching.forEach((movieTitle, movieIndex) => {
         // TODO What if a duplicate is added while app is closed?
         // Double checking for duplicates
         db.findOne({ title: movieTitle }, (err, doc) => {
@@ -68,10 +68,10 @@ fileWatcher.on('ready', () => {
           if (doc === null) {
             try {
               //Retrieve data from imdb
-              const data = imdb.get(name, { apiKey: 'ed483961' }).then(data => {
+              const data = imdb.get(movieTitle, { apiKey: 'ed483961' }).then(data => {
                 //Custom insert movie function that downloads the poster image
                 //and creates object in database of the data we need
-                insertMovie(data, filePath);
+                insertMovie(data, watched[movieIndex]);
               });
             } catch (err) {
               console.error('IMDB DATA FAILURE', err);
