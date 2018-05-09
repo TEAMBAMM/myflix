@@ -8,7 +8,7 @@ import AllMovies from './AllMovies';
 import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
 import movieArray from '../../data/movieArray';
-import ip from 'ip'
+import ip from 'ip';
 
 injectTapEventPlugin();
 
@@ -17,7 +17,11 @@ class App extends Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: { error: 'No movie selected!', fileName: '12.mkv', title: '12 Strong' },
+      selectedMovie: {
+        error: 'No movie selected!',
+        fileName: '12.mkv',
+        title: '12 Strong'
+      },
       searchInput: '',
       isPlaying: false,
       filter: 'All',
@@ -34,8 +38,8 @@ class App extends Component {
     this.changeFilter = this.changeFilter.bind(this);
     this.changeSort = this.changeSort.bind(this);
     this.toggleFavorites = this.toggleFavorites.bind(this);
-    this.deviceScanner = this.deviceScanner.bind(this)
-    this.test = this.test.bind(this)
+    this.deviceScanner = this.deviceScanner.bind(this);
+    this.test = this.test.bind(this);
   }
 
   componentDidMount() {
@@ -44,25 +48,25 @@ class App extends Component {
       movies: movieArray,
       filteredOutput: movieArray
     });
-    this.deviceScanner()
+    this.deviceScanner();
   }
 
   deviceScanner() {
-    if(!this.state.scanning) {
-      setInterval(async ()=> {
-        let res = await axios.get(`http://localhost/api/clients`)
-        const clients = res.data.clients
-        res = await axios.get('http://localhost/api/castreceivers')
-        const castReceivers = res.data.castReceivers
-        res = await axios.get('http://localhost/api/ip')
-        const ip = res.data.ip
-        this.setState({...this.state, clients, castReceivers, ip})
-      }, 5000)
+    if (!this.state.scanning) {
+      setInterval(async () => {
+        let res = await axios.get(`http://localhost/api/clients`);
+        const clients = res.data.clients;
+        res = await axios.get('http://localhost/api/castreceivers');
+        const castReceivers = res.data.castReceivers;
+        res = await axios.get('http://localhost/api/ip');
+        const ip = res.data.ip;
+        this.setState({ ...this.state, clients, castReceivers, ip });
+      }, 5000);
     }
   }
 
   async test() {
-    console.log(this.props.history.location.pathname)
+    console.log(this.state);
   }
 
   async toggleFavorites(event) {
@@ -133,13 +137,16 @@ class App extends Component {
           selectedMovie={selectedMovie}
           ip={ip}
         />
-        <Route exact path="*index.html"
-          render={() => <AllMovies movies={filteredOutput} />}
+        <Route
+          exact path="*index.html"
+          render={() => <AllMovies movies={movies} />}
         />
-        <Route exact path="/:id/"
+        <Route
+          exact path="/:id/"
           render={() => <SingleMovie movies={movies} />}
         />
-        <Route exact path="/:id/player"
+        <Route
+          exact path="/:id/player/"
           render={() => <Player movies={movies} />}
         />
       </div>

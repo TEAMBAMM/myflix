@@ -11,7 +11,7 @@ const SingleMovie = props => {
   return (
     <div className="singlemovie-container">
       <div className="thumb">
-        <div className="overlay">
+        <div className="overlay" onClick={() => navTo(`/${imdbid}/player/`, history)}>
           <div>
             <img src={movie.poster} className="thumbnail" />
           </div>
@@ -22,7 +22,6 @@ const SingleMovie = props => {
                 width="50"
                 height="50"
                 alt=""
-                onClick={() => navTo(`/${imdbid}/player/`, history)}
               />
             </span>
           </div>
