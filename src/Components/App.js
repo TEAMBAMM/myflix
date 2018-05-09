@@ -19,7 +19,7 @@ class App extends Component {
       selectedMovie: { error: 'Please select a movie!'},
       searchInput: '',
       isPlaying: false,
-      filter: 'All',
+      filter: 'Recently Added',
       sort: 'dateAdded',
       currentMoviePosition: '',
       favorites: false,
