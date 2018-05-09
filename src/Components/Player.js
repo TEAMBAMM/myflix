@@ -36,20 +36,21 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    // dummy data
-    // const movieUrl = this.props.movies.filter(
-    //   movie => this.props.match.params.id === movie.imdbid
-    // )[0].videoplayer;
+    const movie = this.props.movies
+      .filter(movie => this.props.match.params.id === movie.imdbid)[0]
 
-    // const filename = 'StarWarsTheLastJedi.mp4';  // for testing by Blake
-    // const ip = '192.168.1.12:80' // from Blake
+    //  'Den of Thieves'
+    const fileName = movie.fileName
 
-    // const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
-    // const ip = '192.168.0.7'; // only for testing by Alona
-    const tempUrl = `http://localhost/12.mkv`;
+    // Right now ip is just of your local machine - need to figure out
+    // how to pass correct ip if file is on another machine
+    const ip = this.props.ip
+
+    // 'Den of Thieves.mkv'
+    const baseFileName = movie.baseFileName
 
     this.setState({
-      url: tempUrl,
+      url: `http://${ip}/${baseFileName}`,
       playing: true,
       muted: false
     });
