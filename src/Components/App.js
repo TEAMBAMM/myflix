@@ -37,6 +37,7 @@ class App extends Component {
     this.test = this.test.bind(this);
     this.selectMovie = this.selectMovie.bind(this)
     this.deselectMovie = this.deselectMovie.bind(this)
+    this.updateSortedList = this.updateSortedList.bind(this)
   }
   
   async componentDidMount() {
@@ -44,7 +45,8 @@ class App extends Component {
     const movies = res.data.movies
     res = await axios.get('http://localhost/api/ip');
     const ip = res.data.ip
-    this.setState({ ...this.state, movies, filteredOutput: movies, ip })
+    this.updateSortedList(movies)
+    this.setState({ ...this.state, movies, ip })
     this.deviceScanner();
   }
 
@@ -100,17 +102,42 @@ class App extends Component {
     this.setState({ ...this.state, sort: value });
   }
 
-
-  async updateSortedList() {
-    let moviesList = this.state.movies;
-    let filter = this.state.filter;
+  async updateSortedList(movies) {
+    let moviesList = (movies) ? movies : this.state.movies // movies array from state
+    let filterTerm = this.state.filter; // term to sort genre by
+    let sortTerm = this.state.sort; // term to sort category by
     let filteredOutput;
-    if (filter !== 'All') {
+    if (filterTerm !== 'All') {
       filteredOutput = moviesList.filter(movie => {
-        return movie.genres.includes(filter);
+        return movie.genres.includes(filterTerm);
       });
     } else {
       filteredOutput = moviesList;
+    }
+    switch (sortTerm) {
+    case 'Recently Added': // will update later
+      break;
+    case 'Title':
+      filteredOutput.sort((movieA, movieB) => {
+        const movieAL = movieA.title.toLowerCase();
+        const movieBL = movieB.title.toLowerCase();
+        if (movieAL < movieBL) return -1;
+        if (movieAL > movieBL) return 1;
+        return 0;
+      });
+      break;
+    case 'Rating':
+      filteredOutput.sort((movieA, movieB) => {
+        return movieB.rating - movieA.rating;
+      });
+      break;
+    case 'Year':
+      filteredOutput.sort((movieA, movieB) => {
+        return movieB.year - movieA.year;
+      });
+      break;
+    case 'Resolution': // will update later
+      break;
     }
     await this.setState({ ...this.state, filteredOutput: filteredOutput });
   }
@@ -149,7 +176,7 @@ class App extends Component {
         />
         <Route
           exact path="*index.html"
-          render={() => <AllMovies movies={movies} selectMovie={selectMovie} />}
+          render={() => <AllMovies movies={filteredOutput} selectMovie={selectMovie} />}
         />
         <Route
           exact path="/:id/"
