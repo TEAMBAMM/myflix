@@ -25,11 +25,11 @@ async function insertMovie(movieObj, movieFilePath) {
   data.fileType = parsedPath.ext;
   data.fileName = parsedPath.name;
   try {
-    const {filename} = await download.image({
+    const {imageFilename} = await download.image({
       url: movieObj.poster,
       dest: `data/moviePosters/${data.title}-poster.jpg`
     })
-    data.imageUrl = filename
+    data.imageUrl = imageFilename
     db.insert(data)
   } catch (e) {
     throw e
