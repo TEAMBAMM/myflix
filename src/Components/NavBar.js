@@ -21,15 +21,21 @@ const NavBar = props => {
     movies,
     castReceivers,
     selectedMovie,
-    ip
+    ip,
+    deselectMovie
   } = props;
+
+  const navDeselect = () => {
+    deselectMovie()
+    navTo('index.html', history)
+  }
 
   return (
     <div className="NavBarContainer">
       <div className="SearchNavDiv">
         <AutoCompleteSearch movies={movies} />
       </div>
-      <div className="NavDiv" onClick={() => navTo('index.html', history)}>
+      <div className="NavDiv" onClick={() => navDeselect()}>
         <Home />
       </div>
       <div className="NavDiv">
