@@ -104,6 +104,7 @@
 }
 
 .movie-info {
+  max-width: 700px;
   margin: 1rem;
   padding: 0.5rem;
   display: flex;
