@@ -33,7 +33,9 @@ async function insertMovie(movieObj, movieFilePath) {
     data.imageUrl = imageFilename
     db.insert(data)
   } catch (e) {
-    throw e
+    const imageFilename = path.join(__dirname, 'moviePosters/sad-face.jpg')
+    data.imageUrl = imageFilename
+    db.insert(data)
   }
 }
 
