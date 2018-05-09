@@ -75,18 +75,8 @@ class App extends Component {
     }
   }
 
-<<<<<<< HEAD
-  async componentDidMount() {
-    await this.setState({
-      ...this.state,
-      movies: movieArray,
-      filteredOutput: movieArray
-    });
-    await this.updateSortedList();
-=======
   async test() {
     console.log(this.state);
->>>>>>> 146dafccdbb7c42fc0061eb90b0752be3d387e7c
   }
 
   async toggleFavorites(event) {
@@ -112,13 +102,9 @@ class App extends Component {
     this.updateSortedList();
   }
 
-<<<<<<< HEAD
-  async updateSortedList() {
-    let moviesList = this.state.movies; // movies array from state
-=======
-  async updateSortedList(movies) {
+
+  updateSortedList(movies) {
     let moviesList = (movies) ? movies : this.state.movies // movies array from state
->>>>>>> 146dafccdbb7c42fc0061eb90b0752be3d387e7c
     let filterTerm = this.state.filter; // term to sort genre by
     let sortTerm = this.state.sort; // term to sort category by
     let filteredOutput;
@@ -130,7 +116,6 @@ class App extends Component {
       filteredOutput = moviesList;
     }
     switch (sortTerm) {
-<<<<<<< HEAD
       case 'Recently Added': // will update later
         break;
       case 'Title':
@@ -154,33 +139,8 @@ class App extends Component {
         break;
       case 'Resolution': // will update later
         break;
-=======
-    case 'Recently Added': // will update later
-      break;
-    case 'Title':
-      filteredOutput.sort((movieA, movieB) => {
-        const movieAL = movieA.title.toLowerCase();
-        const movieBL = movieB.title.toLowerCase();
-        if (movieAL < movieBL) return -1;
-        if (movieAL > movieBL) return 1;
-        return 0;
-      });
-      break;
-    case 'Rating':
-      filteredOutput.sort((movieA, movieB) => {
-        return movieB.rating - movieA.rating;
-      });
-      break;
-    case 'Year':
-      filteredOutput.sort((movieA, movieB) => {
-        return movieB.year - movieA.year;
-      });
-      break;
-    case 'Resolution': // will update later
-      break;
->>>>>>> 146dafccdbb7c42fc0061eb90b0752be3d387e7c
     }
-    await this.setState({ ...this.state, filteredOutput: filteredOutput });
+    this.setState({ ...this.state, filteredOutput: filteredOutput });
   }
 
   render() {
