@@ -12,21 +12,20 @@ const SingleMovie = props => {
     <div className="singlemovie-container">
       <div className="thumb">
         <div className="overlay">
-          <a href="#">
+          <div>
             <img src={movie.poster} className="thumbnail" />
-          </a>
-          <a href="#" className="playWrapper">
+          </div>
+          <div className="playWrapper">
             <span className="playBtn">
               <img
-                // src="../images/play.png"
-                src="http://wptf.com/wp-content/uploads/2014/05/play-button.png"
+                src="http://localhost/play-button.png"
                 width="50"
                 height="50"
                 alt=""
                 onClick={() => navTo(`/${imdbid}/player/`, history)}
               />
             </span>
-          </a>
+          </div>
         </div>
       </div>
       <div className="movie-info">

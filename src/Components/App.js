@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   async test() {
-    console.log(this.state)
+    console.log(this.props.history.location.pathname)
   }
 
   async toggleFavorites(event) {

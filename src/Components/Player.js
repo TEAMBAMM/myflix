@@ -41,13 +41,13 @@ class Player extends React.Component {
 
   componentDidMount() {
     // dummy data
-    const movieUrl = this.props.movies.filter(
-      movie => this.props.match.params.id === movie.imdbid
-    )[0].videoplayer;
+    // const movieUrl = this.props.movies.filter(
+    //   movie => this.props.match.params.id === movie.imdbid
+    // )[0].videoplayer;
 
-    const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
-    const ip = '192.168.0.7'; // only for testing by Alona
-    const tempUrl = `http://${ip}/${filename}`;
+    // const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
+    // const ip = '192.168.0.7'; // only for testing by Alona
+    const tempUrl = `http://localhost/12.mkv`;
 
     this.setState({
       url: tempUrl,
