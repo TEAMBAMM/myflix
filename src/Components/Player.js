@@ -36,7 +36,7 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    // dummy data
+    // The following gets the url from the moviesArray dummy data. Replace `tempUrl` in the this.setState line below with `movieUrl` to use it.
     // const movieUrl = this.props.movies.filter(
     //   movie => this.props.match.params.id === movie.imdbid
     // )[0].videoplayer;
@@ -44,6 +44,7 @@ class Player extends React.Component {
     // const filename = 'StarWarsTheLastJedi.mp4';  // for testing by Blake
     // const ip = '192.168.1.12:80' // from Blake
 
+    // Set your own filename and ip to test videos. mp4 must be in movies folder (gitignored)
     const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
     const ip = '192.168.0.7'; // only for testing by Alona
     const tempUrl = `http://${ip}/${filename}`;
@@ -160,20 +161,22 @@ class Player extends React.Component {
             onProgress={this.onProgress}
             onDuration={this.onDuration}
           />
-          <VideoControls
-            playPause={this.playPause}
-            onClickFullscreen={this.onClickFullscreen}
-            setPlaybackRate={this.setPlaybackRate}
-            onSeekMouseDown={this.onSeekMouseDown}
-            onSeekChange={this.onSeekChange}
-            onSeekMouseUp={this.onSeekMouseUp}
-            volume={volume}
-            muted={muted}
-            toggleMuted={this.toggleMuted}
-            played={played}
-            loaded={loaded}
-            playing={playing}
-          />
+          <div className="controls-overlay">
+            <VideoControls
+              playPause={this.playPause}
+              onClickFullscreen={this.onClickFullscreen}
+              setPlaybackRate={this.setPlaybackRate}
+              onSeekMouseDown={this.onSeekMouseDown}
+              onSeekChange={this.onSeekChange}
+              onSeekMouseUp={this.onSeekMouseUp}
+              volume={volume}
+              muted={muted}
+              toggleMuted={this.toggleMuted}
+              played={played}
+              loaded={loaded}
+              playing={playing}
+            />
+          </div>
         </div>
       </div>
     );
