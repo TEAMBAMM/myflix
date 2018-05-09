@@ -4,11 +4,7 @@ import { withRouter } from 'react-router-dom';
 import screenfull from 'screenfull';
 import { findDOMNode } from 'react-dom';
 import Duration from './Duration';
-import FlatButton from 'material-ui/FlatButton';
 import VideoControls from './VideoControls';
-
-// const filename = 'StarWarsTheLastJedi.mp4';  // for testing by Blake
-// const ip = '192.168.1.12:80' // from Blake
 
 class Player extends React.Component {
   constructor() {
@@ -41,13 +37,16 @@ class Player extends React.Component {
 
   componentDidMount() {
     // dummy data
-    const movieUrl = this.props.movies.filter(
-      movie => this.props.match.params.id === movie.imdbid
-    )[0].videoplayer;
+    // const movieUrl = this.props.movies.filter(
+    //   movie => this.props.match.params.id === movie.imdbid
+    // )[0].videoplayer;
 
-    const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
-    const ip = '192.168.0.7'; // only for testing by Alona
-    const tempUrl = `http://${ip}/${filename}`;
+    // const filename = 'StarWarsTheLastJedi.mp4';  // for testing by Blake
+    // const ip = '192.168.1.12:80' // from Blake
+
+    // const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
+    // const ip = '192.168.0.7'; // only for testing by Alona
+    const tempUrl = `http://localhost/12.mkv`;
 
     this.setState({
       url: tempUrl,
@@ -139,30 +138,28 @@ class Player extends React.Component {
     return (
       <div className="player-container">
         <div className="player-overlay">
-          <a href="#">
-            <ReactPlayer
-              ref={this.ref}
-              className="react-player"
-              width="100%" // cannot be put on css, must be in here, I found
-              height="100%"
-              url={url}
-              playing={playing}
-              onPlay={this.onPlay}
-              onPause={this.onPause}
-              muted={muted}
-              volume={volume}
-              onReady={() => console.log('onReady')}
-              onStart={() => console.log('onStart')}
-              onPlay={this.onPlay}
-              onPause={this.onPause}
-              onBuffer={() => console.log('onBuffer')}
-              onSeek={e => console.log('onSeek', e)}
-              onEnded={this.onEnded}
-              onError={e => console.log('onError', e)}
-              onProgress={this.onProgress}
-              onDuration={this.onDuration}
-            />
-          </a>
+          <ReactPlayer
+            ref={this.ref}
+            className="react-player"
+            width="100%" // cannot be put on css, must be in here, I found
+            height="100%"
+            url={url}
+            playing={playing}
+            onPlay={this.onPlay}
+            onPause={this.onPause}
+            muted={muted}
+            volume={volume}
+            onReady={() => console.log('onReady')}
+            onStart={() => console.log('onStart')}
+            onPlay={this.onPlay}
+            onPause={this.onPause}
+            onBuffer={() => console.log('onBuffer')}
+            onSeek={e => console.log('onSeek', e)}
+            onEnded={this.onEnded}
+            onError={e => console.log('onError', e)}
+            onProgress={this.onProgress}
+            onDuration={this.onDuration}
+          />
           <VideoControls
             playPause={this.playPause}
             onClickFullscreen={this.onClickFullscreen}
