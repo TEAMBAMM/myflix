@@ -44,9 +44,9 @@ class Player extends React.Component {
     // const filename = 'StarWarsTheLastJedi.mp4';  // for testing by Blake
     // const ip = '192.168.1.12:80' // from Blake
 
-    const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
-    const ip = '192.168.0.7'; // only for testing by Alona
-    const tempUrl = `http://${ip}/${filename}`;
+    // const filename = 'farm_thxgvg_2017.mp4'; // only for testing by Alona
+    // const ip = '192.168.0.7'; // only for testing by Alona
+    const tempUrl = `http://localhost/12.mkv`;
 
     this.setState({
       url: tempUrl,

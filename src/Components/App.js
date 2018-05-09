@@ -138,18 +138,15 @@ class App extends Component {
           ip={ip}
         />
         <Route
-          exact
-          path="*index.html"
+          exact path="*index.html"
           render={() => <AllMovies movies={movies} />}
         />
         <Route
-          exact
-          path="/:id/"
+          exact path="/:id/"
           render={() => <SingleMovie movies={movies} />}
         />
         <Route
-          exact
-          path="/:id/player/"
+          exact path="/:id/player/"
           render={() => <Player movies={movies} />}
         />
       </div>
