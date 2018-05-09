@@ -20,7 +20,7 @@ class App extends Component {
       searchInput: '',
       isPlaying: false,
       filter: 'All',
-      sort: 'Title',
+      sort: 'dateAdded',
       currentMoviePosition: '',
       favorites: false,
       filteredOutput: [],
