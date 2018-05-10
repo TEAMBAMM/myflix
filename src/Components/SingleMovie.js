@@ -5,10 +5,12 @@ import { navTo } from './utils';
 const SingleMovie = props => {
   const { movies, history } = props;
   const imdbid = props.match.params.id;
-  const movie = movies.filter(movie => imdbid === movie.imdbid)[0]; // to be removed later when database is established
-  const fileName = movie.fileName
   const ip = (movie.ip) ? movie.ip : 'localhost'
-
+  const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
+  const actorsList = movie.actors.join(', ');
+  const genreList = movie.genres.join(', ')
+  const fileName = movie.fileName;
+  
   return (
     <div className="singlemovie-container">
       <div className="thumb">
@@ -17,7 +19,9 @@ const SingleMovie = props => {
           onClick={() => navTo(`/${imdbid}/player/`, history)}
         >
           <div>
-            <img src={`http://${ip}/${fileName}-poster.jpg`} className="thumbnail" />
+          
+          <img src={`http://${ip}/${fileName}-poster.jpg`} className="thumbnail" />
+
           </div>
           <div className="playWrapper">
             <span className="playBtn">
@@ -40,9 +44,9 @@ const SingleMovie = props => {
         <h3>Rating</h3>
         <p>{movie.rating}</p>
         <h3>Actors: </h3>
-        <p>{movie.actors}</p>
+        <p>{actorsList}</p>
         <h3>Genres: </h3>
-        <p>{movie.genres}</p>
+        <p>{genreList}</p>
         <h3>Release Date: </h3>
         <p>{movie.released.split('T')[0]}</p>
         <h3>Rated: </h3>
