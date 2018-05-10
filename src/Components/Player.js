@@ -11,21 +11,19 @@ class Player extends React.Component {
     super();
     this.state = {
       url: null,
-      playing: false,
+      playing: true,
       muted: true,
       volume: 0.5,
       played: 0,
       loaded: 0,
       duration: 0,
-      playbackRate: 1.0,
       controlsDisplay: ''
     };
     this.playPause = this.playPause.bind(this);
-    this.onPlay = this.onPlay.bind(this);
-    this.onPause = this.onPause.bind(this);
+    // this.onPlay = this.onPlay.bind(this);
+    // this.onPause = this.onPause.bind(this);
     this.onClickFullscreen = this.onClickFullscreen.bind(this);
     this.setVolume = this.setVolume.bind(this);
-    this.setPlaybackRate = this.setPlaybackRate.bind(this);
     this.onSeekMouseDown = this.onSeekMouseDown.bind(this);
     this.onSeekChange = this.onSeekChange.bind(this);
     this.onSeekMouseUp = this.onSeekMouseUp.bind(this);
@@ -33,12 +31,12 @@ class Player extends React.Component {
     this.toggleMuted = this.toggleMuted.bind(this);
     this.onDuration = this.onDuration.bind(this);
     this.ref = this.ref.bind(this);
-    this.onEnded = this.onEnded.bind(this);
+    // this.onEnded = this.onEnded.bind(this);
     this.forward = this.forward.bind(this);
     this.back = this.back.bind(this);
     this.increaseVolume = this.increaseVolume.bind(this);
     this.decreaseVolume = this.decreaseVolume.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
+    // this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
   }
 
@@ -64,26 +62,26 @@ class Player extends React.Component {
     });
   }
 
-  playPause() {
+  async playPause() {
     this.setState({
-      playing: !this.state.playing
+      playing: await !this.state.playing
     });
-    console.log(this.state.playing);
+    console.log(this.state.playing + ' testomatic');
   }
 
-  onPlay() {
-    console.log('onPlay');
-    this.setState({
-      playing: true
-    });
-  }
+  // onPlay() {
+  //   console.log('onPlay');
+  //   this.setState({
+  //     playing: true
+  //   });
+  // }
 
-  onPause() {
-    console.log('onPause');
-    this.setState({
-      playing: false
-    });
-  }
+  // onPause() {
+  //   console.log('onPause');
+  //   this.setState({
+  //     playing: false
+  //   });
+  // }
 
   onClickFullscreen() {
     screenfull.request(findDOMNode(this.player));
@@ -93,26 +91,22 @@ class Player extends React.Component {
     this.setState({ volume: parseFloat(e.target.value) });
   }
 
-  setPlaybackRate(e) {
-    this.setState({ playbackRate: parseFloat(e.target.value) });
-  }
-
-  forward() {
-    if (this.state.played + 0.1 <= 1 && this.state.playbackRate + 0.5 <= 2) {
+  async forward() {
+    if ((await this.state.played) + 0.1 <= 1) {
       this.setState({
-        played: this.state.played + 0.1,
-        setPlaybackRate: this.state.playbackRate + 0.5
+        played: (await this.state.played) + 0.1
       });
     }
+    this.player.seekTo(await this.state.played);
   }
 
-  back() {
-    if (this.state.played - 0.1 >= 0 && this.state.playbackRate - 0.5 >= 0) {
+  async back() {
+    if ((await this.state.played) - 0.1 >= 0) {
       this.setState({
-        played: this.state.played - 0.1,
-        setPlaybackRate: this.state.playbackRate - 0.5
+        played: (await this.state.played) - 0.1
       });
     }
+    this.player.seekTo(await this.state.played);
   }
 
   decreaseVolume() {
@@ -136,20 +130,23 @@ class Player extends React.Component {
   onSeekMouseDown(e) {
     this.setState({ seeking: true });
   }
+
   onSeekChange(e) {
     this.setState({ played: parseFloat(e.target.value) });
   }
+
   onSeekMouseUp(e) {
     this.setState({ seeking: false });
     this.player.seekTo(parseFloat(e.target.value));
   }
+
   onProgress(state) {
-    console.log('onProgress', state);
     // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
       this.setState(state);
     }
   }
+
   toggleMuted() {
     this.setState({ muted: !this.state.muted });
   }
@@ -159,22 +156,22 @@ class Player extends React.Component {
     this.setState({ duration });
   }
 
-  onEnded() {
-    console.log('onEnded');
-    this.setState({ playing: this.state.loop });
-  }
+  // onEnded() {
+  //   console.log('onEnded');
+  //   this.setState({ playing: this.state.loop });
+  // }
 
   ref(player) {
     this.player = player;
   }
 
-  onMouseOver() {
-    setTimeout(() => {
-      this.setState({
-        controlsDisplay: 'invisible'
-      });
-    }, 5000);
-  }
+  //   onMouseOver() {
+  //     setTimeout(() => {
+  //       this.setState({
+  //         controlsDisplay: 'invisible'
+  //       });
+  //     }, 5000);
+  //   }
 
   onMouseMove() {
     this.setState({
