@@ -39,6 +39,7 @@ class App extends Component {
     this.selectMovie = this.selectMovie.bind(this)
     this.deselectMovie = this.deselectMovie.bind(this)
     this.updateSortedList = this.updateSortedList.bind(this)
+    this.mergeClientMovies = this.mergeClientMovies.bind(this)
   }
   
   async componentDidMount() {
@@ -71,10 +72,26 @@ class App extends Component {
         res = await axios.get('http://localhost/api/movies')
         const movies = res.data.movies
         castReceivers = (castReceivers.length < 1) ? [{ name: 'No receivers found!', host: '0.0.0.0' }] : castReceivers
-        this.setState({...this.state, clients, castReceivers, ip, movies });
+        if(this.state.clients.length > 0) this.mergeClientMovies()
+        else this.setState({...this.state, clients, castReceivers, ip, movies });
         if(this.state.movies.length !== this.state.movies.filteredOutput) this.updateSortedList()
       }, 5000);
     }
+  }
+
+  async mergeClientMovies() {
+    let res = await axios.get('http://localhost/api/movies')
+    let movieSet = new Set(res.data.movies)
+    const clients = this.state.clients
+    clients.forEach(client => {
+      res = axios.get(`http://${client}/api/movies`)
+      let clientMovies = res.data.movies
+      clientMovies.forEach(movie => {
+        movieSet.add({...movie, ip: client})
+      })
+    })
+    console.log('Merged movies: ', movieSet)
+    this.setState({...state, movies: movieSet})
   }
 
   async test() {
@@ -157,12 +174,13 @@ class App extends Component {
       selectedMovie,
       ip,
       isLoading,
+      clients
     } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites, test, selectMovie, deselectMovie } = this;
 
     return (
       <div>
-        <button onClick={() => test()}>TEST</button><span>Selected movie: {(selectedMovie.error) ? selectedMovie.error : selectedMovie.fileName}</span>
+        <button onClick={() => test()}>TEST</button><span>Connected Devices: {clients}</span>
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
