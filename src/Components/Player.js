@@ -99,20 +99,25 @@ class Player extends React.Component {
   }
 
   forward() {
-    this.setState({
-      playbackRate: this.state.playbackRate + 1
-    });
-    console.log('Playback rate', this.state.playbackRate);
+    if (this.state.played + 0.1 <= 1 && this.state.playbackRate + 0.5 <= 2) {
+      this.setState({
+        played: this.state.played + 0.1,
+        setPlaybackRate: this.state.playbackRate + 0.5
+      });
+    }
   }
 
   back() {
-    this.setState({
-      playbackRate: this.state.playbackRate - 1
-    });
+    if (this.state.played - 0.1 >= 0 && this.state.playbackRate - 0.5 >= 0) {
+      this.setState({
+        played: this.state.played - 0.1,
+        setPlaybackRate: this.state.playbackRate - 0.5
+      });
+    }
   }
 
   decreaseVolume() {
-    if (this.state.volume > 0) {
+    if (this.state.volume - 0.1 >= 0) {
       console.log('onDecreaseVolume');
       this.setState({
         volume: this.state.volume - 0.1
@@ -121,7 +126,7 @@ class Player extends React.Component {
   }
 
   increaseVolume() {
-    if (this.state.volume < 1) {
+    if (this.state.volume + 0.1 <= 1) {
       console.log('onIncreaseVolume');
       this.setState({
         volume: this.state.volume + 0.1

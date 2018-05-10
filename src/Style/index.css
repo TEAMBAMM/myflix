@@ -155,8 +155,9 @@
   opacity: 0; */
   color: white;
   font-size: 15px;
+  /*
   padding: 5px;
-  text-align: center;
+  text-align: center; */
 }
 
 /* .player-overlay:hover .controls-overlay {
@@ -167,12 +168,32 @@ progress {
   width: 100%;
 }
 
-.play-layer,
-.volume-layer {
+.play-layer {
   display: flex;
   justify-content: space-around;
 }
 
+.volume-layer {
+  display: flex;
+  justify-content: space-between;
+}
+
 .volcon {
   display: flex;
+  width: 40;
+}
+
+.volcon img {
+  margin: 0.15rem;
+}
+
+.muted {
+  justify-self: flex-end;
+  margin-left: 0.75rem;
+}
+
+.seek {
+  display: flex;
+  justify-content: space-around;
+  width: 25%;
 }
