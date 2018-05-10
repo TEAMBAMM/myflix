@@ -46,9 +46,9 @@ class App extends Component {
     const movies = res.data.movies
     res = await axios.get('http://localhost/api/ip');
     const ip = res.data.ip
-    this.updateSortedList(movies)
+    await this.updateSortedList(movies)
     this.deviceScanner();
-    this.setState({ ...this.state, movies, ip })
+    this.setState({ ...this.state, movies, ip, isLoading: false })
   }
 
   deselectMovie() {
