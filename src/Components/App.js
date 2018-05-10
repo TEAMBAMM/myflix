@@ -8,6 +8,8 @@ import AllMovies from './AllMovies';
 import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
 import ip from 'ip';
+import { ClientResponse } from 'http';
+import { asyncForEach } from './utils'
 
 injectTapEventPlugin();
 
@@ -39,6 +41,7 @@ class App extends Component {
     this.selectMovie = this.selectMovie.bind(this)
     this.deselectMovie = this.deselectMovie.bind(this)
     this.updateSortedList = this.updateSortedList.bind(this)
+    this.mergeClientMovies = this.mergeClientMovies.bind(this)
   }
   
   async componentDidMount() {
@@ -71,10 +74,31 @@ class App extends Component {
         res = await axios.get('http://localhost/api/movies')
         const movies = res.data.movies
         castReceivers = (castReceivers.length < 1) ? [{ name: 'No receivers found!', host: '0.0.0.0' }] : castReceivers
-        this.setState({...this.state, clients, castReceivers, ip, movies });
+        if(this.state.clients.length > 0) this.mergeClientMovies()
+        else this.setState({...this.state, clients, castReceivers, ip, movies });
         if(this.state.movies.length !== this.state.movies.filteredOutput) this.updateSortedList()
       }, 5000);
     }
+  }
+
+  async mergeClientMovies() {
+    const clients = this.state.clients
+    let moviesMap = new Map()
+    
+    let res = await axios.get(`http://localhost/api/movies`)
+    const localMovies = res.data.movies
+
+    await asyncForEach(clients, async client => {
+      res = await axios.get(`http://${client}/api/movies`)
+      await asyncForEach(res.data.movies, movie => {
+        moviesMap.set(movie.imdbid, {...movie, ip: client})
+      })
+    })
+    await asyncForEach(localMovies, movie => {
+      moviesMap.set(movie.imdbid, {...movie})
+    })
+    this.updateSortedList([...moviesMap.values()])    
+    this.setState({...this.state, movies: [...moviesMap.values()]})
   }
 
   async test() {
@@ -157,12 +181,13 @@ class App extends Component {
       selectedMovie,
       ip,
       isLoading,
+      clients
     } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites, test, selectMovie, deselectMovie } = this;
 
     return (
       <div>
-        <button onClick={() => test()}>TEST</button><span>Selected movie: {(selectedMovie.error) ? selectedMovie.error : selectedMovie.fileName}</span>
+        {/* <button onClick={() => test()}>TEST</button><span>Connected Devices: {clients}</span>  FOR DEBUGGING*/}
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}

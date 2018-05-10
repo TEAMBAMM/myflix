@@ -32,9 +32,10 @@ export default class Cast extends React.Component {
   async castToReceiver(event) {
     if(this.props.ip !== '') {
       const receiverIp = event.currentTarget.id
+      const ip = (this.props.selectedMovie.ip) ? this.props.selectedMovie.ip : this.props.ip
       this.setState({ open: false })
       const res = await axios.put(`http://localhost/api/cast`, { 
-        url: `http://${this.props.ip}/${this.props.selectedMovie.baseFileName}`, 
+        url: `http://${ip}/${this.props.selectedMovie.baseFileName}`, 
         name: this.props.selectedMovie.fileName})
       console.log(res.data)
     } else {
