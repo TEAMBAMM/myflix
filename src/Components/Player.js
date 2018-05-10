@@ -17,7 +17,8 @@ class Player extends React.Component {
       played: 0,
       loaded: 0,
       duration: 0,
-      playbackRate: 1.0
+      playbackRate: 1.0,
+      controlsDisplay: ''
     };
     this.playPause = this.playPause.bind(this);
     this.onPlay = this.onPlay.bind(this);
@@ -37,6 +38,8 @@ class Player extends React.Component {
     this.back = this.back.bind(this);
     this.increaseVolume = this.increaseVolume.bind(this);
     this.decreaseVolume = this.decreaseVolume.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
   }
 
   componentDidMount() {
@@ -95,28 +98,39 @@ class Player extends React.Component {
   }
 
   forward() {
-    this.setState({
-      playbackRate: this.state.playbackRate + 1
-    });
-    console.log('Playback rate', this.state.playbackRate);
+    if (this.state.played + 0.1 <= 1 && this.state.playbackRate + 0.5 <= 2) {
+      this.setState({
+        played: this.state.played + 0.1,
+        setPlaybackRate: this.state.playbackRate + 0.5
+      });
+    }
   }
 
   back() {
-    this.setState({
-      playbackRate: this.state.playbackRate - 1
-    });
+    if (this.state.played - 0.1 >= 0 && this.state.playbackRate - 0.5 >= 0) {
+      this.setState({
+        played: this.state.played - 0.1,
+        setPlaybackRate: this.state.playbackRate - 0.5
+      });
+    }
   }
 
   decreaseVolume() {
-    this.setState({
-      volume: this.state.volume - 0.1
-    });
+    if (this.state.volume - 0.1 >= 0) {
+      console.log('onDecreaseVolume');
+      this.setState({
+        volume: this.state.volume - 0.1
+      });
+    }
   }
 
   increaseVolume() {
-    this.setState({
-      volume: this.state.volume + 0.1
-    });
+    if (this.state.volume + 0.1 <= 1) {
+      console.log('onIncreaseVolume');
+      this.setState({
+        volume: this.state.volume + 0.1
+      });
+    }
   }
 
   onSeekMouseDown(e) {
@@ -154,6 +168,20 @@ class Player extends React.Component {
     this.player = player;
   }
 
+  onMouseOver() {
+    setTimeout(() => {
+      this.setState({
+        controlsDisplay: 'invisible'
+      });
+    }, 5000);
+  }
+
+  onMouseMove() {
+    this.setState({
+      controlsDisplay: 'visible'
+    });
+  }
+
   render() {
     const {
       url,
@@ -167,12 +195,16 @@ class Player extends React.Component {
     } = this.state;
 
     return (
-      <div className="player-container">
+      <div
+        className="player-container"
+        onMouseOver={this.onMouseOver}
+        onMouseMove={this.onMouseMove}
+      >
         <div className="player-overlay">
           <ReactPlayer
             ref={this.ref}
             className="react-player"
-            width="100%" // cannot be put on css, must be in here, I found
+            width="100%"
             height="100%"
             url={url}
             playing={playing}
@@ -191,7 +223,7 @@ class Player extends React.Component {
             onProgress={this.onProgress}
             onDuration={this.onDuration}
           />
-          <div className="controls-overlay">
+          <div className={`controls-overlay ${this.state.controlsDisplay}`}>
             <VideoControls
               playPause={this.playPause}
               onClickFullscreen={this.onClickFullscreen}
