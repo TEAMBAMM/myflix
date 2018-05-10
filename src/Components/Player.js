@@ -58,8 +58,8 @@ class Player extends React.Component {
     const baseFileName = movie.baseFileName;
 
     this.setState({
-      // url: `http://${ip}/${baseFileName}`,
-      url: 'http://localhost/farm_thxgvg_2017.mp4',
+      url: `http://${ip}/${baseFileName}`,
+//       url: 'http://localhost/farm_thxgvg_2017.mp4',
       playing: true,
       muted: false
     });
