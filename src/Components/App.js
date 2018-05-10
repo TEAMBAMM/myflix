@@ -9,6 +9,7 @@ import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
 import ip from 'ip';
 import { ClientResponse } from 'http';
+import { asyncForEach } from './utils'
 
 injectTapEventPlugin();
 
@@ -83,23 +84,20 @@ class App extends Component {
   async mergeClientMovies() {
     const clients = this.state.clients
     let moviesMap = new Map()
-    let allMovies = []
-
-    clients.forEach(async client => {
-      let res = await axios.get(`http://${client}/api/movies`)
-      
-    })
     
-    console.log(allMovies)
+    let res = await axios.get(`http://localhost/api/movies`)
+    const localMovies = res.data.movies
 
-    // console.log([...moviesMap.values()]) //nothing here
-    // let res = await axios.get('http://localhost/api/movies')
-    // res.data.movies.forEach(movie => {
-    //   moviesMap.set(movie.imdbid, movie)
-    // })
-
-    // console.log([...moviesMap.values()])
-    // this.setState({...this.state, movies: [...moviesMap.values()]})
+    await asyncForEach(clients, async client => {
+      res = await axios.get(`http://${client}/api/movies`)
+      await asyncForEach(res.data.movies, movie => {
+        moviesMap.set(movie.imdbid, {...movie, ip: client})
+      })
+    })
+    await asyncForEach(localMovies, movie => {
+      moviesMap.set(movie.imdbid, {...movie})
+    })    
+    this.setState({...this.state, movies: [...moviesMap.values()]})
   }
 
   async test() {

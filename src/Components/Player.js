@@ -29,7 +29,7 @@ class Player extends React.Component {
     this.onSeekMouseDown = this.onSeekMouseDown.bind(this);
     this.onSeekChange = this.onSeekChange.bind(this);
     this.onSeekMouseUp = this.onSeekMouseUp.bind(this);
-    this.onProgress = this.onProgress.bind(this);
+    // this.onProgress = this.onProgress.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
     this.onDuration = this.onDuration.bind(this);
     this.ref = this.ref.bind(this);
@@ -143,13 +143,13 @@ class Player extends React.Component {
     this.setState({ seeking: false });
     this.player.seekTo(parseFloat(e.target.value));
   }
-  onProgress(state) {
-    console.log('onProgress', state);
-    // We only want to update time slider if we are not currently seeking
-    if (!this.state.seeking) {
-      this.setState(state);
-    }
-  }
+  // onProgress(state) {
+  //   console.log('onProgress', state);
+  //   // We only want to update time slider if we are not currently seeking
+  //   if (!this.state.seeking) {
+  //     this.setState(state);
+  //   }
+  // }
   toggleMuted() {
     this.setState({ muted: !this.state.muted });
   }
