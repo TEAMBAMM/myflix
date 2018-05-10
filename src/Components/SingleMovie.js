@@ -19,9 +19,7 @@ const SingleMovie = props => {
           onClick={() => navTo(`/${imdbid}/player/`, history)}
         >
           <div>
-          
-          <img src={`http://${ip}/${fileName}-poster.jpg`} className="thumbnail" />
-
+            <img src={`http://${ip}/${fileName}-poster.jpg`} className="thumbnail" />
           </div>
           <div className="playWrapper">
             <span className="playBtn">
