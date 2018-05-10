@@ -52,7 +52,7 @@ class Player extends React.Component {
 
     // Right now ip is just of your local machine - need to figure out
     // how to pass correct ip if file is on another machine
-    const ip = this.props.ip;
+    const ip = (movie.ip) ? movie.ip : 'localhost'
 
     // 'Den of Thieves.mkv'
     const baseFileName = movie.baseFileName;

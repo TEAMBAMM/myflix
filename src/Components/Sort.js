@@ -49,7 +49,7 @@ export default class Sort extends React.Component {
             <MenuItem primaryText="Title" value="Title" />
             <MenuItem primaryText="Rating" value="Rating" />
             <MenuItem primaryText="Year" value="Year" />
-            <MenuItem primaryText="Resolution" value="Resolution" />
+            {/* <MenuItem primaryText="Resolution" value="Resolution" /> */}
           </Menu>
         </Popover>
       </div>

@@ -96,7 +96,8 @@ class App extends Component {
     })
     await asyncForEach(localMovies, movie => {
       moviesMap.set(movie.imdbid, {...movie})
-    })    
+    })
+    this.updateSortedList([...moviesMap.values()])    
     this.setState({...this.state, movies: [...moviesMap.values()]})
   }
 
@@ -186,7 +187,7 @@ class App extends Component {
 
     return (
       <div>
-        <button onClick={() => test()}>TEST</button><span>Connected Devices: {clients}</span>
+        {/* <button onClick={() => test()}>TEST</button><span>Connected Devices: {clients}</span>  FOR DEBUGGING*/}
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
