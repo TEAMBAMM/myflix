@@ -20,8 +20,6 @@ class Player extends React.Component {
       controlsDisplay: ''
     };
     this.playPause = this.playPause.bind(this);
-    // this.onPlay = this.onPlay.bind(this);
-    // this.onPause = this.onPause.bind(this);
     this.onClickFullscreen = this.onClickFullscreen.bind(this);
     this.setVolume = this.setVolume.bind(this);
     this.onSeekMouseDown = this.onSeekMouseDown.bind(this);
@@ -31,12 +29,10 @@ class Player extends React.Component {
     this.toggleMuted = this.toggleMuted.bind(this);
     this.onDuration = this.onDuration.bind(this);
     this.ref = this.ref.bind(this);
-    // this.onEnded = this.onEnded.bind(this);
     this.forward = this.forward.bind(this);
     this.back = this.back.bind(this);
     this.increaseVolume = this.increaseVolume.bind(this);
     this.decreaseVolume = this.decreaseVolume.bind(this);
-    // this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
   }
 
@@ -66,22 +62,7 @@ class Player extends React.Component {
     this.setState({
       playing: await !this.state.playing
     });
-    console.log(this.state.playing + ' testomatic');
   }
-
-  // onPlay() {
-  //   console.log('onPlay');
-  //   this.setState({
-  //     playing: true
-  //   });
-  // }
-
-  // onPause() {
-  //   console.log('onPause');
-  //   this.setState({
-  //     playing: false
-  //   });
-  // }
 
   onClickFullscreen() {
     screenfull.request(findDOMNode(this.player));
@@ -111,7 +92,6 @@ class Player extends React.Component {
 
   decreaseVolume() {
     if (this.state.volume - 0.1 >= 0) {
-      console.log('onDecreaseVolume');
       this.setState({
         volume: this.state.volume - 0.1
       });
@@ -120,7 +100,6 @@ class Player extends React.Component {
 
   increaseVolume() {
     if (this.state.volume + 0.1 <= 1) {
-      console.log('onIncreaseVolume');
       this.setState({
         volume: this.state.volume + 0.1
       });
@@ -152,26 +131,12 @@ class Player extends React.Component {
   }
 
   onDuration(duration) {
-    console.log('onDuration', duration);
     this.setState({ duration });
   }
-
-  // onEnded() {
-  //   console.log('onEnded');
-  //   this.setState({ playing: this.state.loop });
-  // }
 
   ref(player) {
     this.player = player;
   }
-
-  //   onMouseOver() {
-  //     setTimeout(() => {
-  //       this.setState({
-  //         controlsDisplay: 'invisible'
-  //       });
-  //     }, 5000);
-  //   }
 
   onMouseMove() {
     this.setState({
