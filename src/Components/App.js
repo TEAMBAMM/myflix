@@ -19,8 +19,8 @@ class App extends Component {
       selectedMovie: { error: 'Please select a movie!'},
       searchInput: '',
       isPlaying: false,
-      filter: 'Recently Added',
-      sort: 'dateAdded',
+      filter: 'All',
+      sort: 'Recently Added',
       currentMoviePosition: '',
       favorites: false,
       filteredOutput: [],
@@ -46,8 +46,8 @@ class App extends Component {
     res = await axios.get('http://localhost/api/ip');
     const ip = res.data.ip
     this.updateSortedList(movies)
-    this.setState({ ...this.state, movies, ip })
     this.deviceScanner();
+    this.setState({ ...this.state, movies, ip })
   }
 
   deselectMovie() {
@@ -71,6 +71,7 @@ class App extends Component {
         const movies = res.data.movies
         castReceivers = (castReceivers.length < 1) ? [{ name: 'No receivers found!', host: '0.0.0.0' }] : castReceivers
         this.setState({...this.state, clients, castReceivers, ip, movies });
+        if(this.state.movies.length !== this.state.movies.filteredOutput) this.updateSortedList()
       }, 5000);
     }
   }
@@ -116,29 +117,29 @@ class App extends Component {
       filteredOutput = moviesList;
     }
     switch (sortTerm) {
-      case 'Recently Added': // will update later
-        break;
-      case 'Title':
-        filteredOutput.sort((movieA, movieB) => {
-          const movieAL = movieA.title.toLowerCase();
-          const movieBL = movieB.title.toLowerCase();
-          if (movieAL < movieBL) return -1;
-          if (movieAL > movieBL) return 1;
-          return 0;
-        });
-        break;
-      case 'Rating':
-        filteredOutput.sort((movieA, movieB) => {
-          return movieB.rating - movieA.rating;
-        });
-        break;
-      case 'Year':
-        filteredOutput.sort((movieA, movieB) => {
-          return movieB.year - movieA.year;
-        });
-        break;
-      case 'Resolution': // will update later
-        break;
+    case 'Recently Added': // will update later
+      break;
+    case 'Title':
+      filteredOutput.sort((movieA, movieB) => {
+        const movieAL = movieA.title.toLowerCase();
+        const movieBL = movieB.title.toLowerCase();
+        if (movieAL < movieBL) return -1;
+        if (movieAL > movieBL) return 1;
+        return 0;
+      });
+      break;
+    case 'Rating':
+      filteredOutput.sort((movieA, movieB) => {
+        return movieB.rating - movieA.rating;
+      });
+      break;
+    case 'Year':
+      filteredOutput.sort((movieA, movieB) => {
+        return movieB.year - movieA.year;
+      });
+      break;
+    case 'Resolution': // will update later
+      break;
     }
     this.setState({ ...this.state, filteredOutput: filteredOutput });
   }
