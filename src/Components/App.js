@@ -27,6 +27,7 @@ class App extends Component {
       scanning: false,
       clients: [],
       ip: '',
+      isLoading: true,
       castReceivers: [{ name: 'No receivers found!', host: '0.0.0.0' }]
     };
     this.onChange = this.onChange.bind(this);
@@ -154,7 +155,8 @@ class App extends Component {
       filteredOutput,
       castReceivers,
       selectedMovie,
-      ip
+      ip,
+      isLoading,
     } = this.state;
     const { onChange, changeFilter, changeSort, toggleFavorites, test, selectMovie, deselectMovie } = this;
 
@@ -178,7 +180,7 @@ class App extends Component {
         />
         <Route
           exact path="*index.html"
-          render={() => <AllMovies movies={filteredOutput} selectMovie={selectMovie} />}
+          render={() => <AllMovies movies={filteredOutput} selectMovie={selectMovie} isLoading={isLoading}/>}
         />
         <Route
           exact path="/:id/"
