@@ -81,17 +81,24 @@ class App extends Component {
 
   async mergeClientMovies() {
     let res = await axios.get('http://localhost/api/movies')
-    let movieSet = new Set(res.data.movies)
-    const clients = this.state.clients
-    clients.forEach(client => {
-      res = axios.get(`http://${client}/api/movies`)
-      let clientMovies = res.data.movies
-      clientMovies.forEach(movie => {
-        movieSet.add({...movie, ip: client})
-      })
+    let movieMap = new Map()
+    res.data.movies.forEach(movie => {
+      movieMap.set(movie.imdbid, movie)
     })
-    console.log('Merged movies: ', movieSet)
-    this.setState({...state, movies: movieSet})
+    console.log(movieMap)
+    // const clients = this.state.clients
+    // clients.forEach(async client => {
+    //   res = await axios.get(`http://${client}/api/movies`)
+    //   let clientMovies = res.data.movies
+    //   clientMovies.forEach(movie => {
+    //     console.log(movieMap.has(movie.imdbid))
+    //     if(movieMap.has(movie.imdbid) === false) {
+    //       movieMap.set(movie.imdbid, {...movie, ip: client})
+    //     }
+    //   })
+    // })
+    // console.log('Merged movies: ', [...movieMap.values()])
+    // this.setState({...this.state, movies: [...movieMap.values()]})
   }
 
   async test() {
