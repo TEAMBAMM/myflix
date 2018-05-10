@@ -17,7 +17,8 @@ const VideoControls = ({
   forward,
   back,
   increaseVolume,
-  decreaseVolume
+  decreaseVolume,
+  onSeekMouseUpControl
 }) => {
   return (
     <div className="controls">
@@ -59,9 +60,9 @@ const VideoControls = ({
       <div className="volume-layer">
         <div className="volcon">
           <img
-            src="http://localhost/low_volume.png"
-            width="25"
-            height="25"
+            src="http://localhost/low-volume.png"
+            width="20"
+            height="20"
             alt=""
             onClick={decreaseVolume}
           />
@@ -74,45 +75,44 @@ const VideoControls = ({
             onChange={setVolume}
           />
           <img
-            src="http://localhost/hi_volume.png"
-            width="25"
-            height="25"
+            src="http://localhost/high-volume-outline.png"
+            width="20"
+            height="20"
             alt=""
             onClick={increaseVolume}
           />
           <div className="muted" onClick={toggleMuted}>
             {
               <img
-                src="http://localhost/mute.png"
-                width="30"
-                height="30"
+                src="http://localhost/mute-volume.png"
+                width="20"
+                height="20"
                 alt=""
               />
             }
           </div>
         </div>
-
-        <input
-          className="seekbar"
-          type="range"
-          min={0}
-          max={1}
-          step="any"
-          defaultValue={played}
-          onMouseDown={onSeekMouseDown}
-          onChange={onSeekChange}
-          onMouseUp={onSeekMouseUp}
-        />
-        <div onClick={onClickFullscreen}>
-          {
-            <img
-              src="http://localhost/fullscreen.png"
-              width="25"
-              height="25"
-              alt=""
-            />
-          }
+        <div className="seek">
+          <p>Seek</p>
+          <input
+            className="seekbar"
+            type="range"
+            min={0}
+            max={1}
+            step="any"
+            defaultValue={played}
+            onMouseDown={onSeekMouseDown}
+            onChange={onSeekChange}
+            onMouseUp={onSeekMouseUp}
+          />
         </div>
+        <img
+          src="http://localhost/fullscreen.png"
+          width="25"
+          height="25"
+          alt=""
+          onClick={onClickFullscreen}
+        />
       </div>
     </div>
   );
