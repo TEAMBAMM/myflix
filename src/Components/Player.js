@@ -59,7 +59,6 @@ class Player extends React.Component {
 
     this.setState({
       url: `http://${ip}/${baseFileName}`,
-//       url: 'http://localhost/farm_thxgvg_2017.mp4',
       playing: true,
       muted: false
     });
