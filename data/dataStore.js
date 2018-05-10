@@ -1,5 +1,6 @@
 const Datastore = require('nedb');
 const path = require('path');
+const fs = require('fs');
 const imdb = require('imdb-api');
 const download = require('image-downloader');
 console.log('DATA DIR', __dirname);
@@ -8,7 +9,7 @@ const db = new Datastore({
   autoload: true
 });
 
-function promisiedCount() {
+function promisifiedCount() {
   return new Promise((resolve, reject) => {
     db.count({}, (err, count) => {
       err ? reject(err) : resolve(count);
@@ -16,15 +17,15 @@ function promisiedCount() {
   });
 }
 
-function promisiedRemove(query, options) {
+function promisifiedRemove(query, options) {
   return new Promise((resolve, reject) => {
-    db.remove(query, (err, docs) => {
+    db.remove(query, options, (err, docs) => {
       err ? reject(err) : resolve(docs);
     });
   });
 }
 
-function promisiedFind(query, options) {
+function promisifiedFind(query, options) {
   return new Promise((resolve, reject) => {
     db.find(query, (err, docs) => {
       err ? reject(err) : resolve(docs);
@@ -32,7 +33,7 @@ function promisiedFind(query, options) {
   });
 }
 
-function promisiedFindOne(query, options) {
+function promisifiedFindOne(query, options) {
   return new Promise((resolve, reject) => {
     db.findOne(query, (err, doc) => {
       err ? reject(err) : resolve(doc);
@@ -44,7 +45,7 @@ async function insertMovie(movieFilePath) {
   const { name } = path.parse(movieFilePath);
   // TODO What if a duplicate is added while app is closed?
   // Double checking for duplicates
-  const doc = await promisiedFindOne({ title: name });
+  const doc = await promisifiedFindOne({ title: name });
   if (doc === null) {
     //Retrieve data from imdb
     const imdbData = await imdb.get(name, { apiKey: 'ed483961' });
@@ -61,6 +62,7 @@ async function insertMovie(movieFilePath) {
     const data = {
       title: imdbData.title,
       year: imdbData.year,
+      filePath: movieFilePath,
       imdbid: imdbData.imdbid,
       plot: imdbData.plot,
       rating: null,
@@ -82,21 +84,58 @@ async function insertMovie(movieFilePath) {
 }
 
 async function removeMovie(movieFilePath) {
-  const { name } = path.parse(filePath);
+  const { name } = path.parse(movieFilePath);
   // Remove movie image from poster folder
   await fs.unlink(
     path.join(__dirname, '../data/moviePosters', `${name}-poster.jpg`),
     err => {
-      if (err) console.error(err);
+      err
+        ? console.error('Failed to delete movie poster, does not exist')
+        : console.log('Image successfully deleted');
     }
   );
   // Remove movie from database
-  await promisiedRemove({ filePath }, { multi: true });
-  
+  return promisifiedRemove({ title: name }, { multi: true });
+}
+
+async function onReadySync(watched) {
+  // Extract just our movies file array
+  watched = watched[path.join(__dirname, '../movies')];
+  // Remove ext name, leaving an array of movie title
+  // currently in the directory
+  let watching = watched.map(movieName => path.parse(movieName)['name']);
+  // Get count of entries in the datastore
+  let dbEntryCount = await promisifiedCount();
+  console.log(dbEntryCount)
+  console.log(watching.length)
+  // If less, movie(s) were added while the application was closed
+  if (dbEntryCount < watching.length) {
+    await (async function watchingLoop() {
+      for (let i = 0; i < watching.length; i++) {
+        let movieFilePath = watched[i]
+        await insertMovie(movieFilePath);
+      }
+    })();
+  } else if (dbEntryCount > watching.length) {
+    // // If there are more entries in the database then in the file,
+    // // delete the database entries
+    let dbEntries = await promisifiedFind({});
+    await (async function dbEntriesLoop() {
+      for (let i = 0; i < dbEntries.length; i++) {
+        let entryFileName = dbEntries[i]['fileName'];
+        let entryFilePath = dbEntries[i]['filePath'];
+        if (!watching.includes(entryFileName)) {
+          // If it is not being watched, it is removed from the database
+          await removeMovie(entryFilePath);
+        }
+      }
+    })();
+  }
 }
 
 module.exports = {
   db,
   insertMovie,
-  removeMovie
+  removeMovie,
+  onReadySync
 };
