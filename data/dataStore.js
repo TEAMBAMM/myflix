@@ -89,9 +89,7 @@ async function removeMovie(movieFilePath) {
   await fs.unlink(
     path.join(__dirname, '../data/moviePosters', `${name}-poster.jpg`),
     err => {
-      err
-        ? console.error('Failed to delete movie poster, does not exist')
-        : console.log('Image successfully deleted');
+      if (err) console.error('Failed to delete movie poster, does not exist')
     }
   );
   // Remove movie from database
@@ -106,8 +104,6 @@ async function onReadySync(watched) {
   let watching = watched.map(movieName => path.parse(movieName)['name']);
   // Get count of entries in the datastore
   let dbEntryCount = await promisifiedCount();
-  console.log(dbEntryCount)
-  console.log(watching.length)
   // If less, movie(s) were added while the application was closed
   if (dbEntryCount < watching.length) {
     await (async function watchingLoop() {

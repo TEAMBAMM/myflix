@@ -18,14 +18,11 @@ const fileWatcher = chokidar.watch(
 
 db.persistence.setAutocompactionInterval(10000);
 
-fileWatcher.on('add', async filePath => await insertMovie(filePath));
-
-fileWatcher.on('unlink', filePath => removeMovie(filePath));
-
-fileWatcher.on('error', error => console.log(`FILEWATCHER ERROR: ${error}`));
-
-fileWatcher.on('ready', () => {
+fileWatcher.on('ready', async () => {
   // Retrieve files being watched
   let watched = fileWatcher.getWatched();
-  onReadySync(watched)
+  await onReadySync(watched)
+  fileWatcher.on('add', filePath => insertMovie(filePath));
+  fileWatcher.on('unlink', filePath => removeMovie(filePath));
+  fileWatcher.on('error', error => console.log(`FILEWATCHER ERROR: ${error}`));
 });
