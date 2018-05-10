@@ -8,6 +8,7 @@ import AllMovies from './AllMovies';
 import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
 import ip from 'ip';
+import { ClientResponse } from 'http';
 
 injectTapEventPlugin();
 
@@ -80,25 +81,25 @@ class App extends Component {
   }
 
   async mergeClientMovies() {
-    let res = await axios.get('http://localhost/api/movies')
-    let movieMap = new Map()
-    res.data.movies.forEach(movie => {
-      movieMap.set(movie.imdbid, movie)
+    const clients = this.state.clients
+    let moviesMap = new Map()
+    let allMovies = []
+
+    clients.forEach(async client => {
+      let res = await axios.get(`http://${client}/api/movies`)
+      
     })
-    console.log(movieMap)
-    // const clients = this.state.clients
-    // clients.forEach(async client => {
-    //   res = await axios.get(`http://${client}/api/movies`)
-    //   let clientMovies = res.data.movies
-    //   clientMovies.forEach(movie => {
-    //     console.log(movieMap.has(movie.imdbid))
-    //     if(movieMap.has(movie.imdbid) === false) {
-    //       movieMap.set(movie.imdbid, {...movie, ip: client})
-    //     }
-    //   })
+    
+    console.log(allMovies)
+
+    // console.log([...moviesMap.values()]) //nothing here
+    // let res = await axios.get('http://localhost/api/movies')
+    // res.data.movies.forEach(movie => {
+    //   moviesMap.set(movie.imdbid, movie)
     // })
-    // console.log('Merged movies: ', [...movieMap.values()])
-    // this.setState({...this.state, movies: [...movieMap.values()]})
+
+    // console.log([...moviesMap.values()])
+    // this.setState({...this.state, movies: [...moviesMap.values()]})
   }
 
   async test() {
