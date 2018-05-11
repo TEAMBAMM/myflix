@@ -1,27 +1,30 @@
 import React from 'react';
 import { precisionRound } from './utils'
+import forward from '../images/forward.svg'
 
-const VideoControls = ({
-  playPause,
-  onClickFullscreen,
-  onSeekMouseDown,
-  onSeekChange,
-  onSeekMouseUp,
-  volume,
-  muted,
-  toggleMuted,
-  played,
-  setVolume,
-  playing,
-  forward,
-  back,
-  increaseVolume,
-  decreaseVolume,
-  ip,
-  duration
-}) => {
+const VideoControls = (props) => {
+  const {
+    playPause,
+    onClickFullscreen,
+    onSeekMouseDown,
+    onSeekChange,
+    onSeekMouseUp,
+    volume,
+    muted,
+    toggleMuted,
+    played,
+    setVolume,
+    playing,
+    forward,
+    back,
+    increaseVolume,
+    decreaseVolume,
+    ip,
+    duration
+  } = props
   const ip_ = ip ? ip : 'localhost';
   const elapsed = precisionRound(((duration * played) / duration) * 100, 2)
+  console.log(props)
   return (
     <div className="controls controls-overlay">
       <div className="progress-bar">
@@ -63,7 +66,8 @@ const VideoControls = ({
         </div>
         <div className="forward" onClick={forward}>
           <img
-            src={`http://${ip_}/forward.png`}
+            // src={`http://${ip_}/baseline-fast-forward-24px.svg`}
+            src={forward}
             width="30"
             height="30"
             alt=""
