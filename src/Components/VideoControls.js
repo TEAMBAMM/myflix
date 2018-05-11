@@ -1,26 +1,38 @@
 import React from 'react';
 import { precisionRound } from './utils'
+import AvFastForward from 'material-ui/svg-icons/av/fast-forward'
+import AvFastRewind from 'material-ui/svg-icons/av/fast-rewind'
+import AvPause from 'material-ui/svg-icons/av/pause'
+import AvPlayArrow from 'material-ui/svg-icons/av/play-arrow'
+import NavigationFullscreen from 'material-ui/svg-icons/navigation/fullscreen'
+import AvVolumeUp from 'material-ui/svg-icons/av/volume-up'
+import AvVolumeDown from 'material-ui/svg-icons/av/volume-down'
+import AvVolumeMute from 'material-ui/svg-icons/av/volume-mute'
 
-const VideoControls = ({
-  playPause,
-  onClickFullscreen,
-  onSeekMouseDown,
-  onSeekChange,
-  onSeekMouseUp,
-  volume,
-  muted,
-  toggleMuted,
-  played,
-  setVolume,
-  playing,
-  forward,
-  back,
-  increaseVolume,
-  decreaseVolume,
-  ip,
-  duration
-}) => {
+
+const VideoControls = (props) => {
+  const {
+    playPause,
+    onClickFullscreen,
+    onSeekMouseDown,
+    onSeekChange,
+    onSeekMouseUp,
+    volume,
+    muted,
+    toggleMuted,
+    played,
+    setVolume,
+    playing,
+    forward,
+    back,
+    increaseVolume,
+    decreaseVolume,
+    ip,
+    duration
+  } = props
   const ip_ = ip ? ip : 'localhost';
+  const elapsed = precisionRound(((duration * played) / duration) * 100, 2)
+  const width = 20, height = 20;
   return (
     <div className="controls controls-overlay">
       <div className="progress-bar">
@@ -35,59 +47,25 @@ const VideoControls = ({
           onChange={onSeekChange}
           onMouseUp={onSeekMouseUp}
         />
-        <span>{precisionRound(duration * played, 2)}</span>
+        <span>{String(elapsed)}</span>
       </div>
       <div className="play-layer">
-        <div className="back" onClick={back}>
-          <img src={`http://${ip_}/back.png`} width="30" height="30" alt="" />
-        </div>
+        <AvFastRewind style={{ width, height }} color="white" onClick={back} />
         <div className="center">
           <div className="playPauseBtn" onClick={playPause}>
             {playing ? (
-              <img
-                src={`http://${ip_}/pause.png`}
-                width="30"
-                height="30"
-                alt=""
-              />
+              <AvPause style={{ width, height }} color="white" />
             ) : (
-                <img
-                  src={`http://${ip_}/play.png`}
-                  width="30"
-                  height="30"
-                  alt=""
-                />
+                <AvPlayArrow style={{ width, height }} color="white" />
               )}
           </div>
         </div>
-        <div className="forward" onClick={forward}>
-          <img
-            src={`http://${ip_}/forward.png`}
-            width="30"
-            height="30"
-            alt=""
-          />
-        </div>
+        <AvFastForward style={{ width, height }} color="white" onClick={forward} />
       </div>
       <div className="volume-layer">
-        <div className="muted" onClick={toggleMuted}>
-          {
-            <img
-              src={`http://${ip_}/mute-volume.png`}
-              width="20"
-              height="20"
-              alt=""
-            />
-          }
-        </div>
+        <AvVolumeMute style={{ width, height }} color="white" onClick={toggleMuted} />
         <div className="trio">
-          <img
-            src={`http://${ip_}/low-volume.png`}
-            width="20"
-            height="20"
-            alt=""
-            onClick={decreaseVolume}
-          />
+          <AvVolumeDown style={{ width, height }} color="white" onClick={decreaseVolume} />
           <input
             type="range"
             min={0}
@@ -96,24 +74,9 @@ const VideoControls = ({
             value={volume}
             onChange={setVolume}
           />
-          <img
-            src={`http://${ip_}/high-volume-outline.png`}
-            width="20"
-            height="20"
-            alt=""
-            onClick={increaseVolume}
-          />
+          <AvVolumeUp style={{ width, height }} color="white" onClick={increaseVolume} />
         </div>
-
-        <div className="fullscreen">
-          <img
-            src={`http://${ip_}/fullscreen.png`}
-            width="25"
-            height="25"
-            alt=""
-            onClick={onClickFullscreen}
-          />
-        </div>
+        <NavigationFullscreen style={{ width, height }} color="white" onClick={onClickFullscreen} />
       </div>
     </div>
   );
