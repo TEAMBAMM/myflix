@@ -1,13 +1,8 @@
-const Datastore = require('nedb');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 const imdb = require('imdb-api');
 const download = require('image-downloader');
-console.log('DATA DIR', __dirname);
-const db = new Datastore({
-  filename: path.join(__dirname, '/databaseStorage'),
-  autoload: true
-});
+const { db } = require('./index');
 
 function promisifiedCount() {
   return new Promise((resolve, reject) => {
@@ -53,7 +48,7 @@ async function insertMovie(movieFilePath) {
     try {
       download.image({
         url: imdbData.poster,
-        dest: `data/moviePosters/${imdbData.title}-poster.jpg`
+        dest: path.join(__dirname, `./moviePosters/${imdbData.title}-poster.jpg`)
       });
     } catch (e) {
       console.log('Image Not Loaded');
@@ -130,7 +125,6 @@ async function onReadySync(watched) {
 }
 
 module.exports = {
-  db,
   insertMovie,
   removeMovie,
   onReadySync

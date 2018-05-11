@@ -7,7 +7,7 @@ const { listClients, startTimer, myIp } = require('./findservers.js');
 const { listReceivers } = require('../cast')
 const { playMovie } = require('../cast')
 const ip = require('ip')
-const { db } = require('../data/dataStore')
+const { db } = require('../data/index')
 const PORT = 80
 
 app.use(bodyParser.json())
