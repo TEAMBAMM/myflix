@@ -37,7 +37,6 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     const { movies, match } = this.props;
     const movie = movies.filter(movie => match.params.id === movie.imdbid)[0];
     const fileName = movie.fileName;
@@ -127,7 +126,6 @@ class Player extends React.Component {
   }
 
   onDuration(duration) {
-    console.log('onDuration', duration);
     this.setState({ duration });
   }
 
@@ -160,7 +158,6 @@ class Player extends React.Component {
             playing={playing}
             muted={muted}
             volume={volume}
-            onSeek={e => console.log('onSeek', e)}
             onError={e => console.log('onError', e)}
             onProgress={this.onProgress}
             onDuration={this.onDuration}
