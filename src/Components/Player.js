@@ -163,28 +163,29 @@ class Player extends React.Component {
             onError={e => console.log('onError', e)}
             onProgress={this.onProgress}
             onDuration={this.onDuration}
+            onClick={this.playPause}
           />
-          <div className={`controls-overlay`}>
-            <VideoControls
-              playPause={this.playPause}
-              onClickFullscreen={this.onClickFullscreen}
-              onSeekMouseDown={this.onSeekMouseDown}
-              onSeekChange={this.onSeekChange}
-              onSeekMouseUp={this.onSeekMouseUp}
-              volume={volume}
-              muted={muted}
-              toggleMuted={this.toggleMuted}
-              played={played}
-              playing={playing}
-              back={this.back}
-              forward={this.forward}
-              decreaseVolume={this.decreaseVolume}
-              increaseVolume={this.increaseVolume}
-              ip={ip}
-              duration={duration}
-              setVolume={this.setVolume}
-            />
-          </div>
+          {/* <div className={`controls-overlay`}> */}
+          <VideoControls
+            playPause={this.playPause}
+            onClickFullscreen={this.onClickFullscreen}
+            onSeekMouseDown={this.onSeekMouseDown}
+            onSeekChange={this.onSeekChange}
+            onSeekMouseUp={this.onSeekMouseUp}
+            volume={volume}
+            muted={muted}
+            toggleMuted={this.toggleMuted}
+            played={played}
+            playing={playing}
+            back={this.back}
+            forward={this.forward}
+            decreaseVolume={this.decreaseVolume}
+            increaseVolume={this.increaseVolume}
+            ip={ip}
+            duration={duration}
+            setVolume={this.setVolume}
+          />
+          {/* </div> */}
         </div>
       </div>
     );

@@ -22,7 +22,7 @@ const VideoControls = ({
 }) => {
   const ip_ = ip ? ip : 'localhost';
   return (
-    <div className="controls">
+    <div className="controls controls-overlay">
       <div className="progress-bar">
         <input
           className="seekbar"

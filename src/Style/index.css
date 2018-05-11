@@ -129,6 +129,7 @@
 
 .react-player {
   display: block;
+  background: rgb(0, 0, 0);
 }
 
 .controls {
@@ -154,12 +155,15 @@
 .player-overlay:hover .controls-overlay {
   opacity: 1;
 }
+
 .progress-bar {
   display: flex;
 }
+
 .progress-bar input {
   width: 90%;
 }
+
 .progress-bar span {
   justify-self: flex-end;
   margin-left: 5px;
