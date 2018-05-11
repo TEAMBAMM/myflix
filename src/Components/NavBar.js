@@ -53,7 +53,7 @@ const NavBar = props => {
         <Cast castReceivers={castReceivers} selectedMovie={selectedMovie} ip={ip} toggleCasting={toggleCasting} />
       </div>
       <div>
-        <ShowControls />
+        <ShowControls toggleCasting={toggleCasting}/>
       </div>
     </div>
   );

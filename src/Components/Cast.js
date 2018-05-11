@@ -34,7 +34,7 @@ export default class Cast extends React.Component {
     if(this.props.castReceivers[0].host !== '0.0.0.0' && this.props.ip !== '' && this.props.selectedMovie.title) {
       const receiverIp = event.currentTarget.id
       const ip = (this.props.selectedMovie.ip) ? this.props.selectedMovie.ip : this.props.ip
-      this.state.toggleCasting()
+      this.state.toggleCasting(true)
       this.setState({ open: false })
       const res = await axios.put(`http://localhost/api/cast`, { 
         url: `http://${ip}/${this.props.selectedMovie.baseFileName}`, 

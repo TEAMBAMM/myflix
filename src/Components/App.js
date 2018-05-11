@@ -56,8 +56,8 @@ class App extends Component {
     this.setState({ ...this.state, movies, ip, isLoading: false })
   }
 
-  toggleCasting() {
-    this.setState({...this.state, isCasting: !this.state.isCasting})
+  toggleCasting(isCasting) {
+    this.setState({...this.state, isCasting })
   }
 
   deselectMovie() {

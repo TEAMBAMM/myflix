@@ -9,9 +9,11 @@ import axios from 'axios'
 
 const CastControls = props => {
 
+  const { toggleCasting } = props
+
   const control = async (event) => {
     const command = event.currentTarget.id
-    console.log(command)
+    if(command === 'stop') toggleCasting(false)
     const res = await axios.put(`http://localhost/api/cast/${command}`)
   }
 
