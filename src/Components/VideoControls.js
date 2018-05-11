@@ -1,9 +1,9 @@
 import React from 'react';
+import { precisionRound } from './utils'
 
 const VideoControls = ({
   playPause,
   onClickFullscreen,
-  setPlaybackRate,
   onSeekMouseDown,
   onSeekChange,
   onSeekMouseUp,
@@ -11,46 +11,58 @@ const VideoControls = ({
   muted,
   toggleMuted,
   played,
-  loaded,
   setVolume,
   playing,
   forward,
   back,
   increaseVolume,
   decreaseVolume,
-  onSeekMouseUpControl
+  ip,
+  duration
 }) => {
+  const ip_ = ip ? ip : 'localhost';
   return (
-    <div className="controls">
+    <div className="controls controls-overlay">
       <div className="progress-bar">
-        <progress max={1} value={played} width="100%" />
+        <input
+          className="seekbar"
+          type="range"
+          min={0}
+          max={1}
+          step="any"
+          value={played}
+          onMouseDown={onSeekMouseDown}
+          onChange={onSeekChange}
+          onMouseUp={onSeekMouseUp}
+        />
+        <span>{precisionRound(duration * played, 2)}</span>
       </div>
       <div className="play-layer">
         <div className="back" onClick={back}>
-          <img src="http://localhost/back.png" width="30" height="30" alt="" />
+          <img src={`http://${ip_}/back.png`} width="30" height="30" alt="" />
         </div>
         <div className="center">
           <div className="playPauseBtn" onClick={playPause}>
             {playing ? (
               <img
-                src="http://localhost/pause.png"
+                src={`http://${ip_}/pause.png`}
                 width="30"
                 height="30"
                 alt=""
               />
             ) : (
-              <img
-                src="http://localhost/play.png"
-                width="30"
-                height="30"
-                alt=""
-              />
-            )}
+                <img
+                  src={`http://${ip_}/play.png`}
+                  width="30"
+                  height="30"
+                  alt=""
+                />
+              )}
           </div>
         </div>
         <div className="forward" onClick={forward}>
           <img
-            src="http://localhost/forward.png"
+            src={`http://${ip_}/forward.png`}
             width="30"
             height="30"
             alt=""
@@ -58,9 +70,19 @@ const VideoControls = ({
         </div>
       </div>
       <div className="volume-layer">
-        <div className="volcon">
+        <div className="muted" onClick={toggleMuted}>
+          {
+            <img
+              src={`http://${ip_}/mute-volume.png`}
+              width="20"
+              height="20"
+              alt=""
+            />
+          }
+        </div>
+        <div className="trio">
           <img
-            src="http://localhost/low-volume.png"
+            src={`http://${ip_}/low-volume.png`}
             width="20"
             height="20"
             alt=""
@@ -71,48 +93,27 @@ const VideoControls = ({
             min={0}
             max={1}
             step="any"
-            defaultValue={volume}
+            value={volume}
             onChange={setVolume}
           />
           <img
-            src="http://localhost/high-volume-outline.png"
+            src={`http://${ip_}/high-volume-outline.png`}
             width="20"
             height="20"
             alt=""
             onClick={increaseVolume}
           />
-          <div className="muted" onClick={toggleMuted}>
-            {
-              <img
-                src="http://localhost/mute-volume.png"
-                width="20"
-                height="20"
-                alt=""
-              />
-            }
-          </div>
         </div>
-        <div className="seek">
-          <p>Seek</p>
-          <input
-            className="seekbar"
-            type="range"
-            min={0}
-            max={1}
-            step="any"
-            defaultValue={played}
-            onMouseDown={onSeekMouseDown}
-            onChange={onSeekChange}
-            onMouseUp={onSeekMouseUp}
+
+        <div className="fullscreen">
+          <img
+            src={`http://${ip_}/fullscreen.png`}
+            width="25"
+            height="25"
+            alt=""
+            onClick={onClickFullscreen}
           />
         </div>
-        <img
-          src="http://localhost/fullscreen.png"
-          width="25"
-          height="25"
-          alt=""
-          onClick={onClickFullscreen}
-        />
       </div>
     </div>
   );

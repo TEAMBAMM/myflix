@@ -8,9 +8,9 @@ const SingleMovie = props => {
   const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
   const ip = (movie.ip) ? movie.ip : 'localhost'
   const actorsList = movie.actors.join(', ');
-  const genreList = movie.genres.join(', ')
+  const genreList = movie.genres.join(', ');
   const fileName = movie.fileName;
-  
+
   return (
     <div className="singlemovie-container">
       <div className="thumb">
@@ -19,7 +19,10 @@ const SingleMovie = props => {
           onClick={() => navTo(`/${imdbid}/player/`, history)}
         >
           <div>
-            <img src={`http://${ip}/${fileName}-poster.jpg`} className="thumbnail" />
+            <img
+              src={`http://${ip}/${fileName}-poster.jpg`}
+              className="thumbnail"
+            />
           </div>
           <div className="playWrapper">
             <span className="playBtn">

@@ -17,44 +17,33 @@ class Player extends React.Component {
       played: 0,
       loaded: 0,
       duration: 0,
-      playbackRate: 1.0,
-      controlsDisplay: ''
+      playbackRate: 1.0
     };
     this.playPause = this.playPause.bind(this);
-    this.onPlay = this.onPlay.bind(this);
-    this.onPause = this.onPause.bind(this);
     this.onClickFullscreen = this.onClickFullscreen.bind(this);
     this.setVolume = this.setVolume.bind(this);
-    this.setPlaybackRate = this.setPlaybackRate.bind(this);
     this.onSeekMouseDown = this.onSeekMouseDown.bind(this);
     this.onSeekChange = this.onSeekChange.bind(this);
     this.onSeekMouseUp = this.onSeekMouseUp.bind(this);
-    // this.onProgress = this.onProgress.bind(this);
+    this.onProgress = this.onProgress.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
     this.onDuration = this.onDuration.bind(this);
     this.ref = this.ref.bind(this);
-    this.onEnded = this.onEnded.bind(this);
     this.forward = this.forward.bind(this);
     this.back = this.back.bind(this);
     this.increaseVolume = this.increaseVolume.bind(this);
     this.decreaseVolume = this.decreaseVolume.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
   }
 
   componentDidMount() {
-    const movie = this.props.movies.filter(
-      movie => this.props.match.params.id === movie.imdbid
-    )[0];
-
-    //  'Den of Thieves'
+    const { movies, match } = this.props;
+    const movie = movies.filter(movie => match.params.id === movie.imdbid)[0];
     const fileName = movie.fileName;
 
     // Right now ip is just of your local machine - need to figure out
     // how to pass correct ip if file is on another machine
-    const ip = (movie.ip) ? movie.ip : 'localhost'
+    const ip = movie.ip ? movie.ip : 'localhost';
 
-    // 'Den of Thieves.mkv'
     const baseFileName = movie.baseFileName;
 
     this.setState({
@@ -71,20 +60,6 @@ class Player extends React.Component {
     console.log(this.state.playing);
   }
 
-  onPlay() {
-    console.log('onPlay');
-    this.setState({
-      playing: true
-    });
-  }
-
-  onPause() {
-    console.log('onPause');
-    this.setState({
-      playing: false
-    });
-  }
-
   onClickFullscreen() {
     screenfull.request(findDOMNode(this.player));
   }
@@ -93,42 +68,34 @@ class Player extends React.Component {
     this.setState({ volume: parseFloat(e.target.value) });
   }
 
-  setPlaybackRate(e) {
-    this.setState({ playbackRate: parseFloat(e.target.value) });
-  }
-
   forward() {
-    if (this.state.played + 0.1 <= 1 && this.state.playbackRate + 0.5 <= 2) {
-      this.setState({
-        played: this.state.played + 0.1,
-        setPlaybackRate: this.state.playbackRate + 0.5
-      });
+    const playedIncrement = 0.01;
+    if (this.state.played + playedIncrement <= 1) {
+      this.player.seekTo(this.state.played + playedIncrement);
     }
   }
 
   back() {
-    if (this.state.played - 0.1 >= 0 && this.state.playbackRate - 0.5 >= 0) {
-      this.setState({
-        played: this.state.played - 0.1,
-        setPlaybackRate: this.state.playbackRate - 0.5
-      });
+    const playedIncrement = 0.01;
+    if (this.state.played - playedIncrement >= 0) {
+      this.player.seekTo(this.state.played - playedIncrement);
     }
   }
 
   decreaseVolume() {
-    if (this.state.volume - 0.1 >= 0) {
-      console.log('onDecreaseVolume');
+    const volumeIncrement = 0.01;
+    if (this.state.volume - volumeIncrement >= 0) {
       this.setState({
-        volume: this.state.volume - 0.1
+        volume: this.state.volume - volumeIncrement
       });
     }
   }
 
   increaseVolume() {
-    if (this.state.volume + 0.1 <= 1) {
-      console.log('onIncreaseVolume');
+    const volumeIncrement = 0.01;
+    if (this.state.volume + volumeIncrement <= 1) {
       this.setState({
-        volume: this.state.volume + 0.1
+        volume: this.state.volume + volumeIncrement
       });
     }
   }
@@ -136,20 +103,24 @@ class Player extends React.Component {
   onSeekMouseDown(e) {
     this.setState({ seeking: true });
   }
+
   onSeekChange(e) {
     this.setState({ played: parseFloat(e.target.value) });
   }
+
   onSeekMouseUp(e) {
     this.setState({ seeking: false });
     this.player.seekTo(parseFloat(e.target.value));
   }
-  // onProgress(state) {
-  //   console.log('onProgress', state);
-  //   // We only want to update time slider if we are not currently seeking
-  //   if (!this.state.seeking) {
-  //     this.setState(state);
-  //   }
-  // }
+
+  // We need this function, don't remove it!  Without this, the back and forward buttons will not work. Also, if the seekTo function (built in for ReactPlayer component) is not active (turns this.state.seeking on), setting of state is not happening. So I don't think this is the reason for the memory leak.
+  onProgress(state) {
+    // We only want to update time slider if we are not currently seeking
+    if (!this.state.seeking) {
+      this.setState(state);
+    }
+  }
+
   toggleMuted() {
     this.setState({ muted: !this.state.muted });
   }
@@ -159,27 +130,8 @@ class Player extends React.Component {
     this.setState({ duration });
   }
 
-  onEnded() {
-    console.log('onEnded');
-    this.setState({ playing: this.state.loop });
-  }
-
   ref(player) {
     this.player = player;
-  }
-
-  onMouseOver() {
-    setTimeout(() => {
-      this.setState({
-        controlsDisplay: 'invisible'
-      });
-    }, 5000);
-  }
-
-  onMouseMove() {
-    this.setState({
-      controlsDisplay: 'visible'
-    });
   }
 
   render() {
@@ -193,13 +145,10 @@ class Player extends React.Component {
       duration,
       playbackRate
     } = this.state;
+    const { ip } = this.props;
 
     return (
-      <div
-        className="player-container"
-        onMouseOver={this.onMouseOver}
-        onMouseMove={this.onMouseMove}
-      >
+      <div className="player-container">
         <div className="player-overlay">
           <ReactPlayer
             ref={this.ref}
@@ -208,41 +157,35 @@ class Player extends React.Component {
             height="100%"
             url={url}
             playing={playing}
-            onPlay={this.onPlay}
-            onPause={this.onPause}
             muted={muted}
             volume={volume}
-            onReady={() => console.log('onReady')}
-            onStart={() => console.log('onStart')}
-            onPlay={this.onPlay}
-            onPause={this.onPause}
-            onBuffer={() => console.log('onBuffer')}
             onSeek={e => console.log('onSeek', e)}
-            onEnded={this.onEnded}
             onError={e => console.log('onError', e)}
             onProgress={this.onProgress}
             onDuration={this.onDuration}
+            onClick={this.playPause}
           />
-          <div className={`controls-overlay ${this.state.controlsDisplay}`}>
-            <VideoControls
-              playPause={this.playPause}
-              onClickFullscreen={this.onClickFullscreen}
-              setPlaybackRate={this.setPlaybackRate}
-              onSeekMouseDown={this.onSeekMouseDown}
-              onSeekChange={this.onSeekChange}
-              onSeekMouseUp={this.onSeekMouseUp}
-              volume={volume}
-              muted={muted}
-              toggleMuted={this.toggleMuted}
-              played={played}
-              loaded={loaded}
-              playing={playing}
-              back={this.back}
-              forward={this.forward}
-              decreaseVolume={this.decreaseVolume}
-              increaseVolume={this.increaseVolume}
-            />
-          </div>
+          {/* <div className={`controls-overlay`}> */}
+          <VideoControls
+            playPause={this.playPause}
+            onClickFullscreen={this.onClickFullscreen}
+            onSeekMouseDown={this.onSeekMouseDown}
+            onSeekChange={this.onSeekChange}
+            onSeekMouseUp={this.onSeekMouseUp}
+            volume={volume}
+            muted={muted}
+            toggleMuted={this.toggleMuted}
+            played={played}
+            playing={playing}
+            back={this.back}
+            forward={this.forward}
+            decreaseVolume={this.decreaseVolume}
+            increaseVolume={this.increaseVolume}
+            ip={ip}
+            duration={duration}
+            setVolume={this.setVolume}
+          />
+          {/* </div> */}
         </div>
       </div>
     );

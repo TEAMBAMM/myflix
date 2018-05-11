@@ -129,14 +129,7 @@
 
 .react-player {
   display: block;
-}
-
-.invisible {
-  display: none;
-}
-
-.visible {
-  display: block;
+  background: rgb(0, 0, 0);
 }
 
 .controls {
@@ -151,23 +144,31 @@
   background: rgba(0, 0, 0, 0.5);
   color: #f1f1f1;
   width: 100%;
-  /* transition: 0.5s ease;
-  opacity: 0; */
+  transition: 0.5s ease;
+  opacity: 0;
   color: white;
-  font-size: 15px;
-  /*
   padding: 5px;
-  text-align: center; */
+  text-align: center;
+  font-size: 10px;
 }
 
-/* .player-overlay:hover .controls-overlay {
+.player-overlay:hover .controls-overlay {
   opacity: 1;
-} */
-
-progress {
-  width: 100%;
 }
 
+.progress-bar {
+  display: flex;
+}
+
+.progress-bar input {
+  width: 90%;
+}
+
+.progress-bar span {
+  justify-self: flex-end;
+  margin-left: 5px;
+  width: 10%;
+}
 .play-layer {
   display: flex;
   justify-content: space-around;
@@ -178,26 +179,21 @@ progress {
   justify-content: space-between;
 }
 
-.volcon {
+.trio {
   display: flex;
-  width: 40;
+  width: 90%;
 }
 
-.volcon img {
-  margin: 0.15rem;
+.trio input {
+  width: 100%;
 }
 
-.muted {
-  justify-self: flex-end;
-  margin-left: 0.75rem;
+.trio img {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-.seek {
-  display: flex;
-  justify-content: space-around;
-  width: 25%;
-}
-
+/* Loading */
 #Loading {
   width: 100%;
   height: 80vh;

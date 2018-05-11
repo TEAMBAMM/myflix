@@ -1,17 +1,16 @@
 import React from 'react';
 import MiniMovie from './MiniMovie';
-import CircularProgress from 'material-ui/CircularProgress'
+import CircularProgress from 'material-ui/CircularProgress';
 
 const AllMovies = props => {
+  const { movies, selectMovie, isLoading, ip } = props;
 
-  const { movies, selectMovie, isLoading } = props;
-
-  if(isLoading) {
+  if (isLoading) {
     return (
-      <div id='Loading'>
+      <div id="Loading">
         <CircularProgress size={80} thickness={5} />
       </div>
-    )
+    );
   } else {
     return (
       <div className="all-movies-view-container">
@@ -21,6 +20,7 @@ const AllMovies = props => {
               selectMovie={selectMovie}
               key={movie.imdbid}
               movie={movie}
+              ip={ip}
             />
           );
         })}
