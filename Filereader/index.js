@@ -26,3 +26,7 @@ fileWatcher.on('ready', async () => {
   fileWatcher.on('unlink', filePath => removeMovie(filePath));
   fileWatcher.on('error', error => console.log(`FILEWATCHER ERROR: ${error}`));
 });
+
+module.exports = {
+  fileWatcher
+}
