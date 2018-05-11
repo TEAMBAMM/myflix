@@ -47,7 +47,7 @@ class Player extends React.Component {
     const baseFileName = movie.baseFileName;
 
     this.setState({
-      url: `http://${ip_}/${baseFileName}`,
+      url: `http://${ip}/${baseFileName}`,
       playing: true,
       muted: false
     });
@@ -83,7 +83,7 @@ class Player extends React.Component {
   }
 
   decreaseVolume() {
-    const volumeIncrement = 0.005;
+    const volumeIncrement = 0.01;
     if (this.state.volume - volumeIncrement >= 0) {
       this.setState({
         volume: this.state.volume - volumeIncrement
@@ -92,7 +92,7 @@ class Player extends React.Component {
   }
 
   increaseVolume() {
-    const volumeIncrement = 0.005;
+    const volumeIncrement = 0.01;
     if (this.state.volume + volumeIncrement <= 1) {
       this.setState({
         volume: this.state.volume + volumeIncrement
@@ -182,6 +182,7 @@ class Player extends React.Component {
               increaseVolume={this.increaseVolume}
               ip={ip}
               duration={duration}
+              setVolume={this.setVolume}
             />
           </div>
         </div>

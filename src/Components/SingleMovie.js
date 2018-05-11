@@ -20,7 +20,7 @@ const SingleMovie = props => {
         >
           <div>
             <img
-              src={`http://${ip_}/${fileName}-poster.jpg`}
+              src={`http://${ip}/${fileName}-poster.jpg`}
               className="thumbnail"
             />
           </div>

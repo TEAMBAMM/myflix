@@ -55,13 +55,13 @@ const VideoControls = ({
                 alt=""
               />
             ) : (
-              <img
-                src={`http://${ip_}/play.png`}
-                width="30"
-                height="30"
-                alt=""
-              />
-            )}
+                <img
+                  src={`http://${ip_}/play.png`}
+                  width="30"
+                  height="30"
+                  alt=""
+                />
+              )}
           </div>
         </div>
         <div className="forward" onClick={forward}>

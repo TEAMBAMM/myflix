@@ -148,7 +148,7 @@
   color: white;
   padding: 5px;
   text-align: center;
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .player-overlay:hover .controls-overlay {
@@ -158,12 +158,12 @@
   display: flex;
 }
 .progress-bar input {
-  width: 95%;
+  width: 90%;
 }
 .progress-bar span {
   justify-self: flex-end;
   margin-left: 5px;
-  width: 5%;
+  width: 10%;
 }
 .play-layer {
   display: flex;
