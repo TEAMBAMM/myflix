@@ -5,9 +5,15 @@ import Pause from 'material-ui/svg-icons/av/pause'
 import Stop from 'material-ui/svg-icons/av/stop'
 import Rewind from 'material-ui/svg-icons/av/fast-rewind'
 import Forward from 'material-ui/svg-icons/av/fast-forward'
-
+import axios from 'axios'
 
 const CastControls = props => {
+
+  const control = async (event) => {
+    const command = event.currentTarget.id
+    console.log(command)
+    const res = await axios.put(`http://localhost/api/cast/${command}`)
+  }
 
   const style = {
     marginTop: 6,
@@ -15,19 +21,19 @@ const CastControls = props => {
 
   return (
     <div>
-      <IconButton style={style}>
+      <IconButton style={style} id='rewind' onClick={control}>
         <Rewind />
       </IconButton>
-      <IconButton style={style}>
+      <IconButton style={style} id='stop' onClick={control}>
         <Stop />
       </IconButton>
-      <IconButton style={style}>
+      <IconButton style={style} id='pause' onClick={control}>
         <Pause />
       </IconButton>
-      <IconButton style={style}>
+      <IconButton style={style} id='play' onClick={control}>
         <PlayArrow />
       </IconButton>
-      <IconButton style={style}>
+      <IconButton style={style} id='forward' onClick={control}>
         <Forward />
       </IconButton>
 
