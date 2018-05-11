@@ -5,8 +5,8 @@ import { navTo } from './utils';
 const SingleMovie = props => {
   const { movies, history } = props;
   const imdbid = props.match.params.id;
-  const ip = (movie.ip) ? movie.ip : 'localhost'
   const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
+  const ip = (movie.ip) ? movie.ip : 'localhost'
   const actorsList = movie.actors.join(', ');
   const genreList = movie.genres.join(', ')
   const fileName = movie.fileName;
