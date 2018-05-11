@@ -31,7 +31,7 @@ export default class Cast extends React.Component {
   };
 
   async castToReceiver(event) {
-    if(this.props.castReceivers[0].host !== '0.0.0.0' && this.props.ip !== '') {
+    if(this.props.castReceivers[0].host !== '0.0.0.0' && this.props.ip !== '' && this.props.selectedMovie.title) {
       const receiverIp = event.currentTarget.id
       const ip = (this.props.selectedMovie.ip) ? this.props.selectedMovie.ip : this.props.ip
       this.state.toggleCasting()

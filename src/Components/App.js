@@ -203,7 +203,7 @@ class App extends Component {
 
     return (
       <div>
-        <button onClick={() => toggleCasting()}>Toggle Casting</button>
+        {/* <button onClick={() => toggleCasting()}>Toggle Casting</button> */}
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
