@@ -3,7 +3,6 @@ import React from 'react';
 const VideoControls = ({
   playPause,
   onClickFullscreen,
-  setPlaybackRate,
   onSeekMouseDown,
   onSeekChange,
   onSeekMouseUp,
@@ -18,8 +17,9 @@ const VideoControls = ({
   back,
   increaseVolume,
   decreaseVolume,
-  onSeekMouseUpControl
+  ip
 }) => {
+  const ip_ = ip ? ip : 'localhost';
   return (
     <div className="controls">
       <div className="progress-bar">
@@ -27,20 +27,20 @@ const VideoControls = ({
       </div>
       <div className="play-layer">
         <div className="back" onClick={back}>
-          <img src="http://localhost/back.png" width="30" height="30" alt="" />
+          <img src={`http://${ip_}/back.png`} width="30" height="30" alt="" />
         </div>
         <div className="center">
           <div className="playPauseBtn" onClick={playPause}>
             {playing ? (
               <img
-                src="http://localhost/pause.png"
+                src={`http://${ip_}/pause.png`}
                 width="30"
                 height="30"
                 alt=""
               />
             ) : (
               <img
-                src="http://localhost/play.png"
+                src={`http://${ip_}/play.png`}
                 width="30"
                 height="30"
                 alt=""
@@ -50,7 +50,7 @@ const VideoControls = ({
         </div>
         <div className="forward" onClick={forward}>
           <img
-            src="http://localhost/forward.png"
+            src={`http://${ip_}/forward.png`}
             width="30"
             height="30"
             alt=""
@@ -60,7 +60,7 @@ const VideoControls = ({
       <div className="volume-layer">
         <div className="volcon">
           <img
-            src="http://localhost/low-volume.png"
+            src={`http://${ip_}/low-volume.png`}
             width="20"
             height="20"
             alt=""
@@ -75,7 +75,7 @@ const VideoControls = ({
             onChange={setVolume}
           />
           <img
-            src="http://localhost/high-volume-outline.png"
+            src={`http://${ip_}/high-volume-outline.png`}
             width="20"
             height="20"
             alt=""
@@ -84,7 +84,7 @@ const VideoControls = ({
           <div className="muted" onClick={toggleMuted}>
             {
               <img
-                src="http://localhost/mute-volume.png"
+                src={`http://${ip_}/mute-volume.png`}
                 width="20"
                 height="20"
                 alt=""
@@ -107,7 +107,7 @@ const VideoControls = ({
           />
         </div>
         <img
-          src="http://localhost/fullscreen.png"
+          src={`http://${ip_}/fullscreen.png`}
           width="25"
           height="25"
           alt=""

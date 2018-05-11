@@ -9,7 +9,7 @@ import MiniMovie from './MiniMovie';
 import SingleMovie from './SingleMovie';
 import ip from 'ip';
 import { ClientResponse } from 'http';
-import { asyncForEach } from './utils'
+import { asyncForEach } from './utils';
 
 injectTapEventPlugin();
 
@@ -18,7 +18,7 @@ class App extends Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: { error: 'Please select a movie!'},
+      selectedMovie: { error: 'Please select a movie!' },
       searchInput: '',
       isPlaying: false,
       filter: 'All',
@@ -38,30 +38,30 @@ class App extends Component {
     this.toggleFavorites = this.toggleFavorites.bind(this);
     this.deviceScanner = this.deviceScanner.bind(this);
     this.test = this.test.bind(this);
-    this.selectMovie = this.selectMovie.bind(this)
-    this.deselectMovie = this.deselectMovie.bind(this)
-    this.updateSortedList = this.updateSortedList.bind(this)
-    this.mergeClientMovies = this.mergeClientMovies.bind(this)
+    this.selectMovie = this.selectMovie.bind(this);
+    this.deselectMovie = this.deselectMovie.bind(this);
+    this.updateSortedList = this.updateSortedList.bind(this);
+    this.mergeClientMovies = this.mergeClientMovies.bind(this);
   }
-  
+
   async componentDidMount() {
-    let res = await axios.get('http://localhost/api/movies')
-    const movies = res.data.movies
+    let res = await axios.get('http://localhost/api/movies');
+    const movies = res.data.movies;
     res = await axios.get('http://localhost/api/ip');
-    const ip = res.data.ip
-    await this.updateSortedList(movies)
+    const ip = res.data.ip;
+    await this.updateSortedList(movies);
     this.deviceScanner();
-    this.setState({ ...this.state, movies, ip, isLoading: false })
+    this.setState({ ...this.state, movies, ip, isLoading: false });
   }
 
   deselectMovie() {
-    this.setState({ selectedMovie: { error: 'Please select a movie!'} }) 
+    this.setState({ selectedMovie: { error: 'Please select a movie!' } });
   }
 
   selectMovie(movie) {
-    this.setState({...this.state, selectedMovie: movie})
+    this.setState({ ...this.state, selectedMovie: movie });
   }
-  
+
   deviceScanner() {
     if (!this.state.scanning) {
       setInterval(async () => {
@@ -71,34 +71,39 @@ class App extends Component {
         let castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
         const ip = res.data.ip;
-        res = await axios.get('http://localhost/api/movies')
-        const movies = res.data.movies
-        castReceivers = (castReceivers.length < 1) ? [{ name: 'No receivers found!', host: '0.0.0.0' }] : castReceivers
-        if(this.state.clients.length > 0) this.mergeClientMovies()
-        else this.setState({...this.state, clients, castReceivers, ip, movies });
-        if(this.state.movies.length !== this.state.movies.filteredOutput) this.updateSortedList()
+        res = await axios.get('http://localhost/api/movies');
+        const movies = res.data.movies;
+        castReceivers =
+          castReceivers.length < 1
+            ? [{ name: 'No receivers found!', host: '0.0.0.0' }]
+            : castReceivers;
+        if (this.state.clients.length > 0) this.mergeClientMovies();
+        else
+          this.setState({ ...this.state, clients, castReceivers, ip, movies });
+        if (this.state.movies.length !== this.state.movies.filteredOutput)
+          this.updateSortedList();
       }, 5000);
     }
   }
 
   async mergeClientMovies() {
-    const clients = this.state.clients
-    let moviesMap = new Map()
-    
-    let res = await axios.get(`http://localhost/api/movies`)
-    const localMovies = res.data.movies
+    const clients = this.state.clients;
+    let moviesMap = new Map();
+
+    let res = await axios.get(`http://localhost/api/movies`);
+    const localMovies = res.data.movies;
 
     await asyncForEach(clients, async client => {
-      res = await axios.get(`http://${client}/api/movies`)
+      res = await axios.get(`http://${client}/api/movies`);
       await asyncForEach(res.data.movies, movie => {
-        moviesMap.set(movie.imdbid, {...movie, ip: client})
-      })
-    })
+        moviesMap.set(movie.imdbid, { ...movie, ip: client });
+      });
+    });
     await asyncForEach(localMovies, movie => {
-      moviesMap.set(movie.imdbid, {...movie})
-    })
-    this.updateSortedList([...moviesMap.values()])    
-    this.setState({...this.state, movies: [...moviesMap.values()]})
+      moviesMap.set(movie.imdbid, { ...movie });
+    });
+    this.updateSortedList([...moviesMap.values()]);
+    this.setState({ ...this.state, movies: [...moviesMap.values()] });
   }
 
   async test() {
@@ -128,9 +133,8 @@ class App extends Component {
     this.updateSortedList();
   }
 
-
   updateSortedList(movies) {
-    let moviesList = (movies) ? movies : this.state.movies // movies array from state
+    let moviesList = movies ? movies : this.state.movies; // movies array from state
     let filterTerm = this.state.filter; // term to sort genre by
     let sortTerm = this.state.sort; // term to sort category by
     let filteredOutput;
@@ -183,7 +187,15 @@ class App extends Component {
       isLoading,
       clients
     } = this.state;
-    const { onChange, changeFilter, changeSort, toggleFavorites, test, selectMovie, deselectMovie } = this;
+    const {
+      onChange,
+      changeFilter,
+      changeSort,
+      toggleFavorites,
+      test,
+      selectMovie,
+      deselectMovie
+    } = this;
 
     return (
       <div>
@@ -204,15 +216,27 @@ class App extends Component {
           ip={ip}
         />
         <Route
-          exact path="*index.html"
-          render={() => <AllMovies movies={filteredOutput} selectMovie={selectMovie} isLoading={isLoading}/>}
+          exact
+          path="*index.html"
+          render={() => (
+            <AllMovies
+              movies={filteredOutput}
+              selectMovie={selectMovie}
+              isLoading={isLoading}
+              ip={ip}
+            />
+          )}
         />
         <Route
-          exact path="/:id/"
-          render={() => <SingleMovie movies={movies} selectMovie={selectMovie} />}
+          exact
+          path="/:id/"
+          render={() => (
+            <SingleMovie movies={movies} selectMovie={selectMovie} ip={ip} />
+          )}
         />
         <Route
-          exact path="/:id/player/"
+          exact
+          path="/:id/player/"
           render={() => <Player movies={movies} ip={ip} />}
         />
       </div>
