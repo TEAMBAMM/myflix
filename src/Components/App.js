@@ -30,7 +30,8 @@ class App extends Component {
       clients: [],
       ip: '',
       isLoading: true,
-      castReceivers: [{ name: 'No receivers found!', host: '0.0.0.0' }]
+      castReceivers: [{ name: 'No receivers found!', host: '0.0.0.0' }],
+      isCasting: false,
     };
     this.onChange = this.onChange.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
@@ -38,10 +39,11 @@ class App extends Component {
     this.toggleFavorites = this.toggleFavorites.bind(this);
     this.deviceScanner = this.deviceScanner.bind(this);
     this.test = this.test.bind(this);
-    this.selectMovie = this.selectMovie.bind(this);
-    this.deselectMovie = this.deselectMovie.bind(this);
-    this.updateSortedList = this.updateSortedList.bind(this);
-    this.mergeClientMovies = this.mergeClientMovies.bind(this);
+    this.selectMovie = this.selectMovie.bind(this)
+    this.deselectMovie = this.deselectMovie.bind(this)
+    this.updateSortedList = this.updateSortedList.bind(this)
+    this.mergeClientMovies = this.mergeClientMovies.bind(this)
+    this.toggleCasting = this.toggleCasting.bind(this)
   }
 
   async componentDidMount() {
@@ -54,8 +56,12 @@ class App extends Component {
     this.setState({ ...this.state, movies, ip, isLoading: false });
   }
 
+  toggleCasting(isCasting) {
+    this.setState({...this.state, isCasting })
+  }
+
   deselectMovie() {
-    this.setState({ selectedMovie: { error: 'Please select a movie!' } });
+    this.setState({...this.state, selectedMovie: { error: 'Please select a movie!'} }) 
   }
 
   selectMovie(movie) {
@@ -185,21 +191,23 @@ class App extends Component {
       selectedMovie,
       ip,
       isLoading,
-      clients
+      clients,
+      isCasting,
     } = this.state;
-    const {
-      onChange,
-      changeFilter,
-      changeSort,
-      toggleFavorites,
-      test,
-      selectMovie,
-      deselectMovie
+    const { 
+      onChange, 
+      changeFilter, 
+      changeSort, 
+      toggleFavorites, 
+      test, 
+      selectMovie, 
+      deselectMovie, 
+      toggleCasting 
     } = this;
 
     return (
       <div>
-        {/* <button onClick={() => test()}>TEST</button><span>Connected Devices: {clients}</span>  FOR DEBUGGING*/}
+        {/* <button onClick={() => toggleCasting()}>Toggle Casting</button> */}
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
@@ -214,6 +222,8 @@ class App extends Component {
           selectedMovie={selectedMovie}
           deselectMovie={deselectMovie}
           ip={ip}
+          isCasting={isCasting}
+          toggleCasting={toggleCasting}
         />
         <Route
           exact

@@ -11,6 +11,7 @@ export default class Cast extends React.Component {
     super(props);
     this.state = {
       open: false,
+      toggleCasting: this.props.toggleCasting
     };
     this.castToReceiver = this.castToReceiver.bind(this)
   }
@@ -30,22 +31,22 @@ export default class Cast extends React.Component {
   };
 
   async castToReceiver(event) {
-    if(this.props.ip !== '') {
+    if(this.props.castReceivers[0].host !== '0.0.0.0' && this.props.ip !== '' && this.props.selectedMovie.title) {
       const receiverIp = event.currentTarget.id
       const ip = (this.props.selectedMovie.ip) ? this.props.selectedMovie.ip : this.props.ip
+      this.state.toggleCasting(true)
       this.setState({ open: false })
       const res = await axios.put(`http://localhost/api/cast`, { 
         url: `http://${ip}/${this.props.selectedMovie.baseFileName}`, 
         name: this.props.selectedMovie.fileName})
-      console.log(res.data)
     } else {
-      console.log('Still resolving ip address...')
+      console.log('Still resolving cast receivers or ip address')
     }
   }
 
   render() {
 
-    const { castReceivers } = this.props
+    const { castReceivers, toggleCasting } = this.props
     const { castToReceiver, handleClick, handleRequestClose } = this
     const { open, selectedMovie, anchorEl } = this.state
 
