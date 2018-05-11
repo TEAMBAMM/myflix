@@ -131,14 +131,6 @@
   display: block;
 }
 
-.invisible {
-  display: none;
-}
-
-.visible {
-  display: block;
-}
-
 .controls {
   display: flex;
   flex-direction: column;
@@ -151,21 +143,15 @@
   background: rgba(0, 0, 0, 0.5);
   color: #f1f1f1;
   width: 100%;
-  /* transition: 0.5s ease;
-  opacity: 0; */
+  transition: 0.5s ease;
+  opacity: 0;
   color: white;
-  font-size: 15px;
-  /*
   padding: 5px;
-  text-align: center; */
+  text-align: center;
 }
 
-/* .player-overlay:hover .controls-overlay {
+.player-overlay:hover .controls-overlay {
   opacity: 1;
-} */
-
-progress {
-  width: 100%;
 }
 
 .play-layer {
@@ -180,7 +166,8 @@ progress {
 
 .volcon {
   display: flex;
-  width: 40;
+  width: 90%;
+  justify-content: space-between;
 }
 
 .volcon img {

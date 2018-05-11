@@ -93,21 +93,23 @@ class Player extends React.Component {
   }
 
   decreaseVolume() {
-    if (this.state.volume - 0.1 >= 0) {
-      console.log('onDecreaseVolume');
+    const volumeIncrement = 0.1;
+    if (this.state.volume - volumeIncrement >= 0) {
       this.setState({
         volume: this.state.volume - 0.1
       });
     }
+    console.log(this.state.volume);
   }
 
   increaseVolume() {
-    if (this.state.volume + 0.1 <= 1) {
-      console.log('onIncreaseVolume');
+    const volumeIncrement = 0.1;
+    if (this.state.volume + volumeIncrement <= 1) {
       this.setState({
-        volume: this.state.volume + 0.1
+        volume: this.state.volume + volumeIncrement
       });
     }
+    console.log(this.state.volume);
   }
 
   onSeekMouseDown(e) {
@@ -165,7 +167,6 @@ class Player extends React.Component {
             playing={playing}
             muted={muted}
             volume={volume}
-            onBuffer={() => console.log('onBuffer')}
             onSeek={e => console.log('onSeek', e)}
             onError={e => console.log('onError', e)}
             onProgress={this.onProgress}
@@ -182,7 +183,6 @@ class Player extends React.Component {
               muted={muted}
               toggleMuted={this.toggleMuted}
               played={played}
-              loaded={loaded}
               playing={playing}
               back={this.back}
               forward={this.forward}

@@ -22,9 +22,17 @@ const VideoControls = ({
   const ip_ = ip ? ip : 'localhost';
   return (
     <div className="controls">
-      <div className="progress-bar">
-        <progress max={1} value={played} width="100%" />
-      </div>
+      <input
+        className="seekbar"
+        type="range"
+        min={0}
+        max={1}
+        step="any"
+        value={played}
+        onMouseDown={onSeekMouseDown}
+        onChange={onSeekChange}
+        onMouseUp={onSeekMouseUp}
+      />
       <div className="play-layer">
         <div className="back" onClick={back}>
           <img src={`http://${ip_}/back.png`} width="30" height="30" alt="" />
@@ -71,7 +79,7 @@ const VideoControls = ({
             min={0}
             max={1}
             step="any"
-            defaultValue={volume}
+            value={volume}
             onChange={setVolume}
           />
           <img
