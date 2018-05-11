@@ -21,6 +21,7 @@ const VideoControls = ({
   duration
 }) => {
   const ip_ = ip ? ip : 'localhost';
+  const elapsed = precisionRound(((duration * played) / duration) * 100, 2)
   return (
     <div className="controls controls-overlay">
       <div className="progress-bar">
@@ -35,7 +36,7 @@ const VideoControls = ({
           onChange={onSeekChange}
           onMouseUp={onSeekMouseUp}
         />
-        <span>{precisionRound(duration * played, 2)}</span>
+        <span>{String(elapsed)}</span>
       </div>
       <div className="play-layer">
         <div className="back" onClick={back}>

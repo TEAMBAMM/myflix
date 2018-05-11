@@ -17,7 +17,8 @@ class Player extends React.Component {
       played: 0,
       loaded: 0,
       duration: 0,
-      playbackRate: 1.0
+      playbackRate: 1.0,
+      elapsed: 0
     };
     this.playPause = this.playPause.bind(this);
     this.onClickFullscreen = this.onClickFullscreen.bind(this);
@@ -36,6 +37,7 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     const { movies, match } = this.props;
     const movie = movies.filter(movie => match.params.id === movie.imdbid)[0];
     const fileName = movie.fileName;
@@ -57,7 +59,6 @@ class Player extends React.Component {
     this.setState({
       playing: !this.state.playing
     });
-    console.log(this.state.playing);
   }
 
   onClickFullscreen() {
@@ -165,7 +166,6 @@ class Player extends React.Component {
             onDuration={this.onDuration}
             onClick={this.playPause}
           />
-          {/* <div className={`controls-overlay`}> */}
           <VideoControls
             playPause={this.playPause}
             onClickFullscreen={this.onClickFullscreen}
@@ -185,7 +185,6 @@ class Player extends React.Component {
             duration={duration}
             setVolume={this.setVolume}
           />
-          {/* </div> */}
         </div>
       </div>
     );
