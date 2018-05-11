@@ -14,3 +14,8 @@ export async function asyncForEach(array, callback) {
     await callback(array[index], index, array)
   }
 }
+
+export const precisionRound = (number, precision) => {
+  var factor = Math.pow(10, precision);
+  return Math.round(number * factor) / factor;
+}

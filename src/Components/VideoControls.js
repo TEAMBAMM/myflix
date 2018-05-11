@@ -1,9 +1,5 @@
 import React from 'react';
-
-function precisionRound(number, precision) {
-  var factor = Math.pow(10, precision);
-  return Math.round(number * factor) / factor;
-}
+import { precisionRound } from './utils'
 
 const VideoControls = ({
   playPause,
