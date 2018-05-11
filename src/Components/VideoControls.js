@@ -92,7 +92,7 @@ const VideoControls = ({
             }
           </div>
         </div>
-        <div className="seek">
+        {/* <div className="seek">
           <p>Seek</p>
           <input
             className="seekbar"
@@ -105,7 +105,7 @@ const VideoControls = ({
             onChange={onSeekChange}
             onMouseUp={onSeekMouseUp}
           />
-        </div>
+        </div> */}
         <img
           src={`http://${ip_}/fullscreen.png`}
           width="25"

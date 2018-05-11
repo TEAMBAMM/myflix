@@ -79,28 +79,16 @@ class Player extends React.Component {
   }
 
   forward() {
-    const playedIncrement = 0.01;
-    // const playbackRateIncrement = 0.5;
-    if (
-      this.state.played + playedIncrement <=
-      1
-      // && this.state.playbackRate + playbackRateIncrement <= 2
-    ) {
-      // this.setState({
-      //   playbackRate: this.state.playbackRate + playbackRateIncrement
-      // });
+    const playedIncrement = 0.02;
+    if (this.state.played + playedIncrement <= 1) {
       this.player.seekTo(this.state.played + playedIncrement);
-      console.log(this.state);
     }
   }
 
   back() {
-    if (this.state.played - 0.1 >= 0 && this.state.playbackRate - 0.5 >= 0) {
-      this.setState({
-        played: this.state.played - 0.1,
-        playbackRate: this.state.playbackRate - 0.5
-      });
-      this.player.seekTo(this.state.played);
+    const playedIncrement = 0.02;
+    if (this.state.played - playedIncrement >= 0) {
+      this.player.seekTo(this.state.played - playedIncrement);
     }
   }
 
