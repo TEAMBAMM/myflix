@@ -10,7 +10,7 @@ const createWindow = () => {
   window = new BrowserWindow({
     width: 1200,
     height: 800,
-    minWidth: 950,
+    minWidth: 960,
     minHeight: 500,
     resizable: true,
     maximizable: true,

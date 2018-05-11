@@ -6,6 +6,7 @@ import Filter from './Filter';
 import Sort from './Sort';
 import Cast from './Cast';
 import Home from './Home';
+import CastControls from './CastControls'
 
 const NavBar = props => {
   const {
@@ -22,13 +23,17 @@ const NavBar = props => {
     castReceivers,
     selectedMovie,
     ip,
-    deselectMovie
+    deselectMovie,
+    isCasting,
+    toggleCasting
   } = props;
 
   const navDeselect = () => {
     deselectMovie()
     navTo('index.html', history)
   }
+
+  const ShowControls = (isCasting) ? CastControls : () => (<div></div>)
 
   return (
     <div className="NavBarContainer">
@@ -45,7 +50,10 @@ const NavBar = props => {
         <Sort changeSort={changeSort} />
       </div>
       <div className="NavDiv">
-        <Cast castReceivers={castReceivers} selectedMovie={selectedMovie} ip={ip} />
+        <Cast castReceivers={castReceivers} selectedMovie={selectedMovie} ip={ip} toggleCasting={toggleCasting} />
+      </div>
+      <div>
+        <ShowControls toggleCasting={toggleCasting}/>
       </div>
     </div>
   );

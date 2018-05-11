@@ -4,15 +4,14 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const { listClients, startTimer, myIp } = require('./findservers.js');
-const { listReceivers } = require('../cast')
-const { playMovie } = require('../cast')
+const { listReceivers, playMovie, control } = require('../cast')
 const ip = require('ip')
 const { db } = require('../data/dataStore')
 const PORT = 80
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 
 app.use(express.static(path.join(__dirname, '../','/movies')))
 app.use(express.static(path.join(__dirname, '../','/src/images')))
@@ -35,6 +34,12 @@ app.put('/api/cast', (req, res, next) => {
   const name = req.body.name
   playMovie(url, name)
   res.status(200).send('Playing movie...')
+})
+
+app.put('/api/cast/:command', (req, res, next) => {
+  const command = req.params.command
+  control(command)
+  res.status(200).send(command)
 })
 
 app.get('/api/ip', (req, res, next) => {
