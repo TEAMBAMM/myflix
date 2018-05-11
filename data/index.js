@@ -3,9 +3,10 @@ const chokidar = require('chokidar');
 const path = require('path');
 
 const fileWatcher = chokidar.watch(
-  path.join(__dirname, '../', '/movies'), {
+  // path.join(__dirname, '../', '/movies'), {
+  ('movies'), {
     persistent: true,
-    ignored: /(^|[/\\])\../ //For .DS_Store on MacOS
+    //ignored: /(^|[/\\])\../ //For .DS_Store on MacOS
   }
 );
 

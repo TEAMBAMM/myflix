@@ -1,27 +1,27 @@
 const fs = require('fs');
 const { promisify } = require('util')
 const { expect } = require('chai');
+const Datastore = require('nedb');
 const chokidar = require('chokidar');
 const path = require('path');
 const readdir = promisify(fs.readdir);
 const unlink = promisify(fs.unlink);
 const writeFile = promisify(fs.writeFile);
+const {
+  insertMovie,
+  removeMovie,
+  onReadySync
+} = require('../data/dataStore');
 
-// let pfs = {};
-// for(let method in fs) {
-//   let fsMethod = fs[method]
-//   if(typeof fsMethod === 'function') {
-//     let pMethod = promisify(fsMethod)
-//     pfs[method] = pMethod
-//   }
-// }
+const fileWatcher = chokidar.watch('./movies', {
+  persistent: true,
+  ignored: /(^|[/\\])\../ //For .DS_Store on MacOS
+});
 
-const fileWatcher = chokidar.watch(
-  path.join(__dirname, './movies'), {
-    persistent: true,
-    //ignored: /(^|[/\\])\../ //For .DS_Store on MacOS
-  }
-);
+const db = new Datastore({
+  filename: path.join(__dirname, 'databaseStorage'),
+  autoload: true
+});
 
 describe('Filewatcher', () => {
   
