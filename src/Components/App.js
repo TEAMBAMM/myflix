@@ -207,7 +207,7 @@ class App extends Component {
 
     return (
       <div>
-        {/* <button onClick={() => toggleCasting()}>Toggle Casting</button> */}
+        {/* <button onClick={() => console.log(this.state) }>STATE</button> */}
         <NavBar
           onChange={onChange}
           changeFilter={changeFilter}
@@ -233,7 +233,6 @@ class App extends Component {
               movies={filteredOutput}
               selectMovie={selectMovie}
               isLoading={isLoading}
-              ip={ip}
             />
           )}
         />
@@ -241,13 +240,13 @@ class App extends Component {
           exact
           path="/:id/"
           render={() => (
-            <SingleMovie movies={movies} selectMovie={selectMovie} ip={ip} />
+            <SingleMovie movies={movies} selectMovie={selectMovie} />
           )}
         />
         <Route
           exact
           path="/:id/player/"
-          render={() => <Player movies={movies} ip={ip} />}
+          render={() => <Player movies={movies} />}
         />
       </div>
     );
