@@ -7,7 +7,7 @@ let allClients = new Map()
 let myIp = ip.address()
 let broadcastAddress = LAN + '255'
 
-server.bind(2442, '127.0.0.1', () => {
+server.bind(2442, '127.0.0.255', () => {
   server.setBroadcast(true)
 })
 
@@ -28,7 +28,7 @@ const verifyClients = () => {
 }
 
 const broadcast = () => {
-  server.send(Buffer.from(myIp), 2442, '127.0.0.1')
+  server.send(Buffer.from(myIp), 2442, '127.0.0.255')
 }
 
 const listClients = () => {
