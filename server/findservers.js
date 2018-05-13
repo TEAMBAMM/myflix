@@ -2,7 +2,6 @@ const dgram = require('dgram')
 const ip = require('ip')
 const LAN = require('./LAN')
 const server = dgram.createSocket('udp4')
-console.log('here')
 
 let allClients = new Map()
 let myIp = ip.address()
@@ -11,24 +10,40 @@ let broadcastAddress = LAN + '255'
 server.bind(2442)
 
 server.on('message', (msg, rinfo) => {
-  allClients
-  console.log('Message: ', msg.toString())
+  msg = msg.toString()
+  allClients.set(msg, 2) 
+  // console.log('Message: ', msg.toString())
 })
 
 server.on('listening', () => {
   console.log('Listening on: ', server.address())
 })
 
+const verifyClients = () => {
+  const decrementValue = (value, key, map) => {
+    map.set(key, value - 1)
+  }
+  allClients.forEach(decrementValue)
+}
+
 const broadcast = () => {
   server.send(Buffer.from(myIp), 2442, broadcastAddress)
 }
 
 const listClients = () => {
-  return allClients
+  const deleteKey = (value, key, map) => {
+    if(!value) {
+      map.delete(key)
+    }
+  }
+  allClients.forEach(deleteKey)
+  return [...allClients.keys()]
 }
 
 setInterval(() => {
   broadcast()
+  verifyClients()
+  console.log(listClients())
 }, 2000)
 
 console.log(`My ip is ${myIp}`)
