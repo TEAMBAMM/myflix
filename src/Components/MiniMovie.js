@@ -17,7 +17,7 @@ const MiniMovie = props => {
         <img
           onClick={() => navSelect()}
           className="mini-movie-image"
-          src={`http://${ip_}/${movie.fileName}-poster.jpg`}
+          src={`http://${ip}/${movie.fileName}-poster.jpg`}
           alt="No Image Found :("
         />
       </div>
