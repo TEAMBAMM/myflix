@@ -44,7 +44,7 @@ const listClients = () => {
 setInterval(() => {
   broadcast()
   verifyClients()
-}, 5000)
+}, 1500)
 
 console.log(`My ip is ${myIp}`)
 module.exports = { listClients, myIp }
