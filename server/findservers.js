@@ -7,13 +7,13 @@ let allClients = new Map()
 let myIp = ip.address()
 let broadcastAddress = LAN + '255'
 
-server.bind(2442, '127.0.0.255', () => {
+server.bind(2442, () => {
   server.setBroadcast(true)
 })
 
 server.on('message', (msg, rinfo) => {
   msg = msg.toString()
-  allClients.set(msg, 2) 
+  if(msg !== myIp) allClients.set(msg, 2) 
 })
 
 server.on('listening', () => {
@@ -28,7 +28,7 @@ const verifyClients = () => {
 }
 
 const broadcast = () => {
-  server.send(Buffer.from(myIp), 2442, '127.0.0.255')
+  server.send(Buffer.from(myIp), 2442, broadcastAddress)
 }
 
 const listClients = () => {
@@ -44,8 +44,7 @@ const listClients = () => {
 setInterval(() => {
   broadcast()
   verifyClients()
-  console.log(listClients())
-}, 2000)
+}, 5000)
 
 console.log(`My ip is ${myIp}`)
 module.exports = { listClients, myIp }
