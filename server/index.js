@@ -22,6 +22,8 @@ app.get('/isserver', (req, res, next) => {
 })
 
 app.get('/api/clients', (req, res, next) => {
+  console.log('Request for clients!')
+  console.log(listClients())
   res.status(200).json({ clients: listClients() })
 })
 

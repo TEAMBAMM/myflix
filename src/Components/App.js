@@ -72,7 +72,7 @@ class App extends Component {
     if (!this.state.scanning) {
       setInterval(async () => {
         let res = await axios.get(`http://localhost/api/clients`);
-        const clients = (res.data.clients.length > 0) ? res.data.clients : []
+        const clients = res.data.clients;
         res = await axios.get('http://localhost/api/castreceivers');
         let castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
@@ -83,17 +83,14 @@ class App extends Component {
           castReceivers.length < 1
             ? [{ name: 'No receivers found!', host: '0.0.0.0' }]
             : castReceivers;
-        if (this.state.clients.length > 0) this.mergeClientMovies();
-        else
-          this.setState({ ...this.state, clients, castReceivers, ip, movies });
-        if (this.state.movies.length !== this.state.movies.filteredOutput)
-          this.updateSortedList();
+        if (clients !== this.state.clients) this.mergeClientMovies(clients);
+        else this.setState({ ...this.state, clients, castReceivers, ip, movies });
+        if (this.state.movies.length !== this.state.movies.filteredOutput) this.updateSortedList();
       }, 5000);
     }
   }
 
-  async mergeClientMovies() {
-    const clients = this.state.clients;
+  async mergeClientMovies(clients) {
     let moviesMap = new Map();
 
     let res = await axios.get(`http://localhost/api/movies`);
@@ -109,7 +106,7 @@ class App extends Component {
       moviesMap.set(movie.imdbid, { ...movie });
     });
     this.updateSortedList([...moviesMap.values()]);
-    this.setState({ ...this.state, movies: [...moviesMap.values()] });
+    this.setState({ ...this.state, clients, movies: [...moviesMap.values()] });
   }
 
   async test() {
