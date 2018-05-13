@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { navTo } from './utils';
 
 const MiniMovie = props => {
-  const { movie, selectMovie, history, ip } = props;
-  const ip_ = ip ? ip : 'localhost';
+  const { movie, selectMovie, history } = props;
+  const ip = (movie.ip) ? ip : 'localhost';
 
   const navSelect = () => {
     selectMovie(movie);
