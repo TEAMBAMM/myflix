@@ -71,14 +71,14 @@ class App extends Component {
   deviceScanner() {
     if (!this.state.scanning) {
       setInterval(async () => {
-        let res = await axios.get(`http://localhost/api/clients`);
-        const clients = res.data.clients;
-        res = await axios.get('http://localhost/api/castreceivers');
+        let res = await axios.get('http://localhost/api/castreceivers');
         let castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
         const ip = res.data.ip;
         res = await axios.get('http://localhost/api/movies');
         const movies = res.data.movies;
+        res = await axios.get(`http://localhost/api/clients`);
+        const clients = res.data.clients;
         castReceivers =
           castReceivers.length < 1
             ? [{ name: 'No receivers found!', host: '0.0.0.0' }]
@@ -93,15 +93,16 @@ class App extends Component {
   async mergeClientMovies(clients) {
     let moviesMap = new Map();
 
-    let res = await axios.get(`http://localhost/api/movies`);
-    const localMovies = res.data.movies;
-
     await asyncForEach(clients, async client => {
       res = await axios.get(`http://${client}/api/movies`);
       await asyncForEach(res.data.movies, movie => {
         moviesMap.set(movie.imdbid, { ...movie, ip: client });
       });
     });
+    
+    let res = await axios.get(`http://localhost/api/movies`);
+    const localMovies = res.data.movies;
+
     await asyncForEach(localMovies, movie => {
       moviesMap.set(movie.imdbid, { ...movie });
     });
