@@ -5,9 +5,8 @@ const ProgressBar = props => {
   const { played, onSeekChange, onSeekMouseDown, onSeekMouseUp, duration } = props;
   return (
     <div className="progress-bar">
-      <Duration seconds={duration * played} />
+      <Duration seconds={duration * played} className="margin-right" />
       <input
-        className="seekbar"
         type="range"
         min={0}
         max={1}
@@ -17,7 +16,7 @@ const ProgressBar = props => {
         onChange={onSeekChange}
         onMouseUp={onSeekMouseUp}
       />
-      <Duration seconds={duration * (1 - played)} />
+      <Duration seconds={duration * (1 - played)} className="margin-left" />
     </div>
   )
 }

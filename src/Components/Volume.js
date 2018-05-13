@@ -9,7 +9,7 @@ const Volume = props => {
   return (
     <div className="volume-layer">
       <AvVolumeDown style={{ width, height }} color="white" onClick={zeroVolume} />
-      <input
+      <input id="volume-slider"
         type="range"
         min={0}
         max={1}
