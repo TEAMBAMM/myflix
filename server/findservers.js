@@ -1,47 +1,35 @@
-const http = require('http')
+const dgram = require('dgram')
 const ip = require('ip')
 const LAN = require('./LAN')
+const server = dgram.createSocket('udp4')
+console.log('here')
 
-let allDevices = []
+let allClients = new Map()
 let myIp = ip.address()
+let broadcastAddress = LAN + '255'
+
+server.bind(2442)
+
+server.on('message', (msg, rinfo) => {
+  allClients
+  console.log('Message: ', msg.toString())
+})
+
+server.on('listening', () => {
+  console.log('Listening on: ', server.address())
+})
+
+const broadcast = () => {
+  server.send(Buffer.from(myIp), 2442, broadcastAddress)
+}
 
 const listClients = () => {
-  return allDevices
+  return allClients
 }
 
-const findServers = () => {
-  for(let i = 1; i < 255; i++) {
-    let newIp = LAN + i
-    let data = ''
-    http.get({ hostname: newIp, port: 80, path: '/isserver'}, (res) => {
-      res.on('data', (chunk) => {
-        data = chunk.toString()
-      })
-      res.on('end', () => {
-        if(data.length < 20) {
-          if(data === 'connected' &&
-          newIp !== myIp &&
-          allDevices.indexOf(newIp) === -1
-          ) allDevices.push(newIp)        
-        }
-      })
-    }).on("error", (err) => {
-      allDevices = allDevices.filter(ip => ip !== err.address)
-    })
-  }
-}
-
-const startTimer = () => {
-  console.log('Timer Started For Server Finder!')
-  setInterval(() => {
-    findServers()
-  }, 5000)
-  
-  //List found devices every 3 seconds
-  // setInterval(() => {
-  //   console.log(listDevices())
-  // }, 3000)
-}
+setInterval(() => {
+  broadcast()
+}, 2000)
 
 console.log(`My ip is ${myIp}`)
-module.exports = {listClients, startTimer, myIp}
+module.exports = { listClients, myIp }

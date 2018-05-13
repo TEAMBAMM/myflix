@@ -3,7 +3,7 @@ const path = require('path')
 const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const { listClients, startTimer, myIp } = require('./findservers.js');
+const { listClients, myIp } = require('./findservers.js');
 const { listReceivers, playMovie, control } = require('../cast')
 const ip = require('ip')
 const { db } = require('../data/dataStore')
@@ -65,6 +65,4 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
   console.log('Serving files from: ' + path.join(__dirname, '../','/movies'))
 })
-
-startTimer()
 
