@@ -34,6 +34,8 @@ class Player extends React.Component {
     this.back = this.back.bind(this);
     this.increaseVolume = this.increaseVolume.bind(this);
     this.decreaseVolume = this.decreaseVolume.bind(this);
+    this.zeroVolume = this.zeroVolume.bind(this)
+    this.fullVolume = this.fullVolume.bind(this)
   }
 
   componentDidMount() {
@@ -89,6 +91,18 @@ class Player extends React.Component {
         volume: this.state.volume - volumeIncrement
       });
     }
+  }
+
+  zeroVolume() {
+    this.setState({
+      volume: 0
+    })
+  }
+
+  fullVolume() {
+    this.setState({
+      volume: 1
+    })
   }
 
   increaseVolume() {
@@ -181,6 +195,8 @@ class Player extends React.Component {
             ip={ip}
             duration={duration}
             setVolume={this.setVolume}
+            fullVolume={this.fullVolume}
+            zeroVolume={this.zeroVolume}
           />
         </div>
       </div>
