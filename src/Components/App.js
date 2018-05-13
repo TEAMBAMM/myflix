@@ -72,7 +72,7 @@ class App extends Component {
     if (!this.state.scanning) {
       setInterval(async () => {
         let res = await axios.get(`http://localhost/api/clients`);
-        const clients = res.data.clients;
+        const clients = (res.data.clients.length > 0) ? res.data.clients : []
         res = await axios.get('http://localhost/api/castreceivers');
         let castReceivers = res.data.castReceivers;
         res = await axios.get('http://localhost/api/ip');
