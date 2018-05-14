@@ -18,7 +18,8 @@ class Player extends React.Component {
       loaded: 0,
       duration: 0,
       playbackRate: 1.0,
-      elapsed: 0
+      elapsed: 0,
+      idle: false
     };
     this.playPause = this.playPause.bind(this);
     this.onClickFullscreen = this.onClickFullscreen.bind(this);
@@ -32,10 +33,9 @@ class Player extends React.Component {
     this.ref = this.ref.bind(this);
     this.forward = this.forward.bind(this);
     this.back = this.back.bind(this);
-    this.increaseVolume = this.increaseVolume.bind(this);
-    this.decreaseVolume = this.decreaseVolume.bind(this);
     this.zeroVolume = this.zeroVolume.bind(this)
     this.fullVolume = this.fullVolume.bind(this)
+    this.sleepWakeControls = this.sleepWakeControls.bind(this)
   }
 
   componentDidMount() {
@@ -82,15 +82,6 @@ class Player extends React.Component {
     }
   }
 
-  decreaseVolume() {
-    const volumeIncrement = 0.01;
-    if (this.state.volume - volumeIncrement >= 0) {
-      this.setState({
-        volume: this.state.volume - volumeIncrement
-      });
-    }
-  }
-
   zeroVolume() {
     this.setState({
       volume: 0
@@ -101,15 +92,6 @@ class Player extends React.Component {
     this.setState({
       volume: 1
     })
-  }
-
-  increaseVolume() {
-    const volumeIncrement = 0.01;
-    if (this.state.volume + volumeIncrement <= 1) {
-      this.setState({
-        volume: this.state.volume + volumeIncrement
-      });
-    }
   }
 
   onSeekMouseDown(e) {
@@ -125,9 +107,7 @@ class Player extends React.Component {
     this.player.seekTo(parseFloat(e.target.value));
   }
 
-  // We need this function, don't remove it!  Without this, the back and forward buttons will not work. Also, if the seekTo function (built in for ReactPlayer component) is not active (turns this.state.seeking on), setting of state is not happening. So I don't think this is the reason for the memory leak.
   onProgress(state) {
-    // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
       this.setState(state);
     }
@@ -145,6 +125,27 @@ class Player extends React.Component {
     this.player = player;
   }
 
+  sleepWakeControls() {
+    const idleTime = 3000;
+    let idleTimer;
+    if (!this.state.idle) {
+      idleTimer = setTimeout(() => {
+        this.setState({
+          idle: true
+        })
+      }, idleTime)
+    } else {
+      clearTimeout(idleTimer)
+      this.setState({
+        idle: false
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    this.isMounted = false;
+  }
+
   render() {
     const {
       url,
@@ -154,13 +155,13 @@ class Player extends React.Component {
       played,
       loaded,
       duration,
-      playbackRate
+      playbackRate,
+      idle
     } = this.state;
-    const { ip } = this.props;
 
     return (
       <div className="player-container">
-        <div className="player-overlay">
+        <div className="player-overlay" onMouseMove={this.sleepWakeControls}>
           <ReactPlayer
             ref={this.ref}
             className="react-player"
@@ -188,12 +189,11 @@ class Player extends React.Component {
             playing={playing}
             back={this.back}
             forward={this.forward}
-            decreaseVolume={this.decreaseVolume}
-            increaseVolume={this.increaseVolume}
             duration={duration}
             setVolume={this.setVolume}
             fullVolume={this.fullVolume}
             zeroVolume={this.zeroVolume}
+            idle={idle}
           />
         </div>
       </div>

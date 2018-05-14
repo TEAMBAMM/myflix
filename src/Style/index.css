@@ -127,6 +127,9 @@ body {
   margin-top: 2em;
 }
 
+.hidden {
+  display: none;
+}
 /* https://www.w3schools.com/howto/howto_css_image_overlay_title.asp */
 .player-overlay {
   position: relative;

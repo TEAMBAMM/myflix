@@ -18,21 +18,22 @@ const VideoControls = (props) => {
     playing,
     forward,
     back,
-    increaseVolume,
-    decreaseVolume,
     duration,
     zeroVolume,
-    fullVolume
+    fullVolume,
+    idle
   } = props
   const width = 25, height = 25;
   return (
     <div className="controls-overlay">
-      <div className="main">
-        <Volume volume={volume} setVolume={setVolume} zeroVolume={zeroVolume} fullVolume={fullVolume} />
-        <PlayPause playPause={playPause} back={back} forward={forward} playing={playing} />
-        <NavigationFullscreen style={{ width, height }} color="white" onClick={onClickFullscreen} />
-      </div>
-      <ProgressBar played={played} onSeekChange={onSeekChange} onSeekMouseDown={onSeekMouseDown} onSeekMouseUp={onSeekMouseUp} duration={duration} />
+      <div className={idle ? "hidden" : "none"}>
+        <div className="main">
+          <Volume volume={volume} setVolume={setVolume} zeroVolume={zeroVolume} fullVolume={fullVolume} />
+          <PlayPause playPause={playPause} back={back} forward={forward} playing={playing} />
+          <NavigationFullscreen style={{ width, height }} color="white" onClick={onClickFullscreen} />
+        </div>
+        <ProgressBar played={played} onSeekChange={onSeekChange} onSeekMouseDown={onSeekMouseDown} onSeekMouseUp={onSeekMouseUp} duration={duration} />
+      </div >
     </div>
   );
 };
