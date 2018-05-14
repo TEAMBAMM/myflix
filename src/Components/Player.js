@@ -127,15 +127,15 @@ class Player extends React.Component {
 
   sleepWakeControls() {
     const idleTime = 3000;
-    let idleTimer;
+    // let idleTimer;
     if (!this.state.idle) {
-      idleTimer = setTimeout(() => {
+      this.idleTimer = setTimeout(() => {
         this.setState({
           idle: true
         })
       }, idleTime)
     } else {
-      clearTimeout(idleTimer)
+      clearTimeout(this.idleTimer)
       this.setState({
         idle: false
       })
@@ -143,7 +143,8 @@ class Player extends React.Component {
   }
 
   componentWillUnmount() {
-    this.isMounted = false;
+    clearTimeout(this.idleTimer)
+    this.idleTimer = 0;
   }
 
   render() {
