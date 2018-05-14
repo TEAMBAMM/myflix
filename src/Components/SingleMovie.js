@@ -6,7 +6,6 @@ const SingleMovie = props => {
   const { movies, history } = props;
   const imdbid = props.match.params.id;
   const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
-  console.log(movie)
   const ip = (movie.ip) ? movie.ip : 'localhost'
   const actorsList = movie.actors.join(', ');
   const genreList = movie.genres.join(', ');

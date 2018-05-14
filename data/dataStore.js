@@ -74,7 +74,7 @@ async function insertMovie(movieFilePath) {
         filePath: movieFilePath,
         imdbid: imdbData.imdbid,
         plot: imdbData.plot,
-        rating: imdb.rating,
+        rating: imdbData.rating + " out of 10",
         rated: imdbData.rated,
         released: imdbData.released,
         dateAdded: new Date(),
@@ -89,8 +89,8 @@ async function insertMovie(movieFilePath) {
         title: name,
         year: 'Unknown',
         filePath: movieFilePath,
-        // TODO Better method for id, could generate identical id to other unknown movie
-        // and cause error on react front end unique-key requirements - edge case
+        // TODO - edge case - Better method for id, could generate identical id to other 
+        // unknown movie and cause an error on the react unique-key requirements
         imdbid: Math.round(Math.random() * 10000000).toString(),
         plot: 'Unknown',
         rating: null,
