@@ -34,10 +34,11 @@ class Player extends React.Component {
     this.back = this.back.bind(this);
     this.increaseVolume = this.increaseVolume.bind(this);
     this.decreaseVolume = this.decreaseVolume.bind(this);
+    this.zeroVolume = this.zeroVolume.bind(this)
+    this.fullVolume = this.fullVolume.bind(this)
   }
 
   componentDidMount() {
-    console.log(this.props)
     const { movies, match } = this.props;
     const movie = movies.filter(movie => match.params.id === movie.imdbid)[0];
     const fileName = movie.fileName;
@@ -90,6 +91,18 @@ class Player extends React.Component {
     }
   }
 
+  zeroVolume() {
+    this.setState({
+      volume: 0
+    })
+  }
+
+  fullVolume() {
+    this.setState({
+      volume: 1
+    })
+  }
+
   increaseVolume() {
     const volumeIncrement = 0.01;
     if (this.state.volume + volumeIncrement <= 1) {
@@ -125,7 +138,6 @@ class Player extends React.Component {
   }
 
   onDuration(duration) {
-    console.log('onDuration', duration);
     this.setState({ duration });
   }
 
@@ -158,7 +170,6 @@ class Player extends React.Component {
             playing={playing}
             muted={muted}
             volume={volume}
-            onSeek={e => console.log('onSeek', e)}
             onError={e => console.log('onError', e)}
             onProgress={this.onProgress}
             onDuration={this.onDuration}
@@ -181,6 +192,8 @@ class Player extends React.Component {
             increaseVolume={this.increaseVolume}
             duration={duration}
             setVolume={this.setVolume}
+            fullVolume={this.fullVolume}
+            zeroVolume={this.zeroVolume}
           />
         </div>
       </div>
