@@ -42,7 +42,7 @@ class Player extends React.Component {
     const movie = movies.filter(movie => match.params.id === movie.imdbid)[0];
     const fileName = movie.fileName;
 
-    const ip = (movie.ip) ? ip : 'localhost';
+    const ip = (movie.ip) ? movie.ip : 'localhost';
 
     const baseFileName = movie.baseFileName;
 
@@ -179,7 +179,6 @@ class Player extends React.Component {
             forward={this.forward}
             decreaseVolume={this.decreaseVolume}
             increaseVolume={this.increaseVolume}
-            ip={ip}
             duration={duration}
             setVolume={this.setVolume}
           />

@@ -4,7 +4,7 @@ import { navTo } from './utils';
 
 const MiniMovie = props => {
   const { movie, selectMovie, history } = props;
-  const ip = (movie.ip) ? ip : 'localhost';
+  const ip = (movie.ip) ? movie.ip : 'localhost';
 
   const navSelect = () => {
     selectMovie(movie);
