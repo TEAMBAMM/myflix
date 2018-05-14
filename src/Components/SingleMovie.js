@@ -10,6 +10,7 @@ const SingleMovie = props => {
   const actorsList = movie.actors.join(', ');
   const genreList = movie.genres.join(', ');
   const fileName = movie.fileName;
+  movie.released =  movie.released !== null ? movie.released.split('T')[0] : 'Unknown';
 
   return (
     <div className="singlemovie-container">
@@ -49,7 +50,7 @@ const SingleMovie = props => {
         <h3>Genres: </h3>
         <p>{genreList}</p>
         <h3>Release Date: </h3>
-        <p>{movie.released.split('T')[0]}</p>
+        <p>{movie.released}</p>
         <h3>Rated: </h3>
         <p>{movie.rated}</p>
       </div>
