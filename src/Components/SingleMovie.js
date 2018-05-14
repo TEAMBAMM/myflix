@@ -49,7 +49,6 @@ const SingleMovie = props => {
         <p>{actorsList}</p>
         <h3>Genres:</h3>
         <p>{genreList}</p>
-<<<<<<< HEAD
         <h3>Release Date: </h3>
         <p>{movie.released}</p>
         <h3>Rated: </h3>
