@@ -85,12 +85,13 @@ async function insertMovie(movieFilePath) {
         fileName: parsedPath.name
       };
     } else {
-      console.log('HIT')
       data = {
-        title: 'Unknown Movie',
+        title: name,
         year: 'Unknown',
         filePath: movieFilePath,
-        imdbid: Math.round(Math.random() * 100000),
+        // TODO Better method for id, could generate identical id to other unknown movie
+        // and cause error on react front end unique-key requirements - edge case
+        imdbid: Math.round(Math.random() * 10000000).toString(),
         plot: 'Unknown',
         rating: null,
         rated: 'Unknown',
@@ -103,7 +104,6 @@ async function insertMovie(movieFilePath) {
         fileName: parsedPath.name
       };
     }
-    console.log(data)
     return new Promise((resolve, reject) => {
       db.insert(data, err => {
         err ? reject(err) : resolve();

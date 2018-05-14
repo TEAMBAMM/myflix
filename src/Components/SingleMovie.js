@@ -6,6 +6,7 @@ const SingleMovie = props => {
   const { movies, history } = props;
   const imdbid = props.match.params.id;
   const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
+  console.log(movie)
   const ip = (movie.ip) ? movie.ip : 'localhost'
   const actorsList = movie.actors.join(', ');
   const genreList = movie.genres.join(', ');
@@ -52,11 +53,6 @@ const SingleMovie = props => {
         <h3>Release Date: </h3>
         <p>{movie.released}</p>
         <h3>Rated: </h3>
-=======
-        <h3>Release Date:</h3>
-        <p>{movie.released.split('T')[0]}</p>
-        <h3>Rated:</h3>
->>>>>>> master
         <p>{movie.rated}</p>
       </div>
     </div>
