@@ -43,9 +43,7 @@ class Player extends React.Component {
     const movie = movies.filter(movie => match.params.id === movie.imdbid)[0];
     const fileName = movie.fileName;
 
-    // Right now ip is just of your local machine - need to figure out
-    // how to pass correct ip if file is on another machine
-    const ip = movie.ip ? movie.ip : 'localhost';
+    const ip = (movie.ip) ? movie.ip : 'localhost';
 
     const baseFileName = movie.baseFileName;
 
@@ -192,7 +190,6 @@ class Player extends React.Component {
             forward={this.forward}
             decreaseVolume={this.decreaseVolume}
             increaseVolume={this.increaseVolume}
-            ip={ip}
             duration={duration}
             setVolume={this.setVolume}
             fullVolume={this.fullVolume}
