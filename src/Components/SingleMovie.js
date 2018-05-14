@@ -41,17 +41,23 @@ const SingleMovie = props => {
         <h1>
           {movie.title} ({movie.year})
         </h1>
-        <h3>Plot</h3>
+        <h3>Plot:</h3>
         <p>{movie.plot}</p>
-        <h3>Rating</h3>
+        <h3>Rating:</h3>
         <p>{movie.rating}</p>
-        <h3>Actors: </h3>
+        <h3>Actors:</h3>
         <p>{actorsList}</p>
-        <h3>Genres: </h3>
+        <h3>Genres:</h3>
         <p>{genreList}</p>
+<<<<<<< HEAD
         <h3>Release Date: </h3>
         <p>{movie.released}</p>
         <h3>Rated: </h3>
+=======
+        <h3>Release Date:</h3>
+        <p>{movie.released.split('T')[0]}</p>
+        <h3>Rated:</h3>
+>>>>>>> master
         <p>{movie.rated}</p>
       </div>
     </div>

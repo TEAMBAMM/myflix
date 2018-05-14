@@ -4,6 +4,8 @@ const list = chromecasts()
 const ip = require('ip')
 
 const allPlayers = []
+let currentPlayer
+let currentStatus
 
 list.on('update', player => {
   if(player.host.length < 13 && allPlayers.length === 0) {
@@ -18,7 +20,11 @@ list.on('update', player => {
 
 const playMovie = (url, name, device) => {
   console.log('Playing: ', url)
-  allPlayers[0].play(url, {title: name, type: 'video/mp4'})
+  currentPlayer = allPlayers[0]
+  currentPlayer.on('status', status => {
+    currentStatus = status
+  })
+  currentPlayer.play(url, {title: name, type: 'video/mp4'})
 }
 
 const listReceivers = () => {
@@ -29,6 +35,29 @@ const updatePlayers = () => {
   list.update()
 }
 
+const seek = seconds => {
+  currentPlayer.status((err, status) => {
+    currentPlayer.seek(currentStatus.currentTime + seconds)
+  })
+}
+
+const control = command => {
+  switch(command) {
+  case 'play':
+    return currentPlayer.resume()
+  case 'pause':
+    return currentPlayer.pause()
+  case 'stop':
+    return currentPlayer.stop()
+  case 'rewind':
+    return seek(-180)
+  case 'forward':
+    return seek(180)
+  default:
+    return
+  }
+}
+
 setInterval(()=>{
   updatePlayers()
 }, 3000)
@@ -37,4 +66,9 @@ setInterval(()=>{
 //   console.log('All Players: ', allPlayers)
 // }, 2000)
 
-module.exports = { updatePlayers, playMovie, listReceivers }
+module.exports = { 
+  control,
+  updatePlayers, 
+  playMovie, 
+  listReceivers 
+}

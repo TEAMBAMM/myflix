@@ -1,120 +1,38 @@
 import React from 'react';
-import { precisionRound } from './utils'
+import Volume from './Volume'
+import ProgressBar from './ProgressBar'
+import NavigationFullscreen from 'material-ui/svg-icons/navigation/fullscreen'
+import PlayPause from './PlayPause'
 
-const VideoControls = ({
-  playPause,
-  onClickFullscreen,
-  onSeekMouseDown,
-  onSeekChange,
-  onSeekMouseUp,
-  volume,
-  muted,
-  toggleMuted,
-  played,
-  setVolume,
-  playing,
-  forward,
-  back,
-  increaseVolume,
-  decreaseVolume,
-  ip,
-  duration
-}) => {
-  const ip_ = ip ? ip : 'localhost';
+
+const VideoControls = (props) => {
+  const {
+    playPause,
+    onClickFullscreen,
+    onSeekMouseDown,
+    onSeekChange,
+    onSeekMouseUp,
+    volume,
+    played,
+    setVolume,
+    playing,
+    forward,
+    back,
+    increaseVolume,
+    decreaseVolume,
+    duration,
+    zeroVolume,
+    fullVolume
+  } = props
+  const width = 25, height = 25;
   return (
-    <div className="controls controls-overlay">
-      <div className="progress-bar">
-        <input
-          className="seekbar"
-          type="range"
-          min={0}
-          max={1}
-          step="any"
-          value={played}
-          onMouseDown={onSeekMouseDown}
-          onChange={onSeekChange}
-          onMouseUp={onSeekMouseUp}
-        />
-        <span>{precisionRound(duration * played, 2)}</span>
+    <div className="controls-overlay">
+      <div className="main">
+        <Volume volume={volume} setVolume={setVolume} zeroVolume={zeroVolume} fullVolume={fullVolume} />
+        <PlayPause playPause={playPause} back={back} forward={forward} playing={playing} />
+        <NavigationFullscreen style={{ width, height }} color="white" onClick={onClickFullscreen} />
       </div>
-      <div className="play-layer">
-        <div className="back" onClick={back}>
-          <img src={`http://${ip_}/back.png`} width="30" height="30" alt="" />
-        </div>
-        <div className="center">
-          <div className="playPauseBtn" onClick={playPause}>
-            {playing ? (
-              <img
-                src={`http://${ip_}/pause.png`}
-                width="30"
-                height="30"
-                alt=""
-              />
-            ) : (
-                <img
-                  src={`http://${ip_}/play.png`}
-                  width="30"
-                  height="30"
-                  alt=""
-                />
-              )}
-          </div>
-        </div>
-        <div className="forward" onClick={forward}>
-          <img
-            src={`http://${ip_}/forward.png`}
-            width="30"
-            height="30"
-            alt=""
-          />
-        </div>
-      </div>
-      <div className="volume-layer">
-        <div className="muted" onClick={toggleMuted}>
-          {
-            <img
-              src={`http://${ip_}/mute-volume.png`}
-              width="20"
-              height="20"
-              alt=""
-            />
-          }
-        </div>
-        <div className="trio">
-          <img
-            src={`http://${ip_}/low-volume.png`}
-            width="20"
-            height="20"
-            alt=""
-            onClick={decreaseVolume}
-          />
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step="any"
-            value={volume}
-            onChange={setVolume}
-          />
-          <img
-            src={`http://${ip_}/high-volume-outline.png`}
-            width="20"
-            height="20"
-            alt=""
-            onClick={increaseVolume}
-          />
-        </div>
-
-        <div className="fullscreen">
-          <img
-            src={`http://${ip_}/fullscreen.png`}
-            width="25"
-            height="25"
-            alt=""
-            onClick={onClickFullscreen}
-          />
-        </div>
-      </div>
+      <ProgressBar played={played} onSeekChange={onSeekChange} onSeekMouseDown={onSeekMouseDown} onSeekMouseUp={onSeekMouseUp} duration={duration} />
     </div>
   );
 };

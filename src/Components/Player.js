@@ -17,7 +17,8 @@ class Player extends React.Component {
       played: 0,
       loaded: 0,
       duration: 0,
-      playbackRate: 1.0
+      playbackRate: 1.0,
+      elapsed: 0
     };
     this.playPause = this.playPause.bind(this);
     this.onClickFullscreen = this.onClickFullscreen.bind(this);
@@ -33,6 +34,8 @@ class Player extends React.Component {
     this.back = this.back.bind(this);
     this.increaseVolume = this.increaseVolume.bind(this);
     this.decreaseVolume = this.decreaseVolume.bind(this);
+    this.zeroVolume = this.zeroVolume.bind(this)
+    this.fullVolume = this.fullVolume.bind(this)
   }
 
   componentDidMount() {
@@ -40,9 +43,7 @@ class Player extends React.Component {
     const movie = movies.filter(movie => match.params.id === movie.imdbid)[0];
     const fileName = movie.fileName;
 
-    // Right now ip is just of your local machine - need to figure out
-    // how to pass correct ip if file is on another machine
-    const ip = movie.ip ? movie.ip : 'localhost';
+    const ip = (movie.ip) ? movie.ip : 'localhost';
 
     const baseFileName = movie.baseFileName;
 
@@ -57,7 +58,6 @@ class Player extends React.Component {
     this.setState({
       playing: !this.state.playing
     });
-    console.log(this.state.playing);
   }
 
   onClickFullscreen() {
@@ -89,6 +89,18 @@ class Player extends React.Component {
         volume: this.state.volume - volumeIncrement
       });
     }
+  }
+
+  zeroVolume() {
+    this.setState({
+      volume: 0
+    })
+  }
+
+  fullVolume() {
+    this.setState({
+      volume: 1
+    })
   }
 
   increaseVolume() {
@@ -126,7 +138,6 @@ class Player extends React.Component {
   }
 
   onDuration(duration) {
-    console.log('onDuration', duration);
     this.setState({ duration });
   }
 
@@ -159,13 +170,11 @@ class Player extends React.Component {
             playing={playing}
             muted={muted}
             volume={volume}
-            onSeek={e => console.log('onSeek', e)}
             onError={e => console.log('onError', e)}
             onProgress={this.onProgress}
             onDuration={this.onDuration}
             onClick={this.playPause}
           />
-          {/* <div className={`controls-overlay`}> */}
           <VideoControls
             playPause={this.playPause}
             onClickFullscreen={this.onClickFullscreen}
@@ -181,11 +190,11 @@ class Player extends React.Component {
             forward={this.forward}
             decreaseVolume={this.decreaseVolume}
             increaseVolume={this.increaseVolume}
-            ip={ip}
             duration={duration}
             setVolume={this.setVolume}
+            fullVolume={this.fullVolume}
+            zeroVolume={this.zeroVolume}
           />
-          {/* </div> */}
         </div>
       </div>
     );
