@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { navTo } from './utils';
 
 const MiniMovie = props => {
-  const { movie, selectMovie, history, ip } = props;
-  const ip_ = ip ? ip : 'localhost';
+  const { movie, selectMovie, history } = props;
+  const ip = (movie.ip) ? movie.ip : 'localhost';
 
   const navSelect = () => {
     selectMovie(movie);
@@ -17,7 +17,7 @@ const MiniMovie = props => {
         <img
           onClick={() => navSelect()}
           className="mini-movie-image"
-          src={`http://${ip_}/${movie.fileName}-poster.jpg`}
+          src={`http://${ip}/${movie.fileName}-poster.jpg`}
           alt="No Image Found :("
         />
       </div>

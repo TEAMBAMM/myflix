@@ -30,7 +30,6 @@ const VideoControls = (props) => {
     ip,
     duration
   } = props
-  const ip_ = ip ? ip : 'localhost';
   const elapsed = precisionRound(((duration * played) / duration) * 100, 2)
   const width = 20, height = 20;
   return (

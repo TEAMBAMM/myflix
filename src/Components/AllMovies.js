@@ -3,7 +3,7 @@ import MiniMovie from './MiniMovie';
 import CircularProgress from 'material-ui/CircularProgress';
 
 const AllMovies = props => {
-  const { movies, selectMovie, isLoading, ip } = props;
+  const { movies, selectMovie, isLoading } = props;
 
   if (isLoading) {
     return (
@@ -20,7 +20,6 @@ const AllMovies = props => {
               selectMovie={selectMovie}
               key={movie.imdbid}
               movie={movie}
-              ip={ip}
             />
           );
         })}
