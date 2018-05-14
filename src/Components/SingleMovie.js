@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { navTo } from './utils';
+import PlayTrailer from './PlayTrailer'
 
 const SingleMovie = props => {
   const { movies, history } = props;
@@ -53,6 +54,7 @@ const SingleMovie = props => {
         <p>{movie.released}</p>
         <h3>Rated: </h3>
         <p>{movie.rated}</p>
+        <PlayTrailer movie={movie}/>
       </div>
     </div>
   );
