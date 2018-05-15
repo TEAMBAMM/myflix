@@ -2,7 +2,7 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
 require ('../server')
-const { isMovieFileSet, store} = require ('../Filereader')
+const { store } = require ('../Filereader')
 
 let window;
 

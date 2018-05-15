@@ -128,8 +128,6 @@ async function removeMovie(movieFilePath) {
 }
 
 async function onReadySync(watched) {
-  // Extract just our movies file array
-  watched = watched[path.join(__dirname, '../movies')];
   // Remove ext name, leaving an array of movie title
   // currently in the directory
   let watching = watched.map(movieName => path.parse(movieName)['name']);
