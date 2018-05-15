@@ -10,10 +10,6 @@ body {
   color: white;
 }
 
-.NavBarContainer {
-  display: flex;
-}
-
 .SearchNavDiv {
   margin-top: 10px;
   margin-left: 15px;
@@ -299,4 +295,34 @@ input[type=range]:focus::-ms-fill-upper {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.MainNavBarContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.NavBarContainer {
+  flex: 1 1 70%;
+  display: flex;
+}
+.OptionsContainer {
+  display: flex;
+  margin: 5px;
+}
+
+.OptionsComponent {
+  margin: 20px;
+}
+
+.FolderIcon {
+  margin-left: 20px;
+}
+
+.FileSpan {
+  padding-top: 5px;
+}
+
+.File {
+  display: flex;
 }

@@ -11,6 +11,7 @@ import ip from 'ip';
 import { ClientResponse } from 'http';
 import { asyncForEach } from './utils';
 import YouTubePlayer from './YouTubePlayer';
+import Options from './Options'
 
 injectTapEventPlugin();
 
@@ -236,6 +237,9 @@ class App extends Component {
               isLoading={isLoading}
             />
           )}
+        />
+        <Route path="/settings/options" 
+          render={() => (<Options />)}
         />
         <Route
           exact
