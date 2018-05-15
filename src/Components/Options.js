@@ -5,10 +5,12 @@ const Options = props => {
 
   const { filePath, changeFilePath } = props
 
+  let path = (filePath === '') ? 'Please select a folder' : filePath
+
   return (
     <div className='OptionsComponent'>
       <div className='File'>
-        <span className='FileSpan'>Selected Folder: {filePath}</span> 
+        <span className='FileSpan'>Selected Folder: {path}</span> 
         <div className='FolderIcon'>
           <Folder onClick={() => 
             changeFilePath(/*path - need to extract new path from electron*/)
