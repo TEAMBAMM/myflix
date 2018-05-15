@@ -42,39 +42,68 @@ function promisifiedFindOne(query, options) {
 }
 
 async function insertMovie(movieFilePath) {
-  const { name } = path.parse(movieFilePath);
-  // TODO What if a duplicate is added while app is closed?
+  const parsedPath = path.parse(movieFilePath);
+  const name = parsedPath.name;
   // Double checking for duplicates
   const doc = await promisifiedFindOne({ title: name });
-  if (doc === null) {
+  
+  if ((doc === null) || (doc.filePath !== movieFilePath)) {
     //Retrieve data from imdb
-    const imdbData = await imdb.get(name, { apiKey: 'ed483961' });
-    //Download poster image from imdb
+    let imdbData;
     try {
-      download.image({
-        url: imdbData.poster,
-        dest: `data/moviePosters/${imdbData.title}-poster.jpg`
-      });
-    } catch (e) {
-      console.log('Image Not Loaded');
+      imdbData = await imdb.get(name, { apiKey: 'ed483961' });
+    } catch(e) {
+      if(e) console.log('imdb data failed to load')
     }
-    let parsedPath = path.parse(movieFilePath);
-    const data = {
-      title: imdbData.title,
-      year: imdbData.year,
-      filePath: movieFilePath,
-      imdbid: imdbData.imdbid,
-      plot: imdbData.plot,
-      rating: null,
-      rated: imdbData.rated,
-      released: imdbData.released,
-      dateAdded: new Date(),
-      genres: imdbData.genres.split(', '),
-      actors: imdbData.actors.split(', '),
-      baseFileName: parsedPath.base,
-      fileType: parsedPath.ext,
-      fileName: parsedPath.name
-    };
+    let data;
+    //Download poster image from imdb
+    if(imdbData !== undefined) {
+      if(imdbData.poster !== 'N/A') {
+        try {
+          download.image({
+            url: imdbData.poster,
+            dest: `data/moviePosters/${imdbData.title}-poster.jpg`
+          });
+        } catch (e) {
+          console.log('Image Not Loaded');
+        }
+      }
+      data = {
+        title: imdbData.title,
+        year: imdbData.year,
+        filePath: movieFilePath,
+        imdbid: imdbData.imdbid,
+        plot: imdbData.plot,
+        rating: imdbData.rating + " out of 10",
+        rated: imdbData.rated,
+        released: imdbData.released,
+        dateAdded: new Date(),
+        genres: imdbData.genres.split(', '),
+        actors: imdbData.actors.split(', '),
+        baseFileName: parsedPath.base,
+        fileType: parsedPath.ext,
+        fileName: parsedPath.name
+      };
+    } else {
+      data = {
+        title: name,
+        year: 'Unknown',
+        filePath: movieFilePath,
+        // TODO - edge case - Better method for id, could generate identical id to other 
+        // unknown movie and cause an error on the react unique-key requirements
+        imdbid: Math.round(Math.random() * 10000000).toString(),
+        plot: 'Unknown',
+        rating: null,
+        rated: 'Unknown',
+        released: null,
+        dateAdded: new Date(),
+        genres: ['Unknown'],
+        actors: ['Unknown'],
+        baseFileName: parsedPath.base,
+        fileType: parsedPath.ext,
+        fileName: parsedPath.name
+      };
+    }
     return new Promise((resolve, reject) => {
       db.insert(data, err => {
         err ? reject(err) : resolve();
@@ -93,7 +122,7 @@ async function removeMovie(movieFilePath) {
     }
   );
   // Remove movie from database
-  return promisifiedRemove({ title: name }, { multi: true });
+  return promisifiedRemove({ filePath: movieFilePath }, { multi: true });
 }
 
 async function onReadySync(watched) {

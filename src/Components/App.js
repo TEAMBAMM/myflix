@@ -10,6 +10,7 @@ import SingleMovie from './SingleMovie';
 import ip from 'ip';
 import { ClientResponse } from 'http';
 import { asyncForEach } from './utils';
+import YouTubePlayer from './YouTubePlayer';
 
 injectTapEventPlugin();
 
@@ -247,6 +248,11 @@ class App extends Component {
           exact
           path="/:id/player/"
           render={() => <Player movies={movies} />}
+        />
+        <Route
+          exact
+          path="/:id/youtubeplayer/"
+          render={() => <YouTubePlayer selectedMovie={selectedMovie}/>}
         />
       </div>
     );
