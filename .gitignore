@@ -5,6 +5,6 @@ movies
 dist
 build/bundle.js
 build/bundle.js.map
-data/databaseStorage*
-data/databaseStorage
-data/moviePosters/*
+src/data/databaseStorage*
+src/data/databaseStorage
+src/data/moviePosters/*
