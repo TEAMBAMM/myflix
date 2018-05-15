@@ -26,6 +26,12 @@ app.get('/api/settings/filePath', (req, res, next) => {
   res.status(200).json({ filePath: store.get('movieFilePath')})
 })
 
+app.put('/api/settings/filePath', (req, res, next) => {
+  const path = req.body.path
+  store.set('movieFilePath', path)
+  res.status(200).json({ msg: 'Folder selected.' })
+})
+
 app.get('/api/clients', (req, res, next) => {
   res.status(200).json({ clients: listClients() })
 })
