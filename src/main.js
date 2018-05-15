@@ -1,8 +1,8 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
-require ('../server')
-require ('../Filereader')
+require ('./server')
+require ('./Filereader')
 
 let window;
 
