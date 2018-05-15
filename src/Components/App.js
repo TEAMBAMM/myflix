@@ -35,7 +35,7 @@ class App extends Component {
       isLoading: true,
       castReceivers: [{ name: 'No receivers found!', host: '0.0.0.0' }],
       isCasting: false,
-      filePath: 'test',
+      filePath: '',
     };
     this.onChange = this.onChange.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
