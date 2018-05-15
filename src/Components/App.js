@@ -11,6 +11,8 @@ import ip from 'ip';
 import { ClientResponse } from 'http';
 import { asyncForEach } from './utils';
 import YouTubePlayer from './YouTubePlayer';
+import Options from './Options'
+import NoFile from './NoFile'
 
 injectTapEventPlugin();
 
@@ -33,6 +35,7 @@ class App extends Component {
       isLoading: true,
       castReceivers: [{ name: 'No receivers found!', host: '0.0.0.0' }],
       isCasting: false,
+      filePath: '',
     };
     this.onChange = this.onChange.bind(this);
     this.changeFilter = this.changeFilter.bind(this);
@@ -45,6 +48,7 @@ class App extends Component {
     this.updateSortedList = this.updateSortedList.bind(this)
     this.mergeClientMovies = this.mergeClientMovies.bind(this)
     this.toggleCasting = this.toggleCasting.bind(this)
+    this.changeFilePath = this.changeFilePath.bind(this)
   }
 
   async componentDidMount() {
@@ -52,9 +56,18 @@ class App extends Component {
     const movies = res.data.movies;
     res = await axios.get('http://localhost/api/ip');
     const ip = res.data.ip;
+    res = axios.get('http://localhost/api/settings/filePath')
+    const filePath = res.data.filePath
     await this.updateSortedList(movies);
     this.deviceScanner();
-    this.setState({ ...this.state, movies, ip, isLoading: false });
+    this.setState({ ...this.state, movies, ip, filePath, isLoading: false });
+  }
+
+  async changeFilePath(path) {
+    let res = await axios.put('http://localhost/api/settings/filePath', path)
+    res = await axios.get('http://localhost/api/settings/filePath')
+    const filePath = res.data.filePath
+    this.setState({...this.state, filePath})
   }
 
   toggleCasting(isCasting) {
@@ -194,6 +207,7 @@ class App extends Component {
       isLoading,
       clients,
       isCasting,
+      filePath
     } = this.state;
     const { 
       onChange, 
@@ -203,8 +217,11 @@ class App extends Component {
       test, 
       selectMovie, 
       deselectMovie, 
-      toggleCasting 
+      toggleCasting,
+      changeFilePath
     } = this;
+
+    const MainPage = (filePath === '') ? NoFile : AllMovies
 
     return (
       <div>
@@ -230,19 +247,25 @@ class App extends Component {
           exact
           path="*index.html"
           render={() => (
-            <AllMovies
+            <MainPage
               movies={filteredOutput}
               selectMovie={selectMovie}
               isLoading={isLoading}
+              changeFilePath={changeFilePath}
             />
           )}
+        />
+        <Route path="/settings/options" 
+          render={() => 
+            <Options filePath={filePath} changeFilePath={changeFilePath}/>
+          }
         />
         <Route
           exact
           path="/:id/"
-          render={() => (
+          render={() =>
             <SingleMovie movies={movies} selectMovie={selectMovie} />
-          )}
+          }
         />
         <Route
           exact

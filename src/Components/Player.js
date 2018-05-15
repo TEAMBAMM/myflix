@@ -18,7 +18,8 @@ class Player extends React.Component {
       loaded: 0,
       duration: 0,
       playbackRate: 1.0,
-      elapsed: 0
+      elapsed: 0,
+      shouldHide: false
     };
     this.playPause = this.playPause.bind(this);
     this.onClickFullscreen = this.onClickFullscreen.bind(this);
@@ -27,15 +28,14 @@ class Player extends React.Component {
     this.onSeekChange = this.onSeekChange.bind(this);
     this.onSeekMouseUp = this.onSeekMouseUp.bind(this);
     this.onProgress = this.onProgress.bind(this);
-    this.toggleMuted = this.toggleMuted.bind(this);
     this.onDuration = this.onDuration.bind(this);
     this.ref = this.ref.bind(this);
     this.forward = this.forward.bind(this);
     this.back = this.back.bind(this);
-    this.increaseVolume = this.increaseVolume.bind(this);
-    this.decreaseVolume = this.decreaseVolume.bind(this);
     this.zeroVolume = this.zeroVolume.bind(this)
     this.fullVolume = this.fullVolume.bind(this)
+    this.timerId = null;
+    this.handleMouseMove = this.handleMouseMove.bind(this)
   }
 
   componentDidMount() {
@@ -52,6 +52,11 @@ class Player extends React.Component {
       playing: true,
       muted: false
     });
+
+    this.timerId = setTimeout(() => {
+      this.setState({ shouldHide: true })
+    }, 3000)
+
   }
 
   playPause() {
@@ -82,15 +87,6 @@ class Player extends React.Component {
     }
   }
 
-  decreaseVolume() {
-    const volumeIncrement = 0.01;
-    if (this.state.volume - volumeIncrement >= 0) {
-      this.setState({
-        volume: this.state.volume - volumeIncrement
-      });
-    }
-  }
-
   zeroVolume() {
     this.setState({
       volume: 0
@@ -101,15 +97,6 @@ class Player extends React.Component {
     this.setState({
       volume: 1
     })
-  }
-
-  increaseVolume() {
-    const volumeIncrement = 0.01;
-    if (this.state.volume + volumeIncrement <= 1) {
-      this.setState({
-        volume: this.state.volume + volumeIncrement
-      });
-    }
   }
 
   onSeekMouseDown(e) {
@@ -133,16 +120,26 @@ class Player extends React.Component {
     }
   }
 
-  toggleMuted() {
-    this.setState({ muted: !this.state.muted });
-  }
-
   onDuration(duration) {
     this.setState({ duration });
   }
 
   ref(player) {
     this.player = player;
+  }
+
+  handleMouseMove() {
+    clearTimeout(this.timerId)
+    this.setState({
+      shouldHide: false
+    })
+    this.timerId = setTimeout(() => {
+      this.setState({ shouldHide: true })
+    }, 3000)
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timerId)
   }
 
   render() {
@@ -154,13 +151,14 @@ class Player extends React.Component {
       played,
       loaded,
       duration,
-      playbackRate
+      playbackRate,
+      shouldHide
     } = this.state;
     const { ip } = this.props;
 
     return (
       <div className="player-container">
-        <div className="player-overlay">
+        <div className="player-overlay" onMouseMove={this.handleMouseMove}>
           <ReactPlayer
             ref={this.ref}
             className="react-player"
@@ -183,17 +181,15 @@ class Player extends React.Component {
             onSeekMouseUp={this.onSeekMouseUp}
             volume={volume}
             muted={muted}
-            toggleMuted={this.toggleMuted}
             played={played}
             playing={playing}
             back={this.back}
             forward={this.forward}
-            decreaseVolume={this.decreaseVolume}
-            increaseVolume={this.increaseVolume}
             duration={duration}
             setVolume={this.setVolume}
             fullVolume={this.fullVolume}
             zeroVolume={this.zeroVolume}
+            shouldHide={shouldHide}
           />
         </div>
       </div>

@@ -7,6 +7,7 @@ import Sort from './Sort';
 import Cast from './Cast';
 import Home from './Home';
 import CastControls from './CastControls'
+import OptionsIcon from './OptionsIcon'
 
 const NavBar = props => {
   const {
@@ -36,24 +37,29 @@ const NavBar = props => {
   const ShowControls = (isCasting) ? CastControls : () => (<div></div>)
 
   return (
-    <div className="NavBarContainer">
-      <div className="SearchNavDiv">
-        <AutoCompleteSearch movies={movies} />
+    <div className="MainNavBarContainer">
+      <div className="NavBarContainer">
+        <div className="SearchNavDiv">
+          <AutoCompleteSearch movies={movies} />
+        </div>
+        <div className="NavDiv" onClick={() => navDeselect()}>
+          <Home />
+        </div>
+        <div className="NavDiv">
+          <Filter changeFilter={changeFilter} />
+        </div>
+        <div className="NavDiv">
+          <Sort changeSort={changeSort} />
+        </div>
+        <div className="NavDiv">
+          <Cast castReceivers={castReceivers} selectedMovie={selectedMovie} ip={ip} toggleCasting={toggleCasting} />
+        </div>
+        <div>
+          <ShowControls toggleCasting={toggleCasting}/>
+        </div>
       </div>
-      <div className="NavDiv" onClick={() => navDeselect()}>
-        <Home />
-      </div>
-      <div className="NavDiv">
-        <Filter changeFilter={changeFilter} />
-      </div>
-      <div className="NavDiv">
-        <Sort changeSort={changeSort} />
-      </div>
-      <div className="NavDiv">
-        <Cast castReceivers={castReceivers} selectedMovie={selectedMovie} ip={ip} toggleCasting={toggleCasting} />
-      </div>
-      <div>
-        <ShowControls toggleCasting={toggleCasting}/>
+      <div className="OptionsContainer">
+        <OptionsIcon/>
       </div>
     </div>
   );

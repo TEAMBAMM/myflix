@@ -1,8 +1,8 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
-require ('../server')
-const { store } = require ('../Filereader')
+require ('./server')
+const { store } = require ('./Filereader')
 
 let window;
 
@@ -10,7 +10,7 @@ const createWindow = () => {
   window = new BrowserWindow({
     width: 1200,
     height: 800,
-    minWidth: 960,
+    minWidth: 1000,
     minHeight: 500,
     resizable: true,
     maximizable: true,

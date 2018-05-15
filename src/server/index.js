@@ -7,18 +7,29 @@ const { listClients, startTimer, myIp } = require('./findservers.js');
 const { listReceivers, playMovie, control } = require('../cast')
 const ip = require('ip')
 const { db } = require('../data/dataStore')
+const { store } = require('../Filereader')
 const PORT = 80
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 // app.use(morgan('dev'))
 
-app.use(express.static(path.join(__dirname, '../','/movies')))
-app.use(express.static(path.join(__dirname, '../','/src/images')))
-app.use(express.static(path.join(__dirname, '../','/data/moviePosters')))
+app.use(express.static(path.join(__dirname, '../', '/movies')))
+app.use(express.static(path.join(__dirname, '../', '/images')))
+app.use(express.static(path.join(__dirname, '../', '/data/moviePosters')))
 
 app.get('/isserver', (req, res, next) => {
   res.status(200).send('connected')
+})
+
+app.get('/api/settings/filePath', (req, res, next) => {
+  res.status(200).json({ filePath: store.get('movieFilePath')})
+})
+
+app.put('/api/settings/filePath', (req, res, next) => {
+  const path = req.body.path
+  store.set('movieFilePath', path)
+  res.status(200).json({ msg: 'Folder selected.' })
 })
 
 app.get('/api/clients', (req, res, next) => {

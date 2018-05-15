@@ -64,7 +64,7 @@ async function insertMovie(movieFilePath) {
         try {
           download.image({
             url: imdbData.poster,
-            dest: `data/moviePosters/${imdbData.title}-poster.jpg`
+            dest: `src/data/moviePosters/${imdbData.title}-poster.jpg`
           });
         } catch (e) {
           console.log('Image Not Loaded');
@@ -118,7 +118,7 @@ async function removeMovie(movieFilePath) {
   const { name } = path.parse(movieFilePath);
   // Remove movie image from poster folder
   await fs.unlink(
-    path.join(__dirname, '../data/moviePosters', `${name}-poster.jpg`),
+    path.join(__dirname, './data/moviePosters', `${name}-poster.jpg`),
     err => {
       if (err) console.error('Failed to delete movie poster, does not exist')
     }
