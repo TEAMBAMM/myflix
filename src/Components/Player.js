@@ -28,7 +28,6 @@ class Player extends React.Component {
     this.onSeekChange = this.onSeekChange.bind(this);
     this.onSeekMouseUp = this.onSeekMouseUp.bind(this);
     this.onProgress = this.onProgress.bind(this);
-    this.toggleMuted = this.toggleMuted.bind(this);
     this.onDuration = this.onDuration.bind(this);
     this.ref = this.ref.bind(this);
     this.forward = this.forward.bind(this);
@@ -121,10 +120,6 @@ class Player extends React.Component {
     }
   }
 
-  toggleMuted() {
-    this.setState({ muted: !this.state.muted });
-  }
-
   onDuration(duration) {
     this.setState({ duration });
   }
@@ -186,7 +181,6 @@ class Player extends React.Component {
             onSeekMouseUp={this.onSeekMouseUp}
             volume={volume}
             muted={muted}
-            toggleMuted={this.toggleMuted}
             played={played}
             playing={playing}
             back={this.back}
