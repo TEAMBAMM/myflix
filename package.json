@@ -2,7 +2,7 @@
   "name": "myflix",
   "version": "0.1.0",
   "description": "Movie streaming app",
-  "main": "main.js",
+  "main": "./src/main.js",
   "scripts": {
     "start": "webpack && electron ./src/main.js",
     "build": "build"
@@ -29,7 +29,6 @@
     },
     "linux": {
       "target": [
-        "AppImage",
         "deb"
       ]
     },
@@ -42,7 +41,11 @@
     "type": "git",
     "url": "git+ssh://git@github.com/TEAMBAMM/myflix.git"
   },
-  "author": "TEAMBAMM",
+  "author": { 
+    "name" : "TEAMBAMM",
+    "email" : "BAMM@BAMM.com",
+    "url" : "http://barnyrubble.tumblr.com/"
+    },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TEAMBAMM/myflix/issues"
