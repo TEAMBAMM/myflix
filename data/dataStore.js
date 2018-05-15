@@ -9,6 +9,8 @@ const db = new Datastore({
   autoload: true
 });
 
+db.persistence.setAutocompactionInterval(10000);
+
 function promisifiedCount() {
   return new Promise((resolve, reject) => {
     db.count({}, (err, count) => {
