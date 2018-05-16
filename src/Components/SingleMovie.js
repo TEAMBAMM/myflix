@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { navTo } from './utils';
 import PlayTrailer from './PlayTrailer'
+import Paper from 'material-ui/Paper'
 
 const SingleMovie = props => {
   const { movies, history } = props;
@@ -13,6 +14,15 @@ const SingleMovie = props => {
   const fileName = movie.fileName;
   movie.released =  movie.released !== null ? movie.released.split('T')[0] : 'Unknown';
 
+  const style = {
+    paddingTop: 3,
+    height: 426,
+    width: 302,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+
   return (
     <div className="singlemovie-container">
       <div className="thumb">
@@ -20,12 +30,14 @@ const SingleMovie = props => {
           className="overlay"
           onClick={() => navTo(`/${imdbid}/player/`, history)}
         >
-          <div>
-            <img
-              src={`http://${ip}/${fileName}-poster.jpg`}
-              className="thumbnail"
-            />
-          </div>
+          <Paper style={style} zDepth={3} rounded={false}>
+            <div>
+              <img
+                src={`http://${ip}/${fileName}-poster.jpg`}
+                className="mini-movie-image"
+              />
+            </div>
+          </Paper>
           <div className="playWrapper">
             <span className="playBtn">
               <img
