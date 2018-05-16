@@ -12,7 +12,6 @@ import { ClientResponse } from 'http';
 import { asyncForEach } from './utils';
 import YouTubePlayer from './YouTubePlayer';
 import Options from './Options'
-import NoFile from './NoFile'
 const Store = window.require('electron-store')
 
 injectTapEventPlugin();
@@ -225,8 +224,6 @@ class App extends Component {
       changeFilePath
     } = this;
 
-    const MainPage = (filePath === '') ? NoFile : AllMovies
-
     return (
       <div>
         {/* <button onClick={() => toggleCasting()}>Toggle Casting</button> */}
@@ -251,11 +248,12 @@ class App extends Component {
           exact
           path="*index.html"
           render={() => (
-            <MainPage
+            <AllMovies
               movies={filteredOutput}
               selectMovie={selectMovie}
               isLoading={isLoading}
               changeFilePath={changeFilePath}
+              filePath={filePath}
             />
           )}
         />
