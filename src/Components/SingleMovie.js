@@ -4,14 +4,18 @@ import { navTo } from './utils';
 import PlayTrailer from './PlayTrailer'
 
 const SingleMovie = props => {
-  const { movies, history } = props;
+  const { movies, history, updateMovie } = props;
   const imdbid = props.match.params.id;
   const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
-  const ip = (movie.ip) ? movie.ip : 'localhost'
+  const ip = (movie.ip) ? movie.ip : 'localhost';
   const actorsList = movie.actors.join(', ');
   const genreList = movie.genres.join(', ');
   const fileName = movie.fileName;
   movie.released =  movie.released !== null ? movie.released.split('T')[0] : 'Unknown';
+
+  const navSelect = () => {
+    navTo()
+  }
 
   return (
     <div className="singlemovie-container">
@@ -55,6 +59,7 @@ const SingleMovie = props => {
         <h3>Rated: </h3>
         <p>{movie.rated}</p>
         <PlayTrailer movie={movie}/>
+        <button onClick={() => navSelect()}>Update</button>
       </div>
     </div>
   );

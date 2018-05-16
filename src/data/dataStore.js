@@ -8,6 +8,7 @@ const db = new Datastore({
   filename: path.join(__dirname, '/databaseStorage'),
   autoload: true
 });
+const nameParse = require('../server/nameParse');
 
 db.persistence.setAutocompactionInterval(10000);
 
@@ -43,12 +44,35 @@ function promisifiedFindOne(query, options) {
   });
 }
 
+function promisifiedUpdate(query, newValues, options) {
+  return new Promise((resolve, reject) => {
+    db.update(query, { $set: newValues }, (err, doc) => {
+      err ? reject(err) : resolve(doc);
+    });
+  });
+}
+
+async function updateMovie(movieFilePath, imdbData) {
+  let data = {
+    title: imdbData.title,
+    year: imdbData.year,
+    imdbid: imdbData.imdbid,
+    plot: imdbData.plot,
+    rating: imdbData.rating + " out of 10",
+    rated: imdbData.rated,
+    released: imdbData.released,
+    dateAdded: new Date(),
+    genres: imdbData.genres.split(', '),
+    actors: imdbData.actors.split(', '),
+  };
+  return promisifiedUpdate({filePath: movieFilePath}, { data })
+}
+
 async function insertMovie(movieFilePath) {
   const parsedPath = path.parse(movieFilePath);
-  const name = parsedPath.name;
+  const name = nameParse(parsedPath.name);
   // Double checking for duplicates
   const doc = await promisifiedFindOne({ title: name });
-  
   if ((doc === null) || (doc.filePath !== movieFilePath)) {
     //Retrieve data from imdb
     let imdbData;
@@ -162,5 +186,6 @@ module.exports = {
   db,
   insertMovie,
   removeMovie,
+  updateMovie,
   onReadySync
 };

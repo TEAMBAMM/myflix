@@ -54,6 +54,10 @@ app.put('/api/cast/:command', (req, res, next) => {
   res.status(200).send(command)
 })
 
+app.put('/api/movie/updateMovie', (req, res, next) => {
+  
+})
+
 app.get('/api/ip', (req, res, next) => {
   res.status(200).json({ ip: ip.address() })
 })
@@ -79,4 +83,3 @@ app.listen(PORT, () => {
 })
 
 startTimer()
-

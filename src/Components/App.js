@@ -13,13 +13,9 @@ import { asyncForEach } from './utils';
 import YouTubePlayer from './YouTubePlayer';
 import Options from './Options'
 import NoFile from './NoFile'
-const Store = window.require('electron-store')
 
 injectTapEventPlugin();
 
-let settingsStore = new Store({
-  name: 'userSettings'
-});
 class App extends Component {
   constructor() {
     super();
@@ -53,12 +49,12 @@ class App extends Component {
     this.mergeClientMovies = this.mergeClientMovies.bind(this)
     this.toggleCasting = this.toggleCasting.bind(this)
     this.changeFilePath = this.changeFilePath.bind(this)
+    this.updateMovie = this.updateMovie.bind(this)
   }
 
   async componentDidMount() {
     let res = await axios.get('http://localhost/api/movies');
     const movies = res.data.movies;
-    console.log(movies)
     res = await axios.get('http://localhost/api/ip');
     const ip = res.data.ip;
     res = await axios.get('http://localhost/api/settings/filePath')
@@ -129,6 +125,10 @@ class App extends Component {
     });
     this.updateSortedList([...moviesMap.values()]);
     this.setState({ ...this.state, movies: [...moviesMap.values()] });
+  }
+
+  updateMovie() {
+    
   }
 
   async test() {
@@ -223,7 +223,8 @@ class App extends Component {
       selectMovie, 
       deselectMovie, 
       toggleCasting,
-      changeFilePath
+      changeFilePath,
+      updateMovie
     } = this;
 
     const MainPage = (filePath === '') ? NoFile : AllMovies
@@ -269,7 +270,14 @@ class App extends Component {
           exact
           path="/:id/"
           render={() =>
-            <SingleMovie movies={movies} selectMovie={selectMovie} />
+            <SingleMovie updateMovie={updateMovie} movies={movies} selectMovie={selectMovie} />
+          }
+        />
+        <Route
+          exact
+          path="imdb-search"
+          render={() =>
+            <ImdbSearch updateMovie={updateMovie}  /> 
           }
         />
         <Route
