@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 // app.use(morgan('dev'))
 
-app.use(express.static(path.join(__dirname, '../', '/movies')))
+app.use(express.static(path.resolve(settingsStore.get('movieFilePath'))))
 app.use(express.static(path.join(__dirname, '../', '/images')))
 app.use(express.static(path.join(__dirname, '../', '/data/moviePosters')))
 
