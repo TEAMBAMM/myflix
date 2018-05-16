@@ -243,6 +243,8 @@ class App extends Component {
           ip={ip}
           isCasting={isCasting}
           toggleCasting={toggleCasting}
+          filePath={filePath}
+          changeFilePath={changeFilePath}
         />
         <Route
           exact
@@ -256,11 +258,6 @@ class App extends Component {
               filePath={filePath}
             />
           )}
-        />
-        <Route path="/settings/options" 
-          render={() => 
-            <Options filePath={filePath} changeFilePath={changeFilePath}/>
-          }
         />
         <Route
           exact
