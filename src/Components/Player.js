@@ -112,9 +112,7 @@ class Player extends React.Component {
     this.player.seekTo(parseFloat(e.target.value));
   }
 
-  // We need this function, don't remove it!  Without this, the back and forward buttons will not work. Also, if the seekTo function (built in for ReactPlayer component) is not active (turns this.state.seeking on), setting of state is not happening. So I don't think this is the reason for the memory leak.
   onProgress(state) {
-    // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
       this.setState(state);
     }

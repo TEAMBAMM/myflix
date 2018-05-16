@@ -58,7 +58,6 @@ class App extends Component {
   async componentDidMount() {
     let res = await axios.get('http://localhost/api/movies');
     const movies = res.data.movies;
-    console.log(movies)
     res = await axios.get('http://localhost/api/ip');
     const ip = res.data.ip;
     res = await axios.get('http://localhost/api/settings/filePath')
@@ -69,18 +68,18 @@ class App extends Component {
   }
 
   async changeFilePath(path) {
-    let res = await axios.put('http://localhost/api/settings/filePath', {'path': path})
+    let res = await axios.put('http://localhost/api/settings/filePath', { 'path': path })
     res = await axios.get('http://localhost/api/settings/filePath')
     const filePath = res.data.filePath
-    this.setState({...this.state, filePath})
+    this.setState({ ...this.state, filePath })
   }
 
   toggleCasting(isCasting) {
-    this.setState({...this.state, isCasting })
+    this.setState({ ...this.state, isCasting })
   }
 
   deselectMovie() {
-    this.setState({...this.state, selectedMovie: { error: 'Please select a movie!'} }) 
+    this.setState({ ...this.state, selectedMovie: { error: 'Please select a movie!' } })
   }
 
   selectMovie(movie) {
@@ -171,29 +170,29 @@ class App extends Component {
       filteredOutput = moviesList;
     }
     switch (sortTerm) {
-    case 'Recently Added': // will update later
-      break;
-    case 'Title':
-      filteredOutput.sort((movieA, movieB) => {
-        const movieAL = movieA.title.toLowerCase();
-        const movieBL = movieB.title.toLowerCase();
-        if (movieAL < movieBL) return -1;
-        if (movieAL > movieBL) return 1;
-        return 0;
-      });
-      break;
-    case 'Rating':
-      filteredOutput.sort((movieA, movieB) => {
-        return movieB.rating - movieA.rating;
-      });
-      break;
-    case 'Year':
-      filteredOutput.sort((movieA, movieB) => {
-        return movieB.year - movieA.year;
-      });
-      break;
-    case 'Resolution': // will update later
-      break;
+      case 'Recently Added': // will update later
+        break;
+      case 'Title':
+        filteredOutput.sort((movieA, movieB) => {
+          const movieAL = movieA.title.toLowerCase();
+          const movieBL = movieB.title.toLowerCase();
+          if (movieAL < movieBL) return -1;
+          if (movieAL > movieBL) return 1;
+          return 0;
+        });
+        break;
+      case 'Rating':
+        filteredOutput.sort((movieA, movieB) => {
+          return movieB.rating - movieA.rating;
+        });
+        break;
+      case 'Year':
+        filteredOutput.sort((movieA, movieB) => {
+          return movieB.year - movieA.year;
+        });
+        break;
+      case 'Resolution': // will update later
+        break;
     }
     this.setState({ ...this.state, filteredOutput: filteredOutput });
   }
@@ -214,14 +213,14 @@ class App extends Component {
       isCasting,
       filePath
     } = this.state;
-    const { 
-      onChange, 
-      changeFilter, 
-      changeSort, 
-      toggleFavorites, 
-      test, 
-      selectMovie, 
-      deselectMovie, 
+    const {
+      onChange,
+      changeFilter,
+      changeSort,
+      toggleFavorites,
+      test,
+      selectMovie,
+      deselectMovie,
       toggleCasting,
       changeFilePath
     } = this;
@@ -260,9 +259,9 @@ class App extends Component {
             />
           )}
         />
-        <Route path="/settings/options" 
-          render={() => 
-            <Options filePath={filePath} changeFilePath={changeFilePath}/>
+        <Route path="/settings/options"
+          render={() =>
+            <Options filePath={filePath} changeFilePath={changeFilePath} />
           }
         />
         <Route
@@ -280,7 +279,7 @@ class App extends Component {
         <Route
           exact
           path="/:id/youtubeplayer/"
-          render={() => <YouTubePlayer selectedMovie={selectedMovie}/>}
+          render={() => <YouTubePlayer selectedMovie={selectedMovie} />}
         />
       </div>
     );
