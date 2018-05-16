@@ -12,7 +12,6 @@ import { ClientResponse } from 'http';
 import { asyncForEach } from './utils';
 import YouTubePlayer from './YouTubePlayer';
 import Options from './Options'
-import NoFile from './NoFile'
 const Store = window.require('electron-store')
 
 injectTapEventPlugin();
@@ -170,29 +169,29 @@ class App extends Component {
       filteredOutput = moviesList;
     }
     switch (sortTerm) {
-      case 'Recently Added': // will update later
-        break;
-      case 'Title':
-        filteredOutput.sort((movieA, movieB) => {
-          const movieAL = movieA.title.toLowerCase();
-          const movieBL = movieB.title.toLowerCase();
-          if (movieAL < movieBL) return -1;
-          if (movieAL > movieBL) return 1;
-          return 0;
-        });
-        break;
-      case 'Rating':
-        filteredOutput.sort((movieA, movieB) => {
-          return movieB.rating - movieA.rating;
-        });
-        break;
-      case 'Year':
-        filteredOutput.sort((movieA, movieB) => {
-          return movieB.year - movieA.year;
-        });
-        break;
-      case 'Resolution': // will update later
-        break;
+    case 'Recently Added': // will update later
+      break;
+    case 'Title':
+      filteredOutput.sort((movieA, movieB) => {
+        const movieAL = movieA.title.toLowerCase();
+        const movieBL = movieB.title.toLowerCase();
+        if (movieAL < movieBL) return -1;
+        if (movieAL > movieBL) return 1;
+        return 0;
+      });
+      break;
+    case 'Rating':
+      filteredOutput.sort((movieA, movieB) => {
+        return movieB.rating - movieA.rating;
+      });
+      break;
+    case 'Year':
+      filteredOutput.sort((movieA, movieB) => {
+        return movieB.year - movieA.year;
+      });
+      break;
+    case 'Resolution': // will update later
+      break;
     }
     this.setState({ ...this.state, filteredOutput: filteredOutput });
   }
@@ -225,8 +224,6 @@ class App extends Component {
       changeFilePath
     } = this;
 
-    const MainPage = (filePath === '') ? NoFile : AllMovies
-
     return (
       <div>
         {/* <button onClick={() => toggleCasting()}>Toggle Casting</button> */}
@@ -246,23 +243,21 @@ class App extends Component {
           ip={ip}
           isCasting={isCasting}
           toggleCasting={toggleCasting}
+          filePath={filePath}
+          changeFilePath={changeFilePath}
         />
         <Route
           exact
           path="*index.html"
           render={() => (
-            <MainPage
+            <AllMovies
               movies={filteredOutput}
               selectMovie={selectMovie}
               isLoading={isLoading}
               changeFilePath={changeFilePath}
+              filePath={filePath}
             />
           )}
-        />
-        <Route path="/settings/options"
-          render={() =>
-            <Options filePath={filePath} changeFilePath={changeFilePath} />
-          }
         />
         <Route
           exact

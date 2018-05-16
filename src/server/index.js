@@ -75,7 +75,7 @@ app.use((error, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
-  console.log('Serving files from: ' + path.join(__dirname, '../','/movies'))
+  console.log('Serving files from:', path.resolve(settingsStore.get('movieFilePath')))
 })
 
 startTimer()
