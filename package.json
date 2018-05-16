@@ -40,7 +40,9 @@
       "src/cast/**",
       "src/data/**",
       "src/images/**",
-      "node_modules/**"
+      "node_modules/**",
+      "src/data/databaseStorage",
+      "src/data/databaseStorage*"      
     ]
   },
   "repository": {

@@ -62,10 +62,11 @@ app.get('/api/ip', (req, res, next) => {
 app.get('/api/movies', (req, res, next) => {
   try {
     db.find({}, (err, data) => {
-      res.status(200).json({ movies: data })
+      if(err) res.status(200).json({ movies: [] })
+      else res.status(200).json({ movies: data })
     })
   } catch (error) {
-    next(error)
+    res.status(200).json({ movies: [] })
   }
 })
 
