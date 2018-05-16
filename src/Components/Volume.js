@@ -4,7 +4,7 @@ import AvVolumeDown from 'material-ui/svg-icons/av/volume-down'
 import AvVolumeMute from 'material-ui/svg-icons/av/volume-mute'
 
 const Volume = props => {
-  const width = 20, height = 20;
+  const width = 25, height = 25;
   const { volume, setVolume, fullVolume, zeroVolume } = props
   return (
     <div className="volume-layer">

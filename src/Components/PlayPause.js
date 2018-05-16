@@ -5,7 +5,7 @@ import AvPause from 'material-ui/svg-icons/av/pause'
 import AvPlayArrow from 'material-ui/svg-icons/av/play-arrow'
 
 const PlayPause = props => {
-  const width = 20, height = 20;
+  const width = 25, height = 25;
   const { playPause, back, forward, playing } = props;
   return (
     <div className="play-layer">
