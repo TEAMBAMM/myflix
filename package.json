@@ -34,7 +34,13 @@
     },
     "files": [
       "build/**",
-      "src/main.js"
+      "src/main.js",
+      "src/Filereader/**",
+      "src/server/**",
+      "src/cast/**",
+      "src/data/**",
+      "src/images/**",
+      "node_modules/**"
     ]
   },
   "repository": {
@@ -77,6 +83,7 @@
     "chromecasts": "^1.9.1",
     "electron-store": "^1.3.0",
     "evilscan": "^1.6.1",
+    "express": "^4.16.3",
     "file-loader": "^1.1.11",
     "history": "^4.7.2",
     "image-downloader": "^3.3.0",
