@@ -67,18 +67,18 @@ class App extends Component {
   }
 
   async changeFilePath(path) {
-    let res = await axios.put('http://localhost/api/settings/filePath', {'path': path})
+    let res = await axios.put('http://localhost/api/settings/filePath', { 'path': path })
     res = await axios.get('http://localhost/api/settings/filePath')
     const filePath = res.data.filePath
-    this.setState({...this.state, filePath})
+    this.setState({ ...this.state, filePath })
   }
 
   toggleCasting(isCasting) {
-    this.setState({...this.state, isCasting })
+    this.setState({ ...this.state, isCasting })
   }
 
   deselectMovie() {
-    this.setState({...this.state, selectedMovie: { error: 'Please select a movie!'} }) 
+    this.setState({ ...this.state, selectedMovie: { error: 'Please select a movie!' } })
   }
 
   selectMovie(movie) {
@@ -212,14 +212,14 @@ class App extends Component {
       isCasting,
       filePath
     } = this.state;
-    const { 
-      onChange, 
-      changeFilter, 
-      changeSort, 
-      toggleFavorites, 
-      test, 
-      selectMovie, 
-      deselectMovie, 
+    const {
+      onChange,
+      changeFilter,
+      changeSort,
+      toggleFavorites,
+      test,
+      selectMovie,
+      deselectMovie,
       toggleCasting,
       changeFilePath
     } = this;
@@ -274,7 +274,7 @@ class App extends Component {
         <Route
           exact
           path="/:id/youtubeplayer/"
-          render={() => <YouTubePlayer selectedMovie={selectedMovie}/>}
+          render={() => <YouTubePlayer selectedMovie={selectedMovie} />}
         />
       </div>
     );

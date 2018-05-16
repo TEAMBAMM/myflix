@@ -9,12 +9,12 @@ const PlayPause = props => {
   const { playPause, back, forward, playing } = props;
   return (
     <div className="play-layer">
-      <AvFastRewind style={{ width, height }} color="white" onClick={back} />
+      <AvFastRewind style={{ width, height }} color="white" onClick={back} className="icon" />
       <div className="playPauseBtn" onClick={playPause}>
         {playing ? (
-          <AvPause style={{ width, height }} color="white" />
+          <AvPause style={{ width, height }} color="white" className="icon" />
         ) : (
-            <AvPlayArrow style={{ width, height }} color="white" />
+            <AvPlayArrow style={{ width, height }} color="white" className="icon" />
           )}
       </div>
       <AvFastForward style={{ width, height }} color="white" onClick={forward} />
