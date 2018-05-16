@@ -1,5 +1,6 @@
 import React from 'react'
 import Folder from 'material-ui/svg-icons/file/folder-open'
+const { dialog } = window.require('electron').remote
 
 const Options = props => {
 
@@ -12,9 +13,15 @@ const Options = props => {
       <div className='File'>
         <span className='FileSpan'>Selected Folder: {path}</span> 
         <div className='FolderIcon'>
-          <Folder onClick={() => 
-            changeFilePath(/*path - need to extract new path from electron*/)
-          }/>
+          <Folder onClick={() => {
+            const folderPath = dialog.showOpenDialog({
+              title: 'Please select movie folder',
+              properties: ['openDirectory']
+            })
+            if (folderPath !== undefined) {
+              changeFilePath(folderPath[0])
+            }
+          }}/>
         </div>
       </div>
     </div>

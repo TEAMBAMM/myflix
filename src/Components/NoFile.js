@@ -1,7 +1,7 @@
 import React from 'react'
 import File from 'material-ui/svg-icons/file/create-new-folder'
 import RaisedButton from 'material-ui/RaisedButton'
-const { BrowserWindow, dialog } = window.require('electron').remote
+const { dialog } = window.require('electron').remote
 
 const NoFile = props => {
 
@@ -13,7 +13,6 @@ const NoFile = props => {
         title: 'Please select movie folder',
         properties: ['openDirectory']
       })
-      console.log(folderPath)
       if (folderPath !== undefined) {
         changeFilePath(folderPath[0])
       }

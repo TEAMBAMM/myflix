@@ -58,10 +58,10 @@ class App extends Component {
   async componentDidMount() {
     let res = await axios.get('http://localhost/api/movies');
     const movies = res.data.movies;
+    console.log(movies)
     res = await axios.get('http://localhost/api/ip');
     const ip = res.data.ip;
     res = await axios.get('http://localhost/api/settings/filePath')
-    console.log(res)
     const filePath = res.data.filePath
     await this.updateSortedList(movies);
     this.deviceScanner();
