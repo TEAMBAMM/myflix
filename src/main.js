@@ -1,8 +1,8 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
 const path = require('path');
 const url = require('url');
+const settingsStore = require ('./Filereader')
 require ('./server')
-const { store } = require ('./Filereader')
 
 let window;
 

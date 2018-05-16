@@ -1,14 +1,23 @@
 import React from 'react'
 import File from 'material-ui/svg-icons/file/create-new-folder'
 import RaisedButton from 'material-ui/RaisedButton'
+const { BrowserWindow, dialog } = window.require('electron').remote
 
 const NoFile = props => {
 
   const { changeFilePath } = props
 
   return (
-    <div className='NoFileContainer' onClick={() => 
-      changeFilePath(/*path - need to extract new path from electron*/)}
+    <div className='NoFileContainer' onClick={() => {
+      const folderPath = dialog.showOpenDialog({
+        title: 'Please select movie folder',
+        properties: ['openDirectory']
+      })
+      console.log(folderPath)
+      if (folderPath !== undefined) {
+        changeFilePath(folderPath[0])
+      }
+    }}
     >
       <div>
         <h2>No folder selected!</h2>

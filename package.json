@@ -41,11 +41,11 @@
     "type": "git",
     "url": "git+ssh://git@github.com/TEAMBAMM/myflix.git"
   },
-  "author": { 
-    "name" : "TEAMBAMM",
-    "email" : "BAMM@BAMM.com",
-    "url" : "http://barnyrubble.tumblr.com/"
-    },
+  "author": {
+    "name": "TEAMBAMM",
+    "email": "BAMM@BAMM.com",
+    "url": "http://barnyrubble.tumblr.com/"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TEAMBAMM/myflix/issues"

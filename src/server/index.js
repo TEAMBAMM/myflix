@@ -7,7 +7,7 @@ const { listClients, startTimer, myIp } = require('./findservers.js');
 const { listReceivers, playMovie, control } = require('../cast')
 const ip = require('ip')
 const { db } = require('../data/dataStore')
-const { store } = require('../Filereader')
+const settingsStore = require('../Filereader')
 const PORT = 80
 
 app.use(bodyParser.json())
@@ -23,12 +23,13 @@ app.get('/isserver', (req, res, next) => {
 })
 
 app.get('/api/settings/filePath', (req, res, next) => {
-  res.status(200).json({ filePath: store.get('movieFilePath')})
+  let filePath = settingsStore.get('movieFilePath')
+  res.status(200).json({ filePath })
 })
 
 app.put('/api/settings/filePath', (req, res, next) => {
   const path = req.body.path
-  store.set('movieFilePath', path)
+  settingsStore.set('movieFilePath', path)
   res.status(200).json({ msg: 'Folder selected.' })
 })
 

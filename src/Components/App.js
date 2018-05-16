@@ -13,9 +13,13 @@ import { asyncForEach } from './utils';
 import YouTubePlayer from './YouTubePlayer';
 import Options from './Options'
 import NoFile from './NoFile'
+const Store = window.require('electron-store')
 
 injectTapEventPlugin();
 
+let settingsStore = new Store({
+  name: 'userSettings'
+});
 class App extends Component {
   constructor() {
     super();
@@ -56,7 +60,8 @@ class App extends Component {
     const movies = res.data.movies;
     res = await axios.get('http://localhost/api/ip');
     const ip = res.data.ip;
-    res = axios.get('http://localhost/api/settings/filePath')
+    res = await axios.get('http://localhost/api/settings/filePath')
+    console.log(res)
     const filePath = res.data.filePath
     await this.updateSortedList(movies);
     this.deviceScanner();
@@ -64,7 +69,7 @@ class App extends Component {
   }
 
   async changeFilePath(path) {
-    let res = await axios.put('http://localhost/api/settings/filePath', path)
+    let res = await axios.put('http://localhost/api/settings/filePath', {'path': path})
     res = await axios.get('http://localhost/api/settings/filePath')
     const filePath = res.data.filePath
     this.setState({...this.state, filePath})
