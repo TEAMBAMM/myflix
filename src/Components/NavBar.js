@@ -26,7 +26,9 @@ const NavBar = props => {
     ip,
     deselectMovie,
     isCasting,
-    toggleCasting
+    toggleCasting,
+    filePath,
+    changeFilePath
   } = props;
 
   const navDeselect = () => {
@@ -59,7 +61,7 @@ const NavBar = props => {
         </div>
       </div>
       <div className="OptionsContainer">
-        <OptionsIcon/>
+        <OptionsIcon filePath={filePath} changeFilePath={changeFilePath}/>
       </div>
     </div>
   );
