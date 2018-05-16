@@ -30,7 +30,6 @@ class OptionsIcon extends Component {
       <FlatButton
         label='Done'
         primary={true}
-        keyboardFocused={true}
         onClick={handleClose}
       />
     ]
@@ -45,6 +44,7 @@ class OptionsIcon extends Component {
           title='Settings'
           modal={false}
           open={open}
+          actions={actions}
           onRequestClose={handleClose}
         >
           <Options filePath={filePath} changeFilePath={changeFilePath}/>
