@@ -23,7 +23,7 @@ const MiniMovie = props => {
 
   return (
     <div className="mini-movie-container">
-      <Paper style={style} zDepth={3} >
+      <Paper style={style} zDepth={3} rounded={false}>
         <div>
           <img
             onClick={() => navSelect()}
