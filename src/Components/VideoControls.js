@@ -25,8 +25,8 @@ const VideoControls = (props) => {
   } = props
   const width = 25, height = 25;
   return (
-    <div className="controls-overlay">
-      <div className={shouldHide ? "hidden" : "none"}>
+    <div className={shouldHide ? "hidden" : "none"}>
+      <div className="controls-overlay">
         <div className="main">
           <Volume volume={volume} setVolume={setVolume} zeroVolume={zeroVolume} fullVolume={fullVolume} />
           <PlayPause playPause={playPause} back={back} forward={forward} playing={playing} />
