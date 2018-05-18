@@ -30,6 +30,7 @@ app.get('/api/settings/filePath', (req, res, next) => {
 
 app.put('/api/settings/filePath', (req, res, next) => {
   const path = req.body.path
+  app.use(express.static(path))  
   settingsStore.set('movieFilePath', path)
   
   res.status(200).json({ msg: 'Folder selected.' })

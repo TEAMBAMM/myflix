@@ -96,6 +96,7 @@ class App extends Component {
         const ip = res.data.ip;
         res = await axios.get('http://localhost/api/movies');
         const movies = res.data.movies;
+        console.log('movies: ', movies)
         castReceivers =
           castReceivers.length < 1
             ? [{ name: 'No receivers found!', host: '0.0.0.0' }]
