@@ -26,7 +26,7 @@ const YouTubePlayer = props => {
           playing={true}
         />
       </div>
-      <div style={{...style, margin: '10px'}}>
+      <div style={{...style, marginTop: '10px'}}>
         <RaisedButton label="Back To Movie" onClick={() => navTo(`/${selectedMovie.imdbid}/`, history)}/>
       </div>
     </div>

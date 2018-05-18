@@ -68,5 +68,6 @@ settingsStore.onDidChange('movieFilePath', (newPath, oldPath) => {
   setMovieFolder(newPath, oldPath)
 });
 
+
 // Exported for server. 
 module.exports = settingsStore;

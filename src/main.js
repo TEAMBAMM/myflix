@@ -8,8 +8,8 @@ let window;
 
 const createWindow = () => {
   window = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 1275,
+    height: 960,
     minWidth: 1000,
     minHeight: 500,
     resizable: true,
@@ -29,7 +29,7 @@ const createWindow = () => {
   window.setMenu(null);
 
   // Opens dev tools on start
-  window.webContents.openDevTools();
+  // window.webContents.openDevTools();
 
   window.on('closed', () => {
     window = null;
