@@ -42,7 +42,7 @@
       "src/images/**",
       "node_modules/**",
       "src/data/databaseStorage",
-      "src/data/databaseStorage*"      
+      "src/data/databaseStorage*"
     ]
   },
   "repository": {
