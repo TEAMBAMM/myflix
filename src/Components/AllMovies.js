@@ -4,7 +4,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import NoFile from './NoFile'
 
 const AllMovies = props => {
-  const { movies, selectMovie, isLoading, filePath, changeFilePath } = props;
+  const { movies, selectMovie, isLoading, filePath, changeFilePath, PORT } = props;
 
   if (isLoading) {
     return (
@@ -27,6 +27,7 @@ const AllMovies = props => {
               selectMovie={selectMovie}
               key={movie.imdbid}
               movie={movie}
+              PORT={PORT}
             />
           );
         })}

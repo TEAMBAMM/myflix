@@ -30,7 +30,7 @@ const createWindow = () => {
   window.setMenu(null);
 
   // Opens dev tools on start
-  // window.webContents.openDevTools();
+  window.webContents.openDevTools();
 
   window.on('closed', () => {
     window = null;

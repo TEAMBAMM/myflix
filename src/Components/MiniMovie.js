@@ -4,7 +4,7 @@ import { navTo } from './utils';
 import Paper from 'material-ui/Paper'
 
 const MiniMovie = props => {
-  const { movie, selectMovie, history } = props;
+  const { movie, selectMovie, history, PORT } = props;
   const ip = (movie.ip) ? movie.ip : 'localhost';
 
   const navSelect = () => {
@@ -28,7 +28,7 @@ const MiniMovie = props => {
           <img
             onClick={() => navSelect()}
             className="mini-movie-image"
-            src={`http://${ip}/${movie.fileName}-poster.jpg`}
+            src={`http://${ip}:${PORT}/${movie.fileName}-poster.jpg`}
             alt="No Image Found :("
           />
         </div>

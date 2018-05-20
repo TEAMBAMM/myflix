@@ -76,7 +76,7 @@ app.use((error, req, res, next) => {
   res.status(500).json({ msg: 'Ooops, something went wrong!'})
 })
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
   console.log('Serving files from:', path.resolve(settingsStore.get('movieFilePath')))
 })

@@ -49,7 +49,7 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    const { movies, match } = this.props;
+    const { movies, match, PORT } = this.props;
     const movie = movies.filter(movie => match.params.id === movie.imdbid)[0];
     const fileName = movie.fileName;
 
@@ -59,7 +59,7 @@ class Player extends React.Component {
 
     this.setState({
       ...this.state,
-      url: `http://${ip}/${baseFileName}`,
+      url: `http://${ip}:${PORT}/${baseFileName}`,
       playing: true,
       muted: false,
       movie

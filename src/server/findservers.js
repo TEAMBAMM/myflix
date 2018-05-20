@@ -1,7 +1,7 @@
 const http = require('http')
 const ip = require('ip')
 const LAN = require('./LAN')
-const PORT = 5000
+const PORT = 1024
 
 let allDevices = []
 let myIp = ip.address()
