@@ -30,7 +30,9 @@ app.get('/api/settings/filePath', (req, res, next) => {
 
 app.put('/api/settings/filePath', (req, res, next) => {
   const path = req.body.path
+  app.use(express.static(path))  
   settingsStore.set('movieFilePath', path)
+  
   res.status(200).json({ msg: 'Folder selected.' })
 })
 
@@ -62,10 +64,11 @@ app.get('/api/ip', (req, res, next) => {
 app.get('/api/movies', (req, res, next) => {
   try {
     db.find({}, (err, data) => {
-      res.status(200).json({ movies: data })
+      if(err) res.status(200).json({ movies: [] })
+      else res.status(200).json({ movies: data })
     })
   } catch (error) {
-    next(error)
+    res.status(200).json({ movies: [] })
   }
 })
 

@@ -1,11 +1,13 @@
+const { app } = require('electron')
 const Datastore = require('nedb');
 const path = require('path');
 const fs = require('fs');
 const imdb = require('imdb-api');
 const download = require('image-downloader');
-console.log('DATA DIR', __dirname);
+const dataFilePath = path.join(app.getPath('appData') + '/MyFlix/dataStore.db')
+
 const db = new Datastore({
-  filename: path.join(__dirname, '/databaseStorage'),
+  filename: dataFilePath,
   autoload: true
 });
 
@@ -117,12 +119,12 @@ async function insertMovie(movieFilePath) {
 async function removeMovie(movieFilePath) {
   const { name } = path.parse(movieFilePath);
   // Remove movie image from poster folder
-  await fs.unlink(
-    path.join(__dirname, './data/moviePosters', `${name}-poster.jpg`),
-    err => {
-      if (err) console.error('Failed to delete movie poster, does not exist')
-    }
-  );
+  // await fs.unlink(
+  //   path.join(__dirname, './data/moviePosters', `${name}-poster.jpg`),
+  //   err => {
+  //     if (err) console.error('Failed to delete movie poster, does not exist')
+  //   }
+  // );
   // Remove movie from database
   return promisifiedRemove({ filePath: movieFilePath }, { multi: true });
 }

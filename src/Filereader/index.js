@@ -33,14 +33,14 @@ function addWatcher (newPath) {
     persistent: true,
     ignored: /(^|[/\\])\../ //For .DS_Store on MacOS
   });
-  console.log(newPath)
+  // console.log(newPath)
   //Signals to setMovieFolder that a watcher exists
   isWatching = true;
   fileWatcher.on('ready', async () => {
     // Retrieve files being watched
     let watched = fileWatcher.getWatched();
     watched = watched[newPath]
-    console.log(watched)
+    // console.log(watched)
     // Calls sync function
     await onReadySync(watched);
     fileWatcher.on('add', filePath => insertMovie(filePath));

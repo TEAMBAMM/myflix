@@ -5,6 +5,15 @@ import screenfull from 'screenfull';
 import { findDOMNode } from 'react-dom';
 import Duration from './Duration';
 import VideoControls from './VideoControls';
+import RaisedButton from 'material-ui/RaisedButton'
+import { navTo } from './utils'
+
+const style = {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  justifyContent: 'center'
+}
 
 class Player extends React.Component {
   constructor() {
@@ -19,7 +28,8 @@ class Player extends React.Component {
       duration: 0,
       playbackRate: 1.0,
       elapsed: 0,
-      shouldHide: false
+      shouldHide: false,
+      movie: ''
     };
     this.playPause = this.playPause.bind(this);
     this.onClickFullscreen = this.onClickFullscreen.bind(this);
@@ -48,9 +58,11 @@ class Player extends React.Component {
     const baseFileName = movie.baseFileName;
 
     this.setState({
+      ...this.state,
       url: `http://${ip}/${baseFileName}`,
       playing: true,
-      muted: false
+      muted: false,
+      movie
     });
 
     this.timerId = setTimeout(() => {
@@ -150,9 +162,10 @@ class Player extends React.Component {
       loaded,
       duration,
       playbackRate,
-      shouldHide
+      shouldHide,
+      movie
     } = this.state;
-    const { ip } = this.props;
+    const { ip, history } = this.props;
 
     return (
       <div className="player-container">
@@ -189,6 +202,9 @@ class Player extends React.Component {
             zeroVolume={this.zeroVolume}
             shouldHide={shouldHide}
           />
+        </div>
+        <div style={{...style, marginTop: '10px'}}>
+          <RaisedButton label="Back To Movie" onClick={() => navTo(`/${movie.imdbid}/`, history)}/>
         </div>
       </div>
     );

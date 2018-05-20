@@ -100,11 +100,9 @@ class App extends Component {
           castReceivers.length < 1
             ? [{ name: 'No receivers found!', host: '0.0.0.0' }]
             : castReceivers;
-        if (this.state.clients.length > 0) this.mergeClientMovies();
-        else
-          this.setState({ ...this.state, clients, castReceivers, ip, movies });
-        if (this.state.movies.length !== this.state.movies.filteredOutput)
-          this.updateSortedList();
+        this.mergeClientMovies();
+        if (this.state.movies.length !== this.state.movies.filteredOutput) this.updateSortedList();
+        this.setState({ ...this.state, clients, castReceivers, ip, movies });
       }, 5000);
     }
   }
