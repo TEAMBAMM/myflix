@@ -1,6 +1,7 @@
 const http = require('http')
 const ip = require('ip')
 const LAN = require('./LAN')
+const PORT = 5000
 
 let allDevices = []
 let myIp = ip.address()
@@ -13,7 +14,7 @@ const findServers = () => {
   for(let i = 1; i < 255; i++) {
     let newIp = LAN + i
     let data = ''
-    http.get({ hostname: newIp, port: 80, path: '/isserver'}, (res) => {
+    http.get({ hostname: newIp, port: PORT, path: '/isserver'}, (res) => {
       res.on('data', (chunk) => {
         data = chunk.toString()
       })
@@ -44,4 +45,4 @@ const startTimer = () => {
 }
 
 console.log(`My ip is ${myIp}`)
-module.exports = {listClients, startTimer, myIp}
+module.exports = {listClients, startTimer, myIp, PORT}
