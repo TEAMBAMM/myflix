@@ -1,11 +1,13 @@
+const { app } = require('electron')
 const Datastore = require('nedb');
 const path = require('path');
 const fs = require('fs');
 const imdb = require('imdb-api');
 const download = require('image-downloader');
-console.log('DATA DIR', __dirname);
+const dataFilePath = path.join(app.getPath('appData') + '/MyFlix/dataStore.db')
+
 const db = new Datastore({
-  filename: path.join(__dirname, '/databaseStorage'),
+  filename: dataFilePath,
   autoload: true
 });
 

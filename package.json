@@ -11,6 +11,7 @@
   "build": {
     "appId": "MyFlix",
     "win": {
+      "icon": "src/icon.png",
       "target": "NSIS"
     },
     "dmg": {
@@ -41,8 +42,8 @@
       "src/data/**",
       "src/images/**",
       "node_modules/**",
-      "src/data/databaseStorage",
-      "src/data/databaseStorage*"
+      "src/data/databaseStorage.db",
+      "src/icon.png"
     ]
   },
   "repository": {
