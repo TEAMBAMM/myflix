@@ -5,7 +5,7 @@ import PlayTrailer from './PlayTrailer'
 import Paper from 'material-ui/Paper'
 
 const SingleMovie = props => {
-  const { movies, history } = props;
+  const { movies, history, PORT } = props;
   const imdbid = props.match.params.id;
   const movie = movies.filter(movie => imdbid === movie.imdbid)[0];
   const ip = (movie.ip) ? movie.ip : 'localhost'
@@ -33,7 +33,7 @@ const SingleMovie = props => {
           <Paper style={style} zDepth={3} rounded={false}>
             <div>
               <img
-                src={`http://${ip}/${fileName}-poster.jpg`}
+                src={`http://${ip}:${PORT}/${fileName}-poster.jpg`}
                 className="mini-movie-image"
               />
             </div>
@@ -41,7 +41,7 @@ const SingleMovie = props => {
           <div className="playWrapper">
             <span className="playBtn">
               <img
-                src="http://localhost/play-button.png"
+                src={`http://localhost:${PORT}/play-button.png`}
                 width="50"
                 height="50"
                 alt=""

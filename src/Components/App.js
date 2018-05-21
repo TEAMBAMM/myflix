@@ -13,6 +13,7 @@ import { asyncForEach } from './utils';
 import YouTubePlayer from './YouTubePlayer';
 import Options from './Options'
 const Store = window.require('electron-store')
+const PORT = 1024
 
 injectTapEventPlugin();
 
@@ -55,11 +56,11 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    let res = await axios.get('http://localhost/api/movies');
+    let res = await axios.get(`http://localhost:${PORT}/api/movies`);
     const movies = res.data.movies;
-    res = await axios.get('http://localhost/api/ip');
+    res = await axios.get(`http://localhost:${PORT}/api/ip`);
     const ip = res.data.ip;
-    res = await axios.get('http://localhost/api/settings/filePath')
+    res = await axios.get(`http://localhost:${PORT}/api/settings/filePath`)
     const filePath = res.data.filePath
     await this.updateSortedList(movies);
     this.deviceScanner();
@@ -67,8 +68,8 @@ class App extends Component {
   }
 
   async changeFilePath(path) {
-    let res = await axios.put('http://localhost/api/settings/filePath', { 'path': path })
-    res = await axios.get('http://localhost/api/settings/filePath')
+    let res = await axios.put(`http://localhost:${PORT}/api/settings/filePath`, { 'path': path })
+    res = await axios.get(`http://localhost:${PORT}/api/settings/filePath`)
     const filePath = res.data.filePath
     this.setState({ ...this.state, filePath })
   }
@@ -88,13 +89,13 @@ class App extends Component {
   deviceScanner() {
     if (!this.state.scanning) {
       setInterval(async () => {
-        let res = await axios.get(`http://localhost/api/clients`);
+        let res = await axios.get(`http://localhost:${PORT}/api/clients`);
         const clients = res.data.clients;
-        res = await axios.get('http://localhost/api/castreceivers');
+        res = await axios.get(`http://localhost:${PORT}/api/castreceivers`);
         let castReceivers = res.data.castReceivers;
-        res = await axios.get('http://localhost/api/ip');
+        res = await axios.get(`http://localhost:${PORT}/api/ip`);
         const ip = res.data.ip;
-        res = await axios.get('http://localhost/api/movies');
+        res = await axios.get(`http://localhost:${PORT}/api/movies`);
         const movies = res.data.movies;
         castReceivers =
           castReceivers.length < 1
@@ -111,11 +112,11 @@ class App extends Component {
     const clients = this.state.clients;
     let moviesMap = new Map();
 
-    let res = await axios.get(`http://localhost/api/movies`);
+    let res = await axios.get(`http://localhost:${PORT}/api/movies`);
     const localMovies = res.data.movies;
 
     await asyncForEach(clients, async client => {
-      res = await axios.get(`http://${client}/api/movies`);
+      res = await axios.get(`http://${client}:${PORT}/api/movies`);
       await asyncForEach(res.data.movies, movie => {
         moviesMap.set(movie.imdbid, { ...movie, ip: client });
       });
@@ -254,6 +255,7 @@ class App extends Component {
               isLoading={isLoading}
               changeFilePath={changeFilePath}
               filePath={filePath}
+              PORT={PORT}
             />
           )}
         />
@@ -261,13 +263,13 @@ class App extends Component {
           exact
           path="/:id/"
           render={() =>
-            <SingleMovie movies={movies} selectMovie={selectMovie} />
+            <SingleMovie movies={movies} selectMovie={selectMovie} PORT={PORT}/>
           }
         />
         <Route
           exact
           path="/:id/player/"
-          render={() => <Player movies={movies} />}
+          render={() => <Player movies={movies} PORT={PORT}/>}
         />
         <Route
           exact

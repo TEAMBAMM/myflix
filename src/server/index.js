@@ -4,12 +4,11 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const { listClients, startTimer, myIp } = require('./findservers.js');
+const { listClients, startTimer, myIp, PORT } = require('./findservers.js');
 const { listReceivers, playMovie, control } = require('../cast')
 const ip = require('ip')
 const { db } = require('../data/dataStore')
 const settingsStore = require('../Filereader')
-const PORT = 80
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))

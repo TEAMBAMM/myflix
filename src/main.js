@@ -15,7 +15,7 @@ const createWindow = () => {
     resizable: true,
     maximizable: true,
     title: 'MyFlix',
-    icon: path.join(__dirname, '/icon.png')
+    icon: path.join(__dirname, './icon.png')
   });
 
   window.loadURL(
