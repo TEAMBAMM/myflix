@@ -116,7 +116,7 @@ class App extends Component {
     const localMovies = res.data.movies;
 
     await asyncForEach(clients, async client => {
-      res = await axios.get(`http://${client}/api/movies`);
+      res = await axios.get(`http://${client}:${PORT}/api/movies`);
       await asyncForEach(res.data.movies, movie => {
         moviesMap.set(movie.imdbid, { ...movie, ip: client });
       });
